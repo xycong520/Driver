@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">筋斗云轿车物流</string>
+    <string name="carowner_name">轿车托运</string>
+    <string name="driver_name">司机承运</string>
+    <string name="title_carowner1">待托运</string>
+    <string name="title_carowner2">待处理</string>
+    <string name="title_carowner3">运输中</string>
+    <string name="title_driver1">托运市场</string>
+    <string name="title_driver2">我的承运</string>
+    <string name="title_driver3">我</string>
+    <string name="title_hotline">客服咨询</string>
+    <string name="action_settings">设置</string>
+    <string name="action_insurance">使用外部APP打开</string>
+    <string name="action_hotline">客服热线</string>
+    <string name="title_activity_add_cars">我要托运</string>
+    <string name="action_addcar">发布轿车</string>
+    <string name="action_searchorder">运单查询</string>
+    <string name="sender_info">运单</string>
+    <string name="receiver_info">收车人</string>
+    <string name="action_search">查询</string>
+
+    <string name="home_title_banner">banner</string>
+    <string name="home_title_carowner">轿车托运</string>
+    <string name="home_title_driver">司机承运</string>
+    <string name="home_title_price">价格查询</string>
+    <string name="home_title_user">个人中心</string>
+    <string name="home_title_receiver">位置和保险</string>
+    <string name="home_title_helptel">救援与带路</string>
+    <string name="home_title_support">客服咨询</string>
+    <string name="home_title_stage1">车驿站</string>
+    <string name="home_title_stage2">驿站管理</string>
+    <string name="home_title_stage3">小板速运</string>
+    <string name="home_title_stage4">我的承运</string>
+
+    <string-array name="prompt_arrays">
+        <item>请选择</item>
+    </string-array>
+
+    <string name="spinner_prompt">请选择</string>
+
+    <string-array name="cartype_arrays">
+        <item>大型SUV</item>
+        <item>标准SUV</item>
+        <item>标准轿车</item>
+    </string-array>
+
+    <string name="title_activity_register">填写个人资料</string>
+    <string name="authority">cn.jdywl.driver</string>
+    <string name="title_activity_pay">货主支付</string>
+    <string name="pay_deposit">支付</string>
+    <string name="error_invalid_sendtime">运输日期无效</string>
+    <string name="error_invalid_carnum">请输入轿车数量</string>
+    <string name="error_invalid_carprice">请输入轿车总价</string>
+    <string name="error_invalid_senderAddr">请输入提车地址</string>
+    <string name="error_invalid_price">请输入心里价位</string>
+    <string name="error_invalid_carmodel">请输入轿车品牌</string>
+    <string name="error_invalid_receiverName">请输入收车人姓名</string>
+    <string name="error_invalid_receiverPhone">请输入收车人手机号</string>
+    <string name="error_invalid_quota">融资额度错误</string>
+    <string name="load_more">加载更多</string>
+    <string name="action_refresh">刷新</string>
+    <string name="title_activity_car_detail">订单详情</string>
+    <string name="hello_world">筋斗云轿车物流欢迎您！</string>
+    <string name="title_activity_search_order">订单查询</string>
+    <string name="title_activity_map">在途位置</string>
+
+    <string name="startlocation">开启定位</string>
+    <string name="stoplocation">停止定位</string>
+    <string name="error_code_desc">错误码说明</string>
+    <string name="saving_battery_desc">低功耗定位模式下，仅使用网络定位即Wifi和基站定位，返回的是当前条件下精度最好的网络定位结果</string>
+    <string name="device_sensor_desc">仅用设备定位模式下，只使用用户的GPS进行定位。这个模式下，由于GPS芯片锁定需要时间，首次定位速度会需要一定的时间</string>
+    <string name="hight_accuracy_desc">高精度定位模式下，会同时使用GPS、Wifi和基站定位，返回的是当前条件下精度最好的定位结果</string>
+    <string name="title_activity_helptel">带路电话</string>
+
+    <string name="helptel_desc">带路电话</string>
+    <string name="trailer_desc">救援车电话</string>
+
+    <string name="profile_name">姓名: %s</string>
+    <string name="profile_phone">手机: %s</string>
+
+    <string name="zhengban_price">运费%1$d元, 保险费%2$d元, 服务费%3$d元</string>
+    <string name="sanche_price">运费%1$d元, 保险费%2$d元, 服务费(含取车费)%3$d元</string>
+    <string name="stage_price">运费%1$d元, 保险费%2$d元, 服务费(含取车费)%3$d元</string>
+
+    <string name="prompt_city">输入名称、拼音或者简拼过滤</string>
+    <string name="title_activity_driver_order_detail">运单详情</string>
+    <string name="title_activity_insurance">保险合同</string>
+
+    <string name="click_show_location"><u>点击查看位置</u></string>
+    <string name="click_show_insurance"><u>点击查看保险</u></string>
+    <string name="click_show_photo"><u>点击查看照片</u></string>
+
+    <string name="sanche_dfee_desc">取车费</string>
+    <string name="sanche_cfee_desc">服务(含取车)费</string>
+    <string name="zhengban_cfee_desc">服务费</string>
+    <string name="zhengban_dfee_desc">服务费</string>
+    <string name="zhengban_cpay_btn">预付保险和服务费</string>
+    <string name="sanche_cpay_btn">预付保险和取车费</string>
+    <string name="timer_desc"><![CDATA[<font color=#262626>支付剩余时间: </font> <font color=#FF5216>%s</font>]]></string>
+
+    <string name="zhengban_dpay_btn">支付手续费</string>
+    <string name="sanche_dpay_btn">支付提车费</string>
+
+    <string name="sanche_cpay_desc">当天或者次日启运；车辆抵达目的地后，请将尾款支付给公司指定的人或者指定账户。</string>
+    <string name="zhengban_cpay_desc">1. 如竞价未成功，可申请退款，平台扣除100元服务费，退还其它款项。\n
+        2. 竞价成功并送达目的地后，需按照成交运价支付运输费给驾驶员。</string>
+
+    <string name="sanche_dpay_desc">注：提车费=单台提车费(100)*数量。</string>
+    <string name="zhengban_dpay_desc">注：平台按成交运价的2%收取手续费。</string>
+    <string name="carprice_desc">轿车总价用来购买保险或者融资，如果与实际车值不符，按照不足额保险处理及承担金融欺诈的后果。</string>
+
+    <string name="app_update">为了获得更好的体验，请您下载更新。</string>
+    <string name="title_activity_driver_pay">司机支付</string>
+    <string name="title_activity_ddetail">订单详情</string>
+    <string name="total_count">成功运输车辆：%d台</string>
+    <string name="activity_insurance_with_index">保险合同 (%1$d/%2$d)</string>
+    <string name="title_activity_chistory">发运历史运单</string>
+    <string name="title_activity_dhistory">承运历史运单</string>
+    <string name="title_activity_cprofile">个人信息</string>
+    <string name="title_activity_vin">车架号</string>
+    <string name="title_activity_pay_result">支付结果</string>
+
+    <string name="pdf_view_desc"><![CDATA[<span>电子保单为PDF格式，查看之前请先<a href="https://ardownload2.adobe.com/pub/adobe/reader/android/15.x/15.2.2/arm/AdobeReader.apk">下载PDF阅读器</a>。</span>]]></string>
+    <string name="credit_agreement"><![CDATA[<span>同意<a href="http://www.baidu.com">《商品车动产质押监管三方协议》</a></span>]]></string>
+    <!-- WXPayEntryActivity -->
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_user">个人中心</string>
+
+    <string name="title_activity_rmain">查看位置和保险</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_about">关于我们</string>
+
+    <string name="copyright">筋斗云轿车物流\n版权所有 © 2011-2016</string>
+    <string name="versonName">版本:V%1$s(Build:%2$d)</string>
+
+    <string name="hint_helptel">输入城市名</string>
+    <string name="title_activity_city">选择始发地</string>
+
+    <string name="previous">上一页</string>
+    <string name="totalprice_hint">轿车总价必须在1万到5000万元之间</string>
+    <string name="next">下一页</string>
+    <string name="title_activity_cartype_select">选择轿车类型</string>
+
+    <string name="name_input_hint">为了能够更好地为您提供服务，请您完善个人信息。</string>
+
+    <string name="cartype_car">包括大众和通用系列，奔驰E级C级，宝马系列，本田系列，丰田系列，现代和起亚系列等轿车车型。长*宽*高≤5.0*1.85*1.6米，重量不超过1.8吨。</string>
+    <string name="cartype_suv">包括奥迪Q5和Q3，本田CRV，本田缤智，丰田RV4，丰田汉兰达，大众途观，福特翼虎，Jeep指南者，长城H6，沃尔沃XC60等SUV车型。长*宽*高≤4.9*1.9*1.7米，重量小于2吨。</string>
+    <string name="cartype_bigsuv">包括宝马X5和X6，奥迪Q7，普拉多，酷路泽，卡宴，奔驰GL系列、ML系列和R系列，别克GL8，奥德赛，塞纳，奔驰威霆，奔驰唯雅诺，捷豹等车型。长*宽*高≤5.6*2.2*2.0米，重量不超过2.5吨。</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_credit_company">选择融资公司</string>
+    <string name="title_activity_network_image">大图</string>
+    <string name="title_activity_car_photo">车辆照片</string>
+
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/title_margin"
+                android:paddingRight="@dimen/title_margin"
+                android:background="@android:color/white"
+                android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin"
+        android:layout_marginBottom="@dimen/title_margin"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"
+        android:text="北京"
+        android:textStyle="bold"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_guide"
+        android:src="@drawable/ic_guide_tel"
+        android:layout_below="@+id/tv_city"/>
+    <TextView
+        android:id="@+id/tv_helptel_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/image_margin"
+        android:textColor="@color/gray_content"
+        android:text="@string/helptel_desc"
+        android:layout_alignTop="@+id/iv_guide"
+        android:layout_toRightOf="@+id/iv_guide"/>
+
+    <TextView
+        android:id="@+id/tv_helptel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_guide"
+        android:layout_centerHorizontal="true"
+        android:text="18626468888"
+        android:autoLink="phone" />
+
+    <TextView
+        android:id="@+id/tv_helptel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/iv_guide"
+        android:text="18626468888"
+        android:autoLink="phone"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_help"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:src="@drawable/ic_help_tel"
+        android:layout_below="@+id/iv_guide"/>
+
+    <TextView
+        android:id="@+id/tv_trailertel_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/image_margin"
+        android:textColor="@color/gray_content"
+        android:text="@string/trailer_desc"
+        android:layout_alignTop="@+id/iv_help"
+        android:layout_toRightOf="@+id/iv_help"/>
+
+    <TextView
+        android:id="@+id/tv_trailertel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/iv_help"
+        android:text="13770717444"
+        android:autoLink="phone"/>
+</RelativeLayout>

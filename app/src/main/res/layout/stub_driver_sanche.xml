@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:id="@+id/rl_sanche_stub"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/section_margin"
+    android:paddingRight="@dimen/section_margin"
+    android:background="@drawable/item_border"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/ll_carmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="车牌号"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"/>
+
+        <EditText
+            android:id="@+id/et_carmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="请输入板车车牌号"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_driverPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_carmark"
+        android:layout_margin="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="司机手机"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"/>
+
+        <EditText
+            android:id="@+id/et_driver_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="phone"
+            android:textSize="14sp"
+            android:hint="请输入板车司机手机号"
+            android:textColor="@color/gray_content"/>
+
+    </LinearLayout>
+</RelativeLayout>

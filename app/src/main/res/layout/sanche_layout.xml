@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:id="@+id/rl_sanche_stub"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/ll_reveiverName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="收车人姓名"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/et_receiver_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:hint="输入收车人姓名"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_reveiverPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_reveiverName">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="收车人手机"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/et_receiver_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:ems="10"
+            android:inputType="phone"
+            android:textSize="14sp"
+            android:hint="输入收车人手机"/>
+
+    </LinearLayout>
+</RelativeLayout>

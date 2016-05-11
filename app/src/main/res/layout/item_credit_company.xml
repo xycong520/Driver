@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:layout_marginTop="@dimen/section_margin"
+    android:layout_marginBottom="@dimen/section_margin"
+    android:padding="@dimen/section_margin"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:text="融资公司"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/btn_info"/>
+
+    <TextView
+        android:id="@+id/tv_interest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_company"
+        android:text="融资公司介绍"
+        android:textColor="@color/gray_content"
+        android:textSize="12sp"
+        android:layout_toLeftOf="@+id/btn_info"/>
+
+    <Button
+        android:id="@+id/btn_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:drawableStart="@drawable/ic_info_24dp"
+        android:text="公司介绍"
+        android:textSize="13sp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textStyle="italic"/>
+
+</RelativeLayout>

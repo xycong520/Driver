@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#465A63</color>
+    <color name="colorPrimaryDark">#38474F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorHighlight">#009688</color>
+    <color name="colorHighlightDark">#00796B</color>
+    <color name="pink_a100">#FF80AB</color>
+
+    <color name="pink_a400">#F50057</color>
+    <color name="colorBackground">#F7F7F7</color>
+
+    <color name="list_divider">#E6E6E6</color>
+    <color name="light_black">#343434</color>
+
+    <color name="jdy_bg">#EBE8DE</color>
+
+    <!-- WHI defined colors -->
+    <color name="red">#F2837B</color>
+    <color name="dark_red">#ffa02d38</color>
+
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="colorMiddleblue">#5f9cf9</color>
+
+    <!-- 设计师提供的颜色  -->
+    <color name="gray_title">#262626</color>
+    <color name="gray_content">#777777</color>
+    <color name="bg_sanche">#FD8157</color>
+    <color name="bg_zhengban">@color/colorHighlight</color>
+    <color name="bg_status">#D77EFC</color>
+    <color name="bg_timer">#FFF6DC</color>
+    <color name="text_timer">#FF5216</color>
+
+    <color name="submit_normal_color">#41C186</color>
+    <color name="submit_pressed_color">#39AA76</color>
+    <color name="submit_disable_color">#BBBBBB</color>
+
+    <color name="pay_result">#ff9600</color>
+    <color name="black">#ff000000</color>
+
+</resources>

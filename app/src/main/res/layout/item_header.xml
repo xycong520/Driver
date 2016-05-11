@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/tv_vin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/section_margin"
+    android:layout_centerInParent="true"
+    android:text="车架号"
+    android:textColor="@color/gray_title"
+    tools:ignore="HardcodedText"
+    android:gravity="center"/>

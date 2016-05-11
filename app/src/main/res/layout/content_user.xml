@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.jdywl.driver.ui.UserActivity"
+    tools:showIn="@layout/activity_user">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="HardText">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/title_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:paddingBottom="@dimen/section_margin"
+            android:background="@drawable/list_selector"
+            android:clickable="true"
+            android:onClick="OpenProfileActivity">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:paddingRight="@dimen/section_margin"
+                android:id="@+id/iv_avatar"
+                android:src="@drawable/img_user"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/content_margin"
+                android:id="@+id/tv_name"
+                android:text="@string/profile_name"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/iv_avatar"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_phone"
+                android:padding="@dimen/content_margin"
+                android:text="@string/profile_phone"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_alignBottom="@+id/iv_avatar"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/title_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:paddingBottom="@dimen/section_margin"
+            android:background="@drawable/list_selector"
+            android:clickable="true"
+            android:onClick="OpenCHistoryActivity">
+
+            <ImageView
+                android:id="@+id/iv_chistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_chistory"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/section_margin"
+                android:layout_toRightOf="@+id/iv_chistory"
+                android:text="发车历史订单"
+                android:textColor="@color/gray_content"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/title_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:paddingBottom="@dimen/section_margin"
+            android:background="@drawable/list_selector"
+            android:clickable="true"
+            android:onClick="OpenDHistoryActivity">
+
+            <ImageView
+                android:id="@+id/iv_dhistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_dhistory"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/section_margin"
+                android:layout_toRightOf="@+id/iv_dhistory"
+                android:text="承运历史订单"
+                android:textColor="@color/gray_content"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/title_margin"
+            android:padding="@dimen/title_margin"
+            android:background="@drawable/list_selector"
+            android:text="退出登录"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:clickable="true"
+            android:onClick="Logout"/>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

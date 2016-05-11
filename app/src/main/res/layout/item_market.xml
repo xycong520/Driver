@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    android:background="@drawable/list_selector"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_carinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="大型SUV 12辆"
+        android:textSize="13sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_title"
+        android:textSize="17sp"
+        android:text="上海 — 北京"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_carinfo"/>
+
+    <TextView
+        android:id="@+id/tv_marketprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_carinfo"
+        android:layout_marginTop="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="市场运价: 67000元"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_expprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_marketprice"
+        android:layout_marginTop="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="期望运价: 66000元"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_orderType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_expprice"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:background="@color/bg_sanche"
+        android:padding="2dp"
+        android:text="散车"
+        android:textColor="@android:color/white"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_expprice"
+        android:layout_toRightOf="@+id/tv_orderType"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginLeft="@dimen/section_margin"
+        android:padding="2dp"
+        android:background="@color/bg_status"
+        android:textColor="@android:color/white"
+        android:text="正在运输"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_senddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_content"
+        android:text="2015-09-30 启运"
+        android:textSize="12sp"
+        android:layout_alignBaseline="@+id/tv_status"/>
+
+</RelativeLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.jdywl.driver.ui.AboutActivity"
+    tools:ignore="HardcodedText"
+    tools:showIn="@layout/activity_about">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/title_margin"
+        android:contentDescription="LOGO"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/title_margin"
+        android:text="筋斗云轿车物流"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/versonName"
+        android:textColor="@color/gray_content"/>
+
+    <RelativeLayout
+        android:id="@+id/tl_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_version"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="checkUpdate">
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/section_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:text="检查更新"
+            android:textColor="@color/gray_title"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_update"
+            android:gravity="right"
+            android:paddingBottom="@dimen/section_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/section_margin"
+            android:text="已是最新版本"
+            android:textColor="@color/gray_content"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_version"
+        android:layout_marginTop="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="visitHomepage"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin"
+        android:text="访问主页"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/title_margin"
+        android:gravity="center"
+        android:padding="@dimen/section_margin"
+        android:text="@string/copyright"
+        android:textColor="@color/gray_content"
+        android:textSize="11sp"/>
+
+</RelativeLayout>

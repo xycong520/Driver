@@ -1,0 +1,174 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    android:background="@drawable/item_border"
+    tools:ignore="HardcodedText">
+
+    <!--
+    <ImageView
+        android:id="@+id/iv_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ll_sn"
+        android:layout_alignTop="@+id/ll_sn"
+        android:layout_marginRight="@dimen/content_margin"
+        android:src="@drawable/ic_directions_car_grey600_24dp"/>
+        -->
+
+    <LinearLayout
+        android:id="@+id/ll_marketprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/marketprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"
+            android:text="市场运价"/>
+
+        <TextView
+            android:id="@+id/tv_marketprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_expprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_marketprice"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/expprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="期望运价"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_expprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_expprice"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/tv_bill_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"
+            android:text="成交运价"/>
+
+        <TextView
+            android:id="@+id/tv_bill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_insfee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_bill"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"
+            android:text="保险费"/>
+
+        <TextView
+            android:id="@+id/tv_insfee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_insfee"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/tv_fee_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"
+            android:text="服务费"/>
+
+        <TextView
+            android:id="@+id/tv_fee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_totalBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_fee"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/tv_totalBill_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="14sp"
+            android:textColor="@color/gray_content"
+            android:text="总价"/>
+
+        <TextView
+            android:id="@+id/tv_totalBill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textSize="14sp"
+            android:textColor="@color/gray_title"/>
+    </LinearLayout>
+
+</RelativeLayout>

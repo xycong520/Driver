@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="cn.jdywl.driver"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+
+    <!-- To access Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- 支付宝SDK权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- baiduMap -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+    <!-- push -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+
+    <!-- location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- 微信支付权限 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <application
+        android:name=".app.JindouyunApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <!-- 原cFGbf1oOITGgWm0TGAz5Ud7Y 外包使用Midz9gDeXetGk3eSrY5EL50TzRgCAPNN -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Midz9gDeXetGk3eSrY5EL50TzRgCAPNN"/>
+        <meta-data
+            android:name="com.baidu.cloudpush.API_KEY"
+            android:value="Midz9gDeXetGk3eSrY5EL50TzRgCAPNN"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.carowner.CMainActivity"
+            android:label="@string/carowner_name"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.SupportActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.carowner.AddOrderActivity"
+            android:label="@string/title_activity_add_cars"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.carowner.CMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.driver.DMainActivity"
+            android:label="@string/driver_name"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.CarStageActivity"
+            android:label="@string/home_title_stage1"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.GetAddressInMap"
+            android:label="选择地址"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.stage.StageManagerActivity"
+            android:label="@string/home_title_stage2"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.AddOrderActivity"
+            android:label="@string/sender_info"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.stage.DriverOrderActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.stage.DriverOrderActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.DriverOrderActivity"
+            android:label="@string/home_title_stage3"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.MyAcceptOrderActivity"
+            android:label="@string/home_title_stage4"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible">
+        </activity>
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.carowner.CMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.LoginActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.LoginActivity"/>
+        </activity>
+
+        <provider
+            android:name=".provider.DBProvider"
+            android:authorities="@string/authority"
+            android:exported="false"/>
+
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+        <activity
+            android:name=".ui.carowner.CDetailActivity"
+            android:label="@string/title_activity_car_detail"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.carowner.CMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.MapActivity"
+            android:label="@string/title_activity_map"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.carowner.CDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.carowner.CDetailActivity"/>
+        </activity>
+
+        <!-- -百度 push begin -->
+        <!-- push富媒体，不使用富媒体推送不需要 -->
+        <!--
+        <activity
+            android:name="com.baidu.android.pushservice.richmedia.MediaViewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="MediaViewActivity" >
+        </activity>
+        <activity
+            android:name="com.baidu.android.pushservice.richmedia.MediaListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="MediaListActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        -->
+        <!-- push富媒体结束 -->
+
+
+        <!-- push应用定义消息receiver声明 -->
+        <receiver android:name=".push.BaiduPushMessageReceiver">
+            <intent-filter>
+
+                <!-- 接收push消息 -->
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
+                <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- push必须的receviver和service声明 -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true"/>
+        <!-- push结束 -->
+
+
+        <!-- -百度 push end -->
+
+        <receiver android:name=".service.BootStartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.common.HelptelActivity"
+            android:label="@string/title_activity_helptel"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.InsuranceActivity"
+            android:label="@string/title_activity_insurance"
+            android:parentActivityName=".ui.carowner.CDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.carowner.CDetailActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.driver.DDetailActivity"
+            android:label="@string/title_activity_ddetail"
+            android:parentActivityName=".ui.driver.DMainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.common.RMainActivity"
+            android:label="@string/title_activity_rmain"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.carowner.CHistoryActivity"
+            android:label="@string/title_activity_chistory"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.CMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.driver.DHistoryActivity"
+            android:label="@string/title_activity_dhistory"
+            android:parentActivityName=".ui.driver.DMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.driver.DMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.ProfileActivity"
+            android:label="@string/title_activity_cprofile"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.CMainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.VinActivity"
+            android:label="@string/title_activity_vin"
+            android:parentActivityName=".ui.carowner.CMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.CMainActivity"/>
+        </activity>
+
+        <!-- 微信支付 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:label="@string/title_activity_pay_result"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+        <receiver android:name="net.sourceforge.simcpux.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.common.BaseActivity"
+            android:label="@string/title_activity_base">
+        </activity>
+        <activity
+            android:name=".ui.UserActivity"
+            android:label="@string/title_activity_user"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.TabbedActivity"
+            android:label="@string/title_activity_rmain"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".ui.UserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.UserActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.carowner.CityActivity"
+            android:label="@string/title_activity_city"
+            android:parentActivityName=".ui.carowner.AddOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.AddOrderActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.PayActivity"
+            android:label="@string/title_activity_pay"
+            android:parentActivityName=".ui.carowner.AddOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.AddOrderActivity"/>
+        </activity>
+        <activity android:name=".ui.AppUpdateActivity">
+        </activity>
+
+        <service
+            android:name=".service.LocalIntentService"
+            android:exported="false">
+        </service>
+
+        <activity
+            android:name=".ui.carowner.CartypeSelectActivity"
+            android:label="@string/title_activity_cartype_select"
+            android:parentActivityName=".ui.carowner.AddOrderActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.AddOrderActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.PriceQueryActivity"
+            android:label="@string/home_title_price"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+            >
+        </activity>
+        <activity
+            android:name=".ui.carowner.CreditCompanyActivity"
+            android:label="@string/title_activity_credit_company"
+            android:parentActivityName=".ui.carowner.AddOrderActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.AddOrderActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.common.NetworkImageActivity"
+            android:label="@string/title_activity_network_image"
+            android:parentActivityName=".ui.carowner.CDetailActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.CDetailActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.carowner.CarPhotoActivity"
+            android:label="@string/title_activity_car_photo"
+            android:parentActivityName=".ui.carowner.CDetailActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.jdywl.driver.ui.carowner.CDetailActivity"/>
+        </activity>
+    </application>
+
+</manifest>

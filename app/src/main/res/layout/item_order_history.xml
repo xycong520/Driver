@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start|center_vertical"
+    android:paddingBottom="@dimen/section_margin"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    android:paddingTop="@dimen/section_margin">
+
+    <TextView
+        android:id="@+id/tv_orderno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="单号"
+        android:textColor="@color/gray_content" />
+
+    <TextView
+        android:id="@+id/tv_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="北京--->南京"
+        android:textColor="@color/gray_content"
+        android:layout_below="@+id/tv_orderno" />
+
+    <TextView
+        android:id="@+id/tv_carinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:text="SUV 4辆"
+        android:textColor="@color/gray_content"
+        android:layout_below="@+id/tv_orderno"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/tv_marketprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_route"
+        android:layout_marginTop="@dimen/content_margin"
+        android:text="100元"
+        android:textColor="@color/gray_content" />
+
+    <TextView
+        android:id="@+id/tv_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_route"
+        android:layout_marginTop="@dimen/content_margin"
+        android:text="600元"
+        android:textColor="@color/colorHighlight"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>

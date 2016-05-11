@@ -1,0 +1,60 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.jdywl.driver.ui.driver.DDetailActivity"
+    tools:showIn="@layout/activity_ddetail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="HardcodedText">
+
+        <include
+            android:id="@+id/inc_order_info"
+            layout="@layout/section_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/inc_order_bill"
+            layout="@layout/section_order_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:layout_below="@+id/inc_order_info"/>
+
+        <ViewStub
+            android:id="@+id/stub_zhengban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:layout_below="@+id/inc_order_bill"
+            android:inflatedId="@+id/stub_zhengban"
+            android:layout="@layout/stub_driver_zhengban"/>
+
+        <ViewStub
+            android:id="@+id/stub_sanche"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:layout_below="@+id/stub_zhengban"
+            android:inflatedId="@+id/stub_sanche"
+            android:layout="@layout/stub_driver_sanche"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/title_margin"
+            android:layout_below="@+id/stub_sanche"
+            android:background="@drawable/selector_submit_btn"
+            android:onClick="driverPay"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:visibility="gone"
+            android:text="我要竞拍"/>
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

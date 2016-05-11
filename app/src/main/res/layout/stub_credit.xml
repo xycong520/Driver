@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_border"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/ll_quota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:clickable="true"
+        android:onClick="showLocation">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="融资额度"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_quota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="融资公司"
+            android:textColor="@color/gray_content"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_creditMgr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="融资经理"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_creditMgr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_creditBank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="开户行"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_creditBank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_creditName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="户名"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_creditName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_creditNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="帐号"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_creditNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_prepay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="首付金额(元)"
+            android:textColor="@color/gray_content"/>
+
+        <EditText
+            android:id="@+id/et_prepay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="输入预付给融资公司的金额"
+            android:singleLine="true"
+            android:textColor="@color/gray_title"
+            android:textSize="14sp"/>
+    </LinearLayout>
+</LinearLayout>

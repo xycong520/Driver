@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    android:background="@drawable/list_selector"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="北京花乡车驿站"
+        android:textSize="13sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_title"
+        android:textSize="17sp"
+        android:text="北京"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_station"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_station"
+        android:layout_marginTop="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="北京市丰台区南四环路"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_operation_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_address"
+        android:layout_marginTop="@dimen/content_margin"
+        android:textColor="@color/gray_content"
+        android:text="北京运营中心"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_master"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_operation_center"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:background="@color/bg_sanche"
+        android:padding="2dp"
+        android:text="master"
+        android:textColor="@android:color/white"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_operation_center"
+        android:layout_toRightOf="@+id/tv_master"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginLeft="@dimen/section_margin"
+        android:padding="2dp"
+        android:background="@color/bg_status"
+        android:textColor="@android:color/white"
+        android:text="phone"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_senddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_content"
+        android:text=""
+        android:textSize="12sp"
+        android:layout_alignBaseline="@+id/tv_phone"/>
+
+</RelativeLayout>

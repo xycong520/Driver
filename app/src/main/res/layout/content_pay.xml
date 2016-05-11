@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.jdywl.driver.ui.common.PayActivity"
+    tools:showIn="@layout/activity_pay"
+    tools:ignore="HardcodedText">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_submit">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_timer">
+                <TextView
+                    android:id="@+id/tv_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/section_margin"
+                    android:drawableLeft="@drawable/ic_timer"
+                    android:drawablePadding="4dp"
+                    android:singleLine="true"
+                    android:text="支付剩余时间: 24小时59分59秒"
+                    android:textColor="@color/text_timer"
+                    android:textSize="14sp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+
+            <include
+                android:id="@+id/inc_order_info"
+                layout="@layout/section_order_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_timer"/>
+
+            <include
+                android:id="@+id/inc_order_bill"
+                layout="@layout/section_order_bill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_margin"
+                android:layout_below="@id/inc_order_info"/>
+
+            <TextView
+                android:id="@+id/tv_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inc_order_bill"
+                android:layout_marginBottom="@dimen/content_margin"
+                android:layout_marginTop="@dimen/section_margin"
+                android:paddingLeft="@dimen/title_margin"
+                android:paddingRight="@dimen/title_margin"
+                android:text="支付方式"
+                android:textColor="@color/gray_title"
+                android:textSize="14sp"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_pay"
+                android:background="@drawable/item_border"
+                android:padding="@dimen/section_margin">
+
+                <ImageView
+                    android:id="@+id/iv_alipay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/section_margin"
+                    android:layout_marginRight="@dimen/section_margin"
+                    android:src="@drawable/ic_alipay"/>
+
+                <TextView
+                    android:id="@+id/tv_alipay_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/iv_alipay"
+                    android:layout_toRightOf="@+id/iv_alipay"
+                    android:text="支付宝支付"
+                    android:textColor="@color/gray_title"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/tv_alipay_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_alipay"
+                    android:layout_alignLeft="@+id/tv_alipay_title"
+                    android:text="推荐安装支付宝的用户使用"
+                    android:textColor="@color/gray_content"
+                    android:textSize="12sp"/>
+
+                <ImageButton
+                    android:id="@+id/ib_alipay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:padding="@dimen/section_margin"
+                    android:src="@drawable/selector_pay"
+                    android:onClick="onPaySelected"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_wxpay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_alipay"
+                android:background="@drawable/item_border"
+                android:padding="@dimen/section_margin">
+
+                <ImageView
+                    android:id="@+id/iv_wxpay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/section_margin"
+                    android:layout_marginRight="@dimen/section_margin"
+                    android:src="@drawable/ic_weixin"/>
+
+                <TextView
+                    android:id="@+id/tv_wxpay_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/iv_wxpay"
+                    android:layout_toRightOf="@+id/iv_wxpay"
+                    android:text="微信支付"
+                    android:textColor="@color/gray_title"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/tv_wxpay_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_wxpay"
+                    android:layout_alignLeft="@+id/tv_wxpay_title"
+                    android:text="推荐安装微信的用户使用"
+                    android:textColor="@color/gray_content"
+                    android:textSize="12sp"/>
+
+                <ImageButton
+                    android:id="@+id/ib_wxpay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:padding="@dimen/section_margin"
+                    android:src="@drawable/selector_pay"
+                    android:onClick="onPaySelected"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_wxpay"
+                android:layout_marginTop="@dimen/section_margin"
+                android:layout_marginBottom="@dimen/section_margin"
+                android:layout_marginLeft="@dimen/title_margin"
+                android:layout_marginRight="@dimen/title_margin"
+                android:id="@+id/tv_pay_desc"
+                android:text="@string/sanche_cpay_desc"
+                android:textColor="@color/colorHighlight"
+                android:textSize="13sp"/>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/ll_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tv_payBill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/title_margin"
+            android:text="@string/sanche_cpay_btn"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_submit_btn"
+            android:onClick="onOrderPay"
+            android:text="支付"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

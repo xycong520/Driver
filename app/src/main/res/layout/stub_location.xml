@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    tools:ignore="HardcodedText">
+    <LinearLayout
+        android:id="@+id/ll_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_carphoto"
+        android:paddingTop="@dimen/section_margin"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="showLocation">
+
+        <TextView
+            android:id="@+id/tv_location_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="在途位置"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="@string/click_show_location"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_insurance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_location"
+        android:paddingTop="@dimen/section_margin"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="showInsurance">
+
+        <TextView
+            android:id="@+id/tv_insurance_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="保险查询"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_insurance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="@string/click_show_insurance"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pdf_desc"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_below="@+id/ll_insurance"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:textSize="13sp"
+        android:visibility="gone"
+        android:textColor="@color/colorHighlight"
+        android:linksClickable="true"/>
+</RelativeLayout>

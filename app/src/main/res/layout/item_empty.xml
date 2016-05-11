@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/large_title_margin"
+        android:paddingTop="@dimen/large_title_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_empty"
+        android:gravity="center"
+        android:text="空空如也~"
+        android:textColor="@color/gray_content"
+        android:textSize="18sp"/>
+</RelativeLayout>

@@ -1,0 +1,382 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_border"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:paddingTop="@dimen/content_margin">
+
+            <LinearLayout
+                android:id="@+id/ll_orgin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="始发地"
+                    android:textColor="@color/gray_content"/>
+
+                <EditText
+                    android:id="@+id/et_origin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:focusable="false"
+                    android:hint="点击选择始发地"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="目的地"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_destination"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:focusable="false"
+                    android:hint="点击选择目的地"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cartype"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="轿车类型"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <!--
+                <Spinner
+                    android:id="@+id/sp_cartype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/cartype_arrays"
+                    android:prompt="@string/spinner_prompt"
+                    android:textColor="@color/gray_title"
+                    android:textSize="10sp"/>
+                    -->
+                <EditText
+                    android:id="@+id/et_cartype"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:focusable="false"
+                    android:hint="点击选择轿车类型"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_carPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="轿车总价(元)"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_carPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:ems="10"
+                    android:hint="输入范围在1万到5000万元之间"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_carPrice_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/carprice_desc"
+                android:textColor="@color/colorHighlight"
+                android:textSize="12sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_sendtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="启运日期"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_sendtime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:focusable="false"
+                    android:hint="点击选择启运日期"
+                    android:inputType="date"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="提车地址"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_getCarAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:focusable="false"
+                    android:hint="点击定位提车地址"
+                    android:inputType="date"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_addtionalSrv"
+            android:layout_marginTop="@dimen/section_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:text="增值服务"
+            android:textColor="@color/gray_title"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_addtionalSrv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
+            android:background="@drawable/item_border"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:visibility="gone">
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin"
+            android:text="收车人信息"
+            android:textColor="@color/gray_title"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/title_margin"
+            android:background="@drawable/item_border"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/title_margin"
+            android:paddingRight="@dimen/title_margin">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="收车人"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_fetchName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:ems="10"
+                    android:hint="输入收车人姓名"
+                    android:inputType="text"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="手机号"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_fetchPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:ems="10"
+                    android:hint="输入收车人电话"
+                    android:inputType="text"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_fetchAddr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_fetchAddr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="收车地址"
+                    android:textColor="@color/gray_content"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/et_fetchAddr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="输入终点地址"
+                    android:inputType="text"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <ViewStub
+                android:id="@+id/stub_zhengban"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inflatedId="@+id/stub_zhengban"
+                android:layout="@layout/zhengban_layout"/>
+
+            <ViewStub
+                android:id="@+id/stub_sanche"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inflatedId="@+id/stub_sanche"
+                android:layout="@layout/sanche_layout"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_carNum"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/title_margin"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="保险费用"
+                android:textColor="@color/gray_content"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tvBx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="50"
+                android:textColor="@color/gray_title"
+                android:textSize="14sp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="购买"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="不购买"
+                    android:textColor="@color/gray_title"
+                    android:textSize="14sp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,608 @@
+﻿一、用户角色相关接口
+1. 用户登录接口：登录成功后返回用户角色列表：
+POST users/login：
+返回：
+{
+  "status_code": 0,   //0表示成功，其它表示失败
+  "message": "用户名",
+  "roles": [
+    "station_driver",  //驿站司机，可以接提车和交车订单
+    "station_master"   //驿站站长，兼具接单和上传驿站位置功能
+  ]
+}
+2. 新增获取登录用户角色列表功能：
+GET user/roles：
+返回：
+{
+  "status_code": 0,   //0表示成功，其它表示失败
+  "message": "用户名",
+  "roles": [
+    "station_driver",  //驿站司机，可以接提车和交车订单
+    "station_master"   //驿站站长，兼具接单和上传驿站位置功能
+  ]
+}
+
+
+
+二、驿站相关接口
+1. 获取驿站省份列表（用于筛选驿站）
+GET /stations/provinces
+
+返回：
+[
+  {
+    "province": "\u9655\u897f"
+  },
+  {
+    "province": "\u7518\u8083"
+  }
+]
+
+
+
+ 2. 获取驿站城市列表（用于筛选驿站）
+GET /stations/cities
+参数：
+province: 省份，可选
+
+返回：
+[
+  {
+    "city": "\u897f\u5b89"
+  },
+  {
+    "city": "\u6986\u6797"
+  },
+  {
+    "city": "\u6c49\u4e2d"
+  }
+]
+
+
+
+
+3. 获取驿站列表：
+GET /stations
+参数：
+province: 省份，可选
+city: 城市, 可选
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+返回：
+{
+  "total": 2,
+  "per_page": 15,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 2,
+  "data": [
+    {
+      "id": 1,
+      "province": "\u9655\u897f",
+      "city": "\u897f\u5b89",
+      "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",
+      "station": "\u897f\u5b89\u6bd4\u4e9a\u8fea\u5357\u95e8\u8f66\u9a7f\u7ad9",
+      "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u957f\u5b89\u533a\u4e0a\u6797\u82d1\u4e00\u8def",
+      "master": "\u738b\u521a",
+      "phone": "18626468980",
+      "longitude": 2.2,
+      "latitude": 3.3,
+      "address": "\u6c5f\u82cf\u5357\u4eac",
+      "gathertime": "0000-00-00 00:00:00"
+    },
+    {
+      "id": 2,
+      "province": "\u9655\u897f",
+      "city": "\u897f\u5b89",
+      "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",
+      "station": "\u897f\u5b89\u4e8c\u624b\u8f66\u5e02\u573a\u8f66\u9a7f\u7ad9",
+      "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u672a\u592e\u533a\u5929\u53f0\u4e03\u8def",
+      "master": "\u738b\u521a",
+      "phone": "18511735049",
+      "longitude": 0,
+      "latitude": 0,
+      "address": "",
+      "gathertime": "0000-00-00 00:00:00"
+    }
+  ]
+}
+
+4. 获取单个驿站：
+GET /stations/{id}  
+参数：无
+返回：
+{
+  "id": 1,
+  "province": "\u9655\u897f",
+  "city": "\u897f\u5b89",
+  "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",
+  "station": "\u897f\u5b89\u6bd4\u4e9a\u8fea\u5357\u95e8\u8f66\u9a7f\u7ad9",
+  "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u957f\u5b89\u533a\u4e0a\u6797\u82d1\u4e00\u8def",
+  "master": "\u738b\u521a",
+  "phone": "18626468980",
+  "longitude": 2.2,
+  "latitude": 3.3,
+  "address": "\u6c5f\u82cf\u5357\u4eac",
+  "gathertime": "0000-00-00 00:00:00"
+}
+
+5. 站长上传驿站位置信息
+POST  /stations/{id}/position
+参数：
+longitude： 经度
+latitude: 纬度
+address: 辽宁省沈阳市xx区xx街道,之前此字段为position，为了跟LBS一致，改为address
+gathertime: 2015-03-09  20:30:00，位置采集时间
+
+成功返回：
+{
+  "id": 1, 
+  "province": "\u9655\u897f",  //省
+  "city": "\u897f\u5b89",      //城市
+  "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",  //运营中心
+  "station": "\u897f\u5b89\u6bd4\u4e9a\u8fea\u5357\u95e8\u8f66\u9a7f\u7ad9",  //驿站名
+  "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u957f\u5b89\u533a\u4e0a\u6797\u82d1\u4e00\u8def", //驿站地址
+  "master": "\u738b\u521a",  //站长姓名
+  "phone": "18626468980",    //站长手机 
+  "longitude": "2.2",   //经度
+  "latitude": "3.3",    //未读
+  "address": "\u6c5f\u82cf\u5357\u4eac",  //位置
+  "gathertime": null    //位置采集时间
+}
+
+错误返回（使用HTTP错误码）：（所有接口都使用这种方式返回错误）
+{
+  "message": "The latitude field is required.",
+  "status_code": 422    //HTTP错误码，可以是403，422等
+}
+
+
+
+5. 获取某个驿站站长名下的所有驿站列表
+GET  /stations/ofmaster
+成功返回：
+[
+  {
+    "id": 1,
+    "province": "\u9655\u897f",
+    "city": "\u897f\u5b89",
+    "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",
+    "station": "\u897f\u5b89\u6bd4\u4e9a\u8fea\u5357\u95e8\u8f66\u9a7f\u7ad9",
+    "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u957f\u5b89\u533a\u4e0a\u6797\u82d1\u4e00\u8def",
+    "master": "\u738b\u521a",
+    "phone": "18626468980",
+    "longitude": 2.2,
+    "latitude": 3.3,
+    "address": "\u6c5f\u82cf\u5357\u4eac",
+    "gathertime": "0000-00-00 00:00:00"
+  }
+]
+
+
+
+6. 获取指定位置附近的驿站
+GET  /stations/nearby
+参数：
+city：城市
+longitude： 经度
+latitude: 纬度
+
+成功返回：
+[
+  {
+    "id": 1,
+    "province": "\u9655\u897f",
+    "city": "\u897f\u5b89",
+    "operation_center": "\u897f\u5b89\u8fd0\u8425\u4e2d\u5fc3",
+    "station": "\u897f\u5b89\u6bd4\u4e9a\u8fea\u5357\u95e8\u8f66\u9a7f\u7ad9",
+    "position": "\u9655\u897f\u7701\u897f\u5b89\u5e02\u957f\u5b89\u533a\u4e0a\u6797\u82d1\u4e00\u8def",
+    "master": "\u738b\u521a",
+    "phone": "18626468980",
+    "longitude": 2.2,
+    "latitude": 3.3,
+    "address": "\u6c5f\u82cf\u5357\u4eac",
+    "gathertime": "0000-00-00 00:00:00"
+  }
+]
+
+
+
+7. 根据驿站id获取此驿站提供的服务
+GET  /stations/{sid}/service
+从LBS获取驿站位置后，如果需要获取驿站开放的功能，就通过LBS表的sid字段获取
+
+成功返回：
+[
+  {
+    "name": "市内提车"
+  },
+  {
+    "name": "市内交车"
+  },
+  {
+    "name": "大板运输"
+  },
+  {
+    "name": "小板速运"
+  },
+  {
+    "name": "专线运输"
+  }
+]
+
+
+
+三 、小板速运相关接口
+
+1. 计算小板速运（跨城市）价格：
+按照城市区间计费
+GET /express/price
+
+参数：
+origin: 始发地(城市名)
+destination: 目的地(城市名)
+car_price: 轿车价格(用于计算保险，让用户输入)
+
+成功返回：
+{
+  charge：200.5 //运费
+  insurance: 200.5 //保险费
+}
+
+
+
+2. 获取指定区间的小板快运线路（可以判断指定线路是否支持小板速运）：
+GET /express/route
+
+参数：
+origin: 始发地(城市名)
+destination: 目的地(城市名)
+
+成功返回：
+{
+  "origin": "\u5357\u4eac",
+  "destination": "\u4e0a\u6d77",
+  "express_price": 1920   // express_price > 0表示支持小板速运，否则不支持小板速运
+}
+
+
+
+3. 创建小板速订单
+POST /express
+参数：
+origin: 始发地(城市名)
+destination: 目的地(城市名)
+sendtime: 启运时间(2016-04-15 00:00:00)
+ifIns: 是否需要购买保险？ 可接受的输入是true、false、1、0、"1" 和 "0"。
+car_price: 轿车价格(用于计算保险，让用户输入)
+//下边这些信息用于司机提车和交车，在地图上点选位置输入起点和终点
+from_longitude： 起点经度
+from_latitude: 起点纬度
+from_address: 起点地址
+to_longitude： 终点经度
+to_latitude: 终点纬度
+to_address: 终点地址
+receiver_name: 收车人姓名
+receiver_phone：收车人手机  
+
+成功返回：
+{
+  "id": 11,
+  "carowner_id": 1,    //客户ID，
+  "sdriver_id": 0,     //驿站司机ID
+  "shipping_id": 2,   //发运经理id
+  "order_no": "E20160422000011",
+  "status": 20,
+  "origin": "\u5357\u4eac",
+  "destination": "\u4e0a\u6d77",
+  "sendtime": "2016-05-01 00:00:00",
+  "ifIns": 1,  //是否购买保险
+  "car_price": 100,
+  "vin_car_price": 0,   //通过VIN查询出来的车价
+  "charge": 1920,
+  "insurance": 50,   //收取客户的保险费（根据carPrice计算得出）
+  "actual_insurance": 0,   //根据vin车价投保产生的保险费
+  "from_longitude": 2.2,
+  "from_latitude": 3.3,
+  "from_address": "\u59cb\u53d1\u5730\u70b9",
+  "to_latitude": 5.5,
+  "to_longitude": 4.4,
+  "to_address": "\u76ee\u7684\u5730",
+  "cypher": "535549", //取车密码，随机生成，上门取车时验证
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "541005"  //交车密码，把车交给目的地客户时的验证
+}
+
+
+
+4. 客户获取自己所有未完成的订单：
+GET /express/carowner
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+成功返回：
+{
+  "total": 3,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 3,
+  "data": [
+    {
+      "id": 12,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "order_no": "E20160422000012",
+      "status": 20,
+      "origin": "\u5357\u4eac",
+      "destination": "\u4e0a\u6d77",
+      "sendtime": "2016-05-01 00:00:00",
+      "ifIns": 1,
+      "car_price": 100,
+      "vin_car_price": 0,
+      "charge": 1920,
+      "insurance": 50,
+      "actual_insurance": 0,
+      "from_longitude": 2.2,
+      "from_latitude": 3.3,
+      "from_address": "\u59cb\u53d1\u5730\u70b9",
+      "to_latitude": 5.5,
+      "to_longitude": 4.4,
+      "to_address": "\u76ee\u7684\u5730",
+      "cypher": "535549",
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "514898"
+    }
+  ]
+}
+
+
+
+5. 客户获取自己所有历史订单
+GET /express/carownerHistory
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+成功返回：
+{
+  "total": 3,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 3,
+  "data": [
+    {
+      "id": 12,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "order_no": "E20160422000012",
+      "status": 20,
+      "origin": "\u5357\u4eac",
+      "destination": "\u4e0a\u6d77",
+      "sendtime": "2016-05-01 00:00:00",
+      "ifIns": 1,
+      "car_price": 100,
+      "vin_car_price": 0,
+      "charge": 1920,
+      "insurance": 50,
+      "actual_insurance": 0,
+      "from_longitude": 2.2,
+      "from_latitude": 3.3,
+      "from_address": "\u59cb\u53d1\u5730\u70b9",
+      "to_latitude": 5.5,
+      "to_longitude": 4.4,
+      "to_address": "\u76ee\u7684\u5730",
+      "cypher": "535549",
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "514898"
+    }
+  ]
+}
+
+
+
+6. 驿站司机获取自己所有未完成的订单：
+GET /express/sdriver
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+成功返回：
+{
+  "total": 3,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 3,
+  "data": [
+    {
+      "id": 12,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "order_no": "E20160422000012",
+      "status": 20,
+      "origin": "\u5357\u4eac",
+      "destination": "\u4e0a\u6d77",
+      "sendtime": "2016-05-01 00:00:00",
+      "ifIns": 1,
+      "car_price": 100,
+      "vin_car_price": 0,
+      "charge": 1920,
+      "insurance": 50,
+      "actual_insurance": 0,
+      "from_longitude": 2.2,
+      "from_latitude": 3.3,
+      "from_address": "\u59cb\u53d1\u5730\u70b9",
+      "to_latitude": 5.5,
+      "to_longitude": 4.4,
+      "to_address": "\u76ee\u7684\u5730",
+      "cypher": "535549",
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "514898"
+    }
+  ]
+}
+
+
+
+7. 驿站司机获取自己所有历史订单
+GET /express/sdriverHistory
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+成功返回：
+{
+  "total": 3,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 3,
+  "data": [
+    {
+      "id": 12,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "order_no": "E20160422000012",
+      "status": 20,
+      "origin": "\u5357\u4eac",
+      "destination": "\u4e0a\u6d77",
+      "sendtime": "2016-05-01 00:00:00",
+      "ifIns": 1,
+      "car_price": 100,
+      "vin_car_price": 0,
+      "charge": 1920,
+      "insurance": 50,
+      "actual_insurance": 0,
+      "from_longitude": 2.2,
+      "from_latitude": 3.3,
+      "from_address": "\u59cb\u53d1\u5730\u70b9",
+      "to_latitude": 5.5,
+      "to_longitude": 4.4,
+      "to_address": "\u76ee\u7684\u5730",
+      "cypher": "535549",
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "514898"
+    }
+  ]
+}
+
+
+
+
+8. 获取指定小板速运订单
+GET /express/{id}  //id为express 订单id
+
+成功返回： 
+{
+  "id": 8,
+  "carowner_id": 0,	//汽车所有者
+  "sdriver_id": 0,	//司机
+  "shipping_id": 0,	//
+  "order_no": "E20160422000001",	//订单号
+  "status": 0,				//订单状态
+  "origin": "\u5357\u4eac",		//原始发车点
+  "destination": "\u4e0a\u6d77",	//目的地
+  "sendtime": "2016-05-01 00:00:00",	//发送时间
+  "ifIns": 1,				
+  "car_price": 100,			//汽车价格
+  "vin_car_price": 0,
+  "charge": 1920,			//费用
+  "insurance": 50,			//保险
+  "actual_insurance": 0,		//起点经纬度
+  "from_longitude": 2.2,
+  "from_latitude": 3.3,
+  "from_address": "\u59cb\u53d1\u5730\u70b9",	//起点描述
+  "to_latitude": 5.5,			//终点经纬度
+  "to_longitude": 4.4,
+  "to_address": "\u76ee\u7684\u5730",	//终点描述
+  "cypher": "535549",			//	
+  "receiver_name": "wwt",		//接收者
+  "receiver_phone": "18626468980",		
+  "receiver_cypher": "525352"
+}
+
+
+
+9. 驿站司机接单
+PUT /express/{id}/order //id为express 订单id
+
+成功返回：
+{
+  "id": 11,
+  "carowner_id": 1,
+  "sdriver_id": 1,
+  "shipping_id": 2,
+  "order_no": "E20160422000011",
+  "status": 20,
+  "origin": "\u5357\u4eac",
+  "destination": "\u4e0a\u6d77",
+  "sendtime": "2016-05-01 00:00:00",
+  "ifIns": 1,
+  "car_price": 100,
+  "vin_car_price": 0,
+  "charge": 1920,
+  "insurance": 50,
+  "actual_insurance": 0,
+  "from_longitude": 2.2,
+  "from_latitude": 3.3,
+  "from_address": "\u59cb\u53d1\u5730\u70b9",
+  "to_latitude": 5.5,
+  "to_longitude": 4.4,
+  "to_address": "\u76ee\u7684\u5730",
+  "cypher": "535549",
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "541005"
+}
+
+
+
+四、 提车接车相关接口
+1. 获取指定位置附近的司机列表（用户下单时显示在地图上）
+GET  /sdrivers/nearby
+备注：sdriver表示station driver
+参数：
+city：城市
+longitude： 经度
+latitude: 纬度
+
+成功返回：
+[
+  {
+    "id": 1,
+    "name": "\u672c\u5730\u6d4b\u8bd5\u73af\u5883",
+    "phone": "18626468980",
+    "has_one_gps": {
+      "id": 3,
+      "user_id": 1,
+      "longitude": 118.728,
+      "latitude": 32.1201,
+      "position": "\u597d\u53c8\u591a(\u57ce\u533a\u67f3\u5dde\u5357\u8def\u9999\u69ad\u7f8e\u9882\u5927\u95e8\u53e3\u5e97)",
+      "gathertime": "2016-04-03 22:10:03"
+    }
+  }
+]
+
+2. 创建提车接口订单
+
+
+
+SHA1): 37:EE:E1:35:CB:EB:BD:82:01:5E:82:A6:6F:1F:23:E3:D7:3A:80:8D
+B8:15:08:35:F3:AE:76:6B:85:87:07:B4:77:59:D7:93:7D:D5:06:C3
+外包发布 21:82:D6:3B:DA:4D:14:A8:98:FA:76:23:8B:CB:49:1F:B6:52:AD:0F

@@ -1,0 +1,11 @@
+<resources>
+    <string name="title_activity_settings">设置</string>
+
+    <!--  settings for 系统设置 -->
+    <string name="pref_api_url_title">URL路径</string>
+    <!--  settings for 系统设置
+    <string name="pref_default_api_url">http://192.168.1.101/api/public/</string>
+    -->
+
+    <string name="pref_default_api_url">http://www.jdywl.cn:8080/</string>
+</resources>

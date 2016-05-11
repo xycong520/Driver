@@ -1,0 +1,76 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cn.jdywl.driver.ui.carowner.CDetailActivity"
+    tools:showIn="@layout/activity_cdetail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/inc_order_info"
+            layout="@layout/section_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/section_margin"/>
+
+        <include
+            android:id="@+id/inc_order_bill"
+            layout="@layout/section_order_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/section_margin"/>
+
+        <ViewStub
+            android:id="@+id/stub_credit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:inflatedId="@+id/stub_credit"
+            android:layout="@layout/stub_credit"/>
+
+        <ViewStub
+            android:id="@+id/stub_carphoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/section_margin"
+            android:inflatedId="@+id/stub_carphoto"
+            android:layout="@layout/stub_carphoto"/>
+
+        <ViewStub
+            android:id="@+id/stub_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/section_margin"
+            android:inflatedId="@+id/stub_location"
+            android:layout="@layout/stub_location"/>
+
+        <ViewStub
+            android:id="@+id/stub_receiver_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/section_margin"
+            android:inflatedId="@+id/stub_receiver_photo"
+            android:layout="@layout/stub_receiver_photo"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stub_sanche"
+            android:layout_margin="@dimen/title_margin"
+            android:background="@drawable/selector_submit_btn"
+            android:onClick="onSubmit"
+            android:text="@string/sanche_cpay_btn"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

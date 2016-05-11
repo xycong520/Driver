@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/ll_receiver_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_selector"
+        android:onClick="showReceiver"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin">
+
+        <TextView
+            android:id="@+id/tv_receiverPhoto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
+            android:text="收车人照片"
+            android:textColor="@color/gray_content"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/iv_receiver_photo"
+                android:layout_width="60dp"
+                android:layout_height="45dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_receiver_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_receiver_photo"
+        android:background="@drawable/item_border"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
+            android:text="收车人确认"
+            android:textColor="@color/gray_content"
+            android:textSize="14sp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_receiverConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_correct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="正确"
+                android:textColor="@color/gray_title"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/rb_wrong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/section_margin"
+                android:text="错误"
+                android:textColor="@color/gray_title"
+                android:textSize="14sp"/>
+        </RadioGroup>
+    </LinearLayout>
+
+</RelativeLayout>

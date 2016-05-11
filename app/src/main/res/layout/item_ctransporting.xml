@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin"
+    android:background="@drawable/list_selector"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:text="北京---->南京"
+        android:textColor="@color/gray_title"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/tv_orderno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="2015-02-01 启运"
+        android:textColor="@color/gray_content"
+        android:textSize="12sp"
+        android:layout_alignTop="@+id/tv_route"/>
+
+    <TextView
+        android:id="@+id/tv_carinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_route"
+        android:text="标准轿车 4辆"
+        android:textColor="@color/gray_content"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_marketprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_carinfo"
+        android:layout_marginTop="@dimen/content_margin"
+        android:text="市场运价：1000"
+        android:textColor="@color/gray_content"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_marketprice"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:text="成交运价：1000"
+        android:textColor="@color/bg_sanche"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_bill"
+        android:paddingLeft="@dimen/content_margin"
+        android:paddingRight="@dimen/content_margin"
+        android:gravity="right"
+        android:text="江苏南京"
+        android:textColor="@color/gray_content"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_status"
+        android:layout_alignBottom="@+id/tv_bill"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/ll_carphoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/section_margin"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="showCarPhoto">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="车辆照片"
+            android:textColor="@color/gray_content"/>
+
+        <TextView
+            android:id="@+id/tv_carphoto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="@string/click_show_photo"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/title_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_cartype_select"
+    tools:context="cn.jdywl.driver.ui.carowner.CartypeSelectActivity">
+
+    <TextView
+        android:id="@+id/tv_car"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="selectCartype"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin"
+        android:text="标准轿车"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:text="@string/cartype_car"
+        android:textColor="@color/gray_content"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_suv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="selectCartype"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin"
+        android:text="标准SUV"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:text="@string/cartype_suv"
+        android:textColor="@color/gray_content"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_bigsuv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:onClick="selectCartype"
+        android:paddingBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:paddingTop="@dimen/section_margin"
+        android:text="大型SUV"
+        android:textColor="@color/gray_title"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/section_margin"
+        android:paddingLeft="@dimen/title_margin"
+        android:paddingRight="@dimen/title_margin"
+        android:text="@string/cartype_bigsuv"
+        android:textColor="@color/gray_content"
+        android:textSize="12sp"/>
+
+</LinearLayout>
