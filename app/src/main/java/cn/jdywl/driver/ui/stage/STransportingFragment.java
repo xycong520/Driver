@@ -23,13 +23,13 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.carowner.CTransportingRvAdapter;
+import cn.jdywl.driver.adapter.stage.STransportingRvAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
-import cn.jdywl.driver.model.OrderPage;
+import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
 
@@ -47,9 +47,9 @@ public class STransportingFragment extends BaseFragment implements
     private boolean bReload = false;   //
     private boolean loading = false;   //是否正在加载
 
-    private CTransportingRvAdapter mAdapter;
+    private STransportingRvAdapter mAdapter;
 
-    private OrderPage mData = new OrderPage();
+    private StageOrderPage mData = new StageOrderPage();
 
     /**
      * Use this factory method to create a new instance of
@@ -97,7 +97,7 @@ public class STransportingFragment extends BaseFragment implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         //设置adapter
-        mAdapter = new CTransportingRvAdapter(mData.getData());
+        mAdapter = new STransportingRvAdapter(mData.getData());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -134,17 +134,18 @@ public class STransportingFragment extends BaseFragment implements
             mData.setCurrentPage(0);
         }
         int page = mData.getCurrentPage() + 1;
-        String url = ApiConfig.api_url + ApiConfig.STAGE_SDRIVER_HISTORY_URL +
+        //获取自己所有未完成的订单：
+        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
-        GsonRequest<OrderPage> myReq = new GsonRequest<OrderPage>(Request.Method.GET,
+        GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
                 url,
-                OrderPage.class,
+                StageOrderPage.class,
                 null,
-                new Response.Listener<OrderPage>() {
+                new Response.Listener<StageOrderPage>() {
                     @Override
-                    public void onResponse(OrderPage response) {
+                    public void onResponse(StageOrderPage response) {
 
                         // 取消refresh
                         mSwipeLayout.setRefreshing(false);
@@ -199,17 +200,17 @@ public class STransportingFragment extends BaseFragment implements
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.C_TRANSPORTING +
+        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 
-        GsonRequest<OrderPage> myReq = new GsonRequest<OrderPage>(Request.Method.GET,
+        GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
                 url,
-                OrderPage.class,
+                StageOrderPage.class,
                 null,
-                new Response.Listener<OrderPage>() {
+                new Response.Listener<StageOrderPage>() {
                     @Override
-                    public void onResponse(OrderPage response) {
+                    public void onResponse(StageOrderPage response) {
                         loading = false;
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");

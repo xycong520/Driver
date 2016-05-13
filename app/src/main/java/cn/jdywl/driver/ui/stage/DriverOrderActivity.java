@@ -106,9 +106,10 @@ public class DriverOrderActivity extends BaseActivity {
                 case 0:
                     return SPendingFragment.newInstance();
                 case 1:
-                    return STodosFragment.newInstance();
-                case 2:
                     return STransportingFragment.newInstance();
+                case 2:
+                    return STodosFragment.newInstance();
+
             }
             return null;
         }
@@ -124,11 +125,11 @@ public class DriverOrderActivity extends BaseActivity {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return "未处理";
+                    return "待拖运";
                 case 1:
                     return "运输中";
                 case 2:
-                    return "已处理";
+                    return "已完成";
             }
             return null;
         }

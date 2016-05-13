@@ -23,13 +23,13 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.driver.MarketAdapter;
+import cn.jdywl.driver.adapter.stage.SMarketAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
-import cn.jdywl.driver.model.OrderPage;
+import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
 import cn.jdywl.driver.ui.driver.DMainActivity;
@@ -50,9 +50,9 @@ public class SMarketFragment extends BaseFragment implements
     private boolean bReload = false;   //
     private boolean loading = false;   //是否正在加载
 
-    protected MarketAdapter mAdapter;
+    protected SMarketAdapter mAdapter;
 
-    private OrderPage mData = new OrderPage();
+    private StageOrderPage mData = new StageOrderPage();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -100,7 +100,7 @@ public class SMarketFragment extends BaseFragment implements
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
         //设置adapter
-        mAdapter = new MarketAdapter(mData.getData());
+        mAdapter = new SMarketAdapter(mData.getData());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -149,17 +149,17 @@ public class SMarketFragment extends BaseFragment implements
             mData.setCurrentPage(0);
         }
         int page = mData.getCurrentPage() + 1;
-        String url = ApiConfig.api_url + ApiConfig.MARKET_ORDER_URL +
+        String url = ApiConfig.api_url + ApiConfig.STAGE_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
-        GsonRequest<OrderPage> myReq = new GsonRequest<OrderPage>(Request.Method.GET,
+        GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
                 url,
-                OrderPage.class,
+                StageOrderPage.class,
                 null,
-                new Response.Listener<OrderPage>() {
+                new Response.Listener<StageOrderPage>() {
                     @Override
-                    public void onResponse(OrderPage response) {
+                    public void onResponse(StageOrderPage response) {
 
                         // 取消refresh
                         mSwipeLayout.setRefreshing(false);
@@ -212,17 +212,17 @@ public class SMarketFragment extends BaseFragment implements
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.MARKET_ORDER_URL +
+        String url = ApiConfig.api_url + ApiConfig.STAGE_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 
-        GsonRequest<OrderPage> myReq = new GsonRequest<OrderPage>(Request.Method.GET,
+        GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
                 url,
-                OrderPage.class,
+                StageOrderPage.class,
                 null,
-                new Response.Listener<OrderPage>() {
+                new Response.Listener<StageOrderPage>() {
                     @Override
-                    public void onResponse(OrderPage response) {
+                    public void onResponse(StageOrderPage response) {
                         loading = false;
 
                         if(response == null)

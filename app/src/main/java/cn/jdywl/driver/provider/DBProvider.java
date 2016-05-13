@@ -336,8 +336,8 @@ public class DBProvider extends ContentProvider {
      * @param selection     The selection clause for the query
      * @param selectionArgs An array of Strings containing search criteria
      * @param sortOrder     A clause defining the order in which the retrieved rows should be sorted
-     * @return The query results, as a {@link android.database.Cursor} of rows and columns
-     * @see android.content.ContentProvider#query(android.net.Uri, String[], String, String[], String)
+     * @return The query results, as a {@link Cursor} of rows and columns
+     * @see ContentProvider#query(Uri, String[], String, String[], String)
      */
     @Override
     public Cursor query(
@@ -418,7 +418,7 @@ public class DBProvider extends ContentProvider {
      *
      * @param uri the content URI to be checked
      * @return the corresponding MIMEtype
-     * @see android.content.ContentProvider#getType(android.net.Uri)
+     * @see ContentProvider#getType(Uri)
      */
     @Override
     public String getType(Uri uri) {
@@ -430,9 +430,9 @@ public class DBProvider extends ContentProvider {
      * Insert a single row into a table
      *
      * @param uri    the content URI of the table
-     * @param values a {@link android.content.ContentValues} object containing the row to insert
+     * @param values a {@link ContentValues} object containing the row to insert
      * @return the content URI of the new row
-     * @see android.content.ContentProvider#insert(android.net.Uri, android.content.ContentValues)
+     * @see ContentProvider#insert(Uri, ContentValues)
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -544,7 +544,7 @@ public class DBProvider extends ContentProvider {
      * @param selectionArgs An array of values that are mapped to each "?" in selection. If no "?"
      *                      are used, set this to NULL.
      * @return the number of rows deleted
-     * @see android.content.ContentProvider#delete(android.net.Uri, String, String[])
+     * @see ContentProvider#delete(Uri, String, String[])
      */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -624,7 +624,7 @@ public class DBProvider extends ContentProvider {
      * @param selectionArgs An array of values that are mapped in order to each "?" in selection.
      *                      If no "?" are used, set this to NULL.
      * @return int The number of rows updated.
-     * @see android.content.ContentProvider#update(android.net.Uri, android.content.ContentValues, String, String[])
+     * @see ContentProvider#update(Uri, ContentValues, String, String[])
      */
     @Override
     public int update(Uri uri, ContentValues values, String selection,

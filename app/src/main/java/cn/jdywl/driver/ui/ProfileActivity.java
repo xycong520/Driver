@@ -88,7 +88,7 @@ public class ProfileActivity extends BaseActivity {
 
                         layout.addView(et_name);
 
-                        AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(ProfileActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
                         builder.setTitle("修改姓名").setNegativeButton("取消", null);
                         builder.setView(layout);
                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

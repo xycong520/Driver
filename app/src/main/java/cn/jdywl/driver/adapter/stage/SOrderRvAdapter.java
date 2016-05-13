@@ -33,8 +33,7 @@ import cn.jdywl.driver.R;
 import cn.jdywl.driver.config.OrderStatus;
 import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.model.StageOrderItem;
-import cn.jdywl.driver.ui.carowner.CDetailActivity;
-import cn.jdywl.driver.ui.common.PayActivity;
+import cn.jdywl.driver.ui.stage.StageOrderInfoActivity;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -45,8 +44,10 @@ public class SOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_EMPTY = 0;
     private static final int TYPE_DATA = 1;
 
-    public static final int FROM_CAROWNER = 0;
-    public static final int FROM_RECEIVER = 1;
+    public static final int FROM_PENDING = 0;
+    public static final int FROM_SORDER = 1;
+    public static final int FROM_SHISTORY_ORDER = 2;
+    public static final int FROM_TODOS = 3;
 
     private List<StageOrderItem> mDataSet;
     int from;
@@ -140,10 +141,11 @@ public class SOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //数据为空，显示empty holder
         if (viewHolder instanceof EmptyViewHolder) {
             EmptyViewHolder emptyHolder = (EmptyViewHolder) viewHolder;
-            if (from == FROM_RECEIVER) {
-                emptyHolder.tvEmpty.setText("空空如也~\n点击右上角的“搜索”按钮可根据收车人手机号查询");
+
+            if (from == FROM_SORDER) {
+                emptyHolder.tvEmpty.setText("空空如也,快去接单吧");
             } else {
-                emptyHolder.tvEmpty.setText("空空如也~\n托运车辆请点击右下角的“下单”按钮");
+                emptyHolder.tvEmpty.setText("空空如也~");
             }
             return;
         }
@@ -159,24 +161,22 @@ public class SOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         dataHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent it;
-                int status = data.getStatus();
-
-                if (status == OrderStatus.ORDER_UNPAID) {
-                    //LogHelper.d(TAG, "Element " + getPosition() + " clicked.");
-                    it = new Intent(context, PayActivity.class);
-                    it.putExtra(PayActivity.PAY_ROLE, 0);  //设置角色为货主支付
-                } else {
-                    //LogHelper.d(TAG, "Element " + getPosition() + " clicked.");
-                    it = new Intent(context, CDetailActivity.class);
-                }
-
+                it = new Intent(context, StageOrderInfoActivity.class);
                 Bundle bundle = new Bundle();
-//                bundle.putParcelable("order", data);
+                bundle.putParcelable("order", data);
                 it.putExtras(bundle);
+                if (from == FROM_SORDER) {
+                    it.putExtra("from", StageOrderInfoActivity.FROM_SORDER);
+                }else if (from == FROM_SHISTORY_ORDER){
+                    it.putExtra("from", StageOrderInfoActivity.FROM_SHISTORY_ORDER);
+                }else if(from == FROM_PENDING){
+                    it.putExtra("from", StageOrderInfoActivity.FROM_SPENDING);
+                }else if (from == FROM_TODOS){
+                    it.putExtra("from", StageOrderInfoActivity.FROM_STODOS);
+                }
+                context.startActivity(it);
 
-//                context.startActivity(it);
             }
         });
 
@@ -188,7 +188,9 @@ public class SOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int status = data.getStatus();
         //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
         dataHolder.tvStatus.setText(OrderStatus.getDesc(status));
-
+        dataHolder.tvExpprice.setText("保险：" + data.getInsurance());
+        dataHolder.tvOrderType.setVisibility(View.GONE);
+        dataHolder.tvSrvtype.setVisibility(View.GONE);
         dataHolder.tvCarinfo.setText("收货人：" + data.getReceiver_name() + "\n手机号：" + data.getReceiver_phone() + "\n地址：" + data.getTo_address());
 
 

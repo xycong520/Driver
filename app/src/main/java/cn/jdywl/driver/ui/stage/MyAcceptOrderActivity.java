@@ -134,7 +134,9 @@ public class MyAcceptOrderActivity extends BaseActivity {
                 case 0:
                     return SMarketFragment.newInstance();
                 case 1:
-                    return SDOrderFragment.newInstance();
+                    return SOrderFragment.newInstance();
+                case 2:
+                    return SHistoryOrderFragment.newInstance();
             }
             return null;
         }
@@ -142,7 +144,7 @@ public class MyAcceptOrderActivity extends BaseActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -153,6 +155,8 @@ public class MyAcceptOrderActivity extends BaseActivity {
                     return getString(R.string.title_driver1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_driver2).toUpperCase(l);
+                case 2:
+                    return "历史承运";
             }
             return null;
         }

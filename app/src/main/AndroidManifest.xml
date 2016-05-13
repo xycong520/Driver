@@ -122,6 +122,16 @@
                 android:value=".MainActivity"/>
         </activity>
         <activity
+            android:name=".ui.stage.StageInfoActivity"
+            android:label="驿站详情"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.stage.CarStageActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.stage.CarStageActivity"/>
+        </activity>
+        <activity
             android:name=".ui.stage.GetAddressInMap"
             android:label="选择地址"
             android:screenOrientation="portrait">
@@ -165,6 +175,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.stage.StageOrderInfoActivity"
+            android:label="订单详情"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.stage.MyAcceptOrderActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.stage.MyAcceptOrderActivity"/>
         </activity>
         <activity
             android:name=".ui.LoginActivity"

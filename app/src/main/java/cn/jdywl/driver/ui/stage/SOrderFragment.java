@@ -140,7 +140,7 @@ public class SOrderFragment extends BaseFragment implements
         }
         int page = mData.getCurrentPage() + 1;
         String url = ApiConfig.api_url + ApiConfig.STAGE_SDRIVER_URL +
-                "page_size=" + ApiConfig.PAGE_SIZE +
+                "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
         GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,

@@ -144,7 +144,7 @@ public class CreditCompanyItem implements Parcelable {
         this.interest = in.readString();
     }
 
-    public static final Parcelable.Creator<CreditCompanyItem> CREATOR = new Parcelable.Creator<CreditCompanyItem>() {
+    public static final Creator<CreditCompanyItem> CREATOR = new Creator<CreditCompanyItem>() {
         @Override
         public CreditCompanyItem createFromParcel(Parcel source) {
             return new CreditCompanyItem(source);

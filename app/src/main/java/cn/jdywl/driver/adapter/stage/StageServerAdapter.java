@@ -37,7 +37,7 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         NavViewHolder navHolder = (NavViewHolder) holder;
         navHolder.getTextView().setText(services.get(position).getName());
-        navHolder.getImgView().setImageUrl(services.get(position).getImgeurl(),mImageLoader);
+        navHolder.getImgView().setImageUrl(services.get(position).getIcon().getUrl(),mImageLoader);
         // 如果设置了回调，则设置点击事件
         if (onClickListener != null) {
             holder.itemView.setTag(services.get(position).getName());

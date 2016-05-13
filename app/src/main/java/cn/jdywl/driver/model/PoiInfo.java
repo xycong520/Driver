@@ -12,7 +12,7 @@ public class PoiInfo implements Parcelable {
     public String city;
     public String phoneNum;
     public String postCode;
-    public PoiInfo.POITYPE type;
+    public POITYPE type;
     public LatLng location;
     public boolean hasCaterDetails;
     public boolean isPano;
@@ -27,7 +27,7 @@ public class PoiInfo implements Parcelable {
         this.city = var1.readString();
         this.phoneNum = var1.readString();
         this.postCode = var1.readString();
-        this.type = (PoiInfo.POITYPE)var1.readValue(PoiInfo.POITYPE.class.getClassLoader());
+        this.type = (POITYPE)var1.readValue(POITYPE.class.getClassLoader());
         this.location = (LatLng)var1.readParcelable(LatLng.class.getClassLoader());
         this.hasCaterDetails = ((Boolean)var1.readValue(Boolean.class.getClassLoader())).booleanValue();
         this.isPano = ((Boolean)var1.readValue(Boolean.class.getClassLoader())).booleanValue();
@@ -66,7 +66,7 @@ public class PoiInfo implements Parcelable {
             return this.a;
         }
 
-        public static PoiInfo.POITYPE fromInt(int var0) {
+        public static POITYPE fromInt(int var0) {
             switch(var0) {
                 case 0:
                     return POINT;

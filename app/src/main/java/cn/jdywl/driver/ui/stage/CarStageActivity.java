@@ -114,6 +114,7 @@ public class CarStageActivity extends BaseActivity implements
         /*
          * 设置下拉刷新
          */
+        mSwipeLayout.setRefreshing(true);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
@@ -127,12 +128,7 @@ public class CarStageActivity extends BaseActivity implements
     boolean isProvinceSelect = false;
 
     private void init() {
-        tvNear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadNear();
-            }
-        });
+        tvNear.setVisibility(View.GONE);
         tvPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,65 +165,6 @@ public class CarStageActivity extends BaseActivity implements
         });
     }
 
-    private void loadNear() {
-        if (bReload) {
-            mData.setCurrentPage(0);
-        }
-        int page = mData.getCurrentPage() + 1;
-        String url = ApiConfig.api_url + ApiConfig.STAGE_NEARBY_URL +
-                "&city=" + tvCity.getText().toString() +
-                "&longitude="+lon+
-                "&latitude="+lat;
-//                "&page_size=" + ApiConfig.PAGE_SIZE +
-//                "&page=" + page;
-        AppConst.showDialog(this);
-        GsonRequest<CarStagePage> myReq = new GsonRequest<CarStagePage>(Request.Method.GET,
-                url,
-                CarStagePage.class,
-                null,
-                new Response.Listener<CarStagePage>() {
-                    @Override
-                    public void onResponse(CarStagePage response) {
-                        AppConst.dismiss();
-                        // 取消refresh
-                        mSwipeLayout.setRefreshing(false);
-                        if (bReload) {
-                            mData.getData().clear();
-                            bReload = false;
-                        }
-                        if (response == null) {
-                            LogHelper.i(TAG, "response为空");
-                            return;
-                        }
-//                        mData.add(response);
-                        mData.setTotal(response.getTotal());
-                        mData.setPerPage(response.getPerPage());
-                        mData.setCurrentPage(response.getCurrentPage());
-                        mData.setLastPage(response.getLastPage());
-                        mData.setFrom(response.getFrom());
-                        mData.setTo(response.getTo());
-                        mData.getData().addAll(response.getData());
-                        Log.i("CarStageActivity", mData.getData().size() + "");
-                        mAdapter.notifyDataSetChanged();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // 返回错误也要取消refresh
-                        mSwipeLayout.setRefreshing(false);
-                        AppConst.dismiss();
-                        bReload = false;
-
-                        Helper.processVolleyErrorMsg(CarStageActivity.this, error);
-                    }
-                });
-
-        //设置TAG，用于取消请求
-        myReq.setTag(TAG);
-
-        VolleySingleton.getInstance(this).addToRequestQueue(myReq);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -269,7 +206,20 @@ public class CarStageActivity extends BaseActivity implements
         //设置adapter
         mAdapter = new CarStageAdapter(mData.getData());
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int positon = (int) v.getTag();
+                Intent i = new Intent(CarStageActivity.this, StageInfoActivity.class);
+                i.putExtra(StageInfoActivity.ID, mData.getData().get(positon).getId());
+                i.putExtra(StageInfoActivity.PAC, mData.getData().get(positon).getProvince() + " " + mData.getData().get(positon).getCity());
+                i.putExtra(StageInfoActivity.ADDRESS, mData.getData().get(positon).getAddress());
+                i.putExtra(StageInfoActivity.MASTER, mData.getData().get(positon).getMaster());
+                i.putExtra(StageInfoActivity.STAGENAME, mData.getData().get(positon).getStation());
+                i.putExtra(StageInfoActivity.CENTER, mData.getData().get(positon).getOperation_center());
+                startActivity(i);
+            }
+        });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
@@ -348,15 +298,14 @@ public class CarStageActivity extends BaseActivity implements
     }
 
     private void loadCity() {
-        if (citys!=null){
+        if (citys!=null && citys.size()>0){
             showPw(tvCity, tvCity, citys);
             return;
         }
         String url = ApiConfig.api_url + ApiConfig.STAGE_CITY_URL +
-                "&province= " + URLEncoder.encode(tvPro.getText().toString());
+                "&province=" + URLEncoder.encode(tvPro.getText().toString());
         AppConst.showDialog(this);
-       /* Map<String ,String> parmes = new HashMap<>();
-        parmes.put("province",tvPro.getText().toString());*/
+
         MyJsonRequest myReq = new MyJsonRequest(Request.Method.GET,
                 url,
                 "",
@@ -365,7 +314,6 @@ public class CarStageActivity extends BaseActivity implements
                     @Override
                     public void onResponse(JSONArray response) {
                         AppConst.dismiss();
-                        Log.i("城市：", response.toString());
                         citys = new ArrayList<>();
                         try {
                             for (int i = 0; i < response.length(); i++) {
@@ -397,8 +345,8 @@ public class CarStageActivity extends BaseActivity implements
         }
         int page = mData.getCurrentPage() + 1;
         String url = ApiConfig.api_url + ApiConfig.STAGE_URL +
-                "province=" + tvPro.getText().toString() +
-                "city=" + tvCity.getText().toString() +
+                "&province=" + URLEncoder.encode(tvPro.getText().toString()) +
+                "&city=" + URLEncoder.encode(tvCity.getText().toString()) +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
         AppConst.showDialog(this);
@@ -463,8 +411,8 @@ public class CarStageActivity extends BaseActivity implements
         }
 
         String url = ApiConfig.api_url + ApiConfig.api_url + ApiConfig.STAGE_URL +
-                "province=" +
-                "city=" +
+                "&province=" +
+                "&city=" +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 
@@ -476,7 +424,7 @@ public class CarStageActivity extends BaseActivity implements
                     @Override
                     public void onResponse(CarStagePage response) {
                         loading = false;
-
+                        mSwipeLayout.setRefreshing(true);
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
@@ -497,7 +445,7 @@ public class CarStageActivity extends BaseActivity implements
                     public void onErrorResponse(VolleyError error) {
                         // 返回错误也要取消正在加载
                         loading = false;
-
+                        mSwipeLayout.setRefreshing(true);
                         Helper.processVolleyErrorMsg(CarStageActivity.this, error);
                     }
                 });
@@ -539,12 +487,14 @@ public class CarStageActivity extends BaseActivity implements
     @Override
     public void onLocationSuccess(BDLocation location) {
         if (!isMapView) {
-            tvPro.setText(location.getProvince());
-            tvCity.setText(location.getCity());
+            tvPro.setText(location.getProvince().replace("省",""));
+            tvCity.setText(location.getCity().replace("市",""));
             lat = String.valueOf(location.getLatitude());
             lon = String.valueOf(location.getLongitude());
             if (mData.getData().size()<1){
                 loadData();
+            }else {
+                mSwipeLayout.setRefreshing(false);
             }
             if (provinceItemList == null){
                 loadProvinces();
@@ -597,12 +547,13 @@ public class CarStageActivity extends BaseActivity implements
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    bReload = true;
                     if (isProvinceSelect && !tv.getText().toString().equals(string.get(i))) {
                         citys = null;
                         tvCity.setText("");
                     }
-                    loadData();
                     tv.setText(string.get(i));
+                    loadData();
                     popupWindow.dismiss();
 
                 }

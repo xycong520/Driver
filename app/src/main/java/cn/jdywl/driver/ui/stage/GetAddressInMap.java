@@ -79,6 +79,7 @@ public class GetAddressInMap extends BaseActivity {
         iniEvent();
     }
 
+
     private void init() {
         ibMLLocate = (ImageButton) findViewById(R.id.ibMLLocate);
         etMLCityPoi = (EditText) findViewById(R.id.etMLCityPoi);
@@ -506,7 +507,8 @@ public class GetAddressInMap extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (item.getItemId()) {
-            //点击拨打客服热线
+            case android.R.id.home:
+                finish();
             case R.id.action_ok:
                 Intent intent = new Intent();
                 if (mChoseItemPos!=0){

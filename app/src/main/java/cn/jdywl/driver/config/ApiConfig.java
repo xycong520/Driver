@@ -77,12 +77,18 @@ public class ApiConfig {
     public static final String STAGE_NEARBY_URL = "stations/nearby"+DEBUG_PARA;
     public static final String STAGE_OFMASTER_URL = "stations/ofmaster"+DEBUG_PARA;
     public static String STAGE_POSOTION_URL = "stations/position"+DEBUG_PARA;
+    public static String STAGE_SERVICE_URL = "stations/service"+DEBUG_PARA;
     public static final String STAGE_PRICE_URL = "express/price" +DEBUG_PARA;
     public static final String STAGE_EXPRESS_URL = "express" +DEBUG_PARA;
     public static final String STAGE_ROUTE_URL = "express/route" +DEBUG_PARA;
-    public static final String STAGE_CAROWNER_HISTRY_URL = "express/carownerHistory" +DEBUG_PARA;
-    public static final String STAGE_SDRIVER_URL = "express/sdriver" +DEBUG_PARA;
+    public static final String STAGE_MARKET_URL = "express/market" +DEBUG_PARA;//待拖运
+    public static final String STAGE_CAROWNER_URL = "express/carowner" +DEBUG_PARA;//托运中
+    public static final String STAGE_CAROWNER_HISTRY_URL = "express/carownerHistory" +DEBUG_PARA;//所有
+    public static String STAGE_ORDER_URL = "express/order" +DEBUG_PARA;//接单
+    public static String STAGE_CANCEL_URL = "express/cancel" +DEBUG_PARA;//取消订单
+    public static String STAGE_FINISH_URL = "express/finish" +DEBUG_PARA;//完成订单
     public static final String STAGE_SDRIVER_HISTORY_URL = "express/sdriverHistory" +DEBUG_PARA;
+    public static final String STAGE_SDRIVER_URL = "express/sdriver" +DEBUG_PARA;
     public static final String STAGE_ORIGINS_URL = "express/origins" +DEBUG_PARA;
     public static final String STAGE_DESTINATIONS_URL = "express/destinations" +DEBUG_PARA;
 

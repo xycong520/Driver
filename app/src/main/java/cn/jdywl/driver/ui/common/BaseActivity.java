@@ -25,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AppBarLa
         LogHelper.d(TAG, "Activity onCreate");
     }
 
+
     //设置Toolbar
     protected void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);

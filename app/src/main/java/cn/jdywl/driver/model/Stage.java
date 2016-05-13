@@ -38,6 +38,13 @@ public class Stage implements Serializable{
     @SerializedName("province")
     @Expose
     private String province;
+    @SerializedName("position")
+    @Expose
+    private String position;
+
+    public String getPosition() {
+        return position;
+    }
 
     public void setId(int id) {
         this.id = id;

@@ -93,7 +93,7 @@ public class SPendingFragment extends BaseFragment implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         //设置adapter
-        mAdapter = new SOrderRvAdapter(mData.getData(), SOrderRvAdapter.FROM_CAROWNER);
+        mAdapter = new SOrderRvAdapter(mData.getData(), SOrderRvAdapter.FROM_PENDING);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -127,7 +127,7 @@ public class SPendingFragment extends BaseFragment implements
             mData.setCurrentPage(0);
         }
         long page = mData.getCurrentPage() + 1;
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_HISTRY_URL +
+        String url = ApiConfig.api_url + ApiConfig.STAGE_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
@@ -196,7 +196,7 @@ public class SPendingFragment extends BaseFragment implements
         }
 
         int page = mData.getCurrentPage() + 1;
-        String url = ApiConfig.api_url + ApiConfig.CAROWNER_ORDER_URL +
+        String url = ApiConfig.api_url + ApiConfig.STAGE_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 

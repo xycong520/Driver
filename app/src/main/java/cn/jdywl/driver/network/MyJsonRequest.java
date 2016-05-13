@@ -1,6 +1,7 @@
 package cn.jdywl.driver.network;
 
 import android.util.Base64;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -40,7 +41,6 @@ public class MyJsonRequest extends JsonArrayRequest {
         setApiVersion();
     }
 
-
     /**
      * Creates a new request.
      *
@@ -75,6 +75,7 @@ public class MyJsonRequest extends JsonArrayRequest {
         if (AppConfig.bLogin && (!AppConfig.phone.isEmpty()) && (!AppConfig.password.isEmpty())) {
             String loginEncoded = new String(Base64.encode((AppConfig.phone + ":" + AppConfig.password).getBytes(), Base64.NO_WRAP));
             this.headers.put("Authorization", "Basic " + loginEncoded);
+            this.headers.put("Accept", "application/vnd.jindouyun.v1+json");
         }
     }
 
@@ -92,12 +93,9 @@ public class MyJsonRequest extends JsonArrayRequest {
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
 
-        return params != null ? params : super.getParams();
+        return params ;
     }
 
-    public void setHeader(String title, String content) {
-        headers.put(title, content);
-    }
 
     private String ascii2native(String asciicode) {
         String[] asciis = asciicode.split("\\\\u");
@@ -121,6 +119,7 @@ public class MyJsonRequest extends JsonArrayRequest {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+            Log.i("json",ascii2native(jsonString));
             JSONArray array = new JSONArray(jsonString);
             return Response.success(array,
                     HttpHeaderParser.parseCacheHeaders(response));

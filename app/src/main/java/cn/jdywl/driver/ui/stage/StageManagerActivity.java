@@ -81,6 +81,7 @@ public class StageManagerActivity extends BaseActivity implements
          * 设置下拉刷新
          */
         mSwipeLayout.setEnabled(true);
+        mSwipeLayout.setRefreshing(true);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
@@ -113,8 +114,9 @@ public class StageManagerActivity extends BaseActivity implements
         params.put("longitude", lon);
         params.put("latitude", lat);
         params.put("position", Address);
+        params.put("address", Address);
         params.put("gathertime", AppConst.getCurTime());
-        GsonRequest<Stage> myReq = new GsonRequest<Stage>(Request.Method.POST,
+        GsonRequest<Stage> myReq = new GsonRequest<Stage>(Request.Method.PUT,
                 url,
                 Stage.class,
                 params,
@@ -171,7 +173,12 @@ public class StageManagerActivity extends BaseActivity implements
             @Override
             public void onClick(View v) {
                 int position = (int) v.getTag();
-                startActivityForResult(new Intent(StageManagerActivity.this,GetAddressInMap.class),position);
+//                if (mData.get(position).getLatitude() == 0 || TextUtils.isEmpty(mData.get(position).getPosition())) {
+                startActivityForResult(new Intent(StageManagerActivity.this, GetAddressInMap.class), position);
+//                } else {
+//                    //打开详情
+//
+//                }
             }
         });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
