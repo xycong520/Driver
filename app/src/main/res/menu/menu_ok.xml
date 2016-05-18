@@ -4,6 +4,6 @@
     tools:context="cn.jdywl.driver.ui.common.PayActivity">
     <item
         android:id="@+id/action_ok"
-        android:title="确定"
+        android:title="上传位置"
         app:showAsAction="always|withText" />
 </menu>

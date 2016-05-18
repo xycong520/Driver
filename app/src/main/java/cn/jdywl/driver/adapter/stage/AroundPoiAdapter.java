@@ -83,9 +83,9 @@ public class AroundPoiAdapter extends BaseAdapter {
 		holder.tvMLIPoiAddress.setText(mkPoiInfoList.get(position).address);
 		Boolean state = mChosenItem.get(position);
 		if (state != null && state) {
-			holder.ivMLISelected.setImageResource(R.drawable.icon_checkbox_locationlist);
+			holder.ivMLISelected.setImageResource(R.drawable.ic_checked);
 		} else {
-			holder.ivMLISelected.setImageResource(R.drawable.icon_checkbox_planlist_u);
+			holder.ivMLISelected.setImageResource(R.drawable.ic_unchecked);
 		}
 		holder.rlMLPIItem.setOnClickListener(new OnClickListener() {
 

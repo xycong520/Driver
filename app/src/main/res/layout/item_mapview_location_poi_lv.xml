@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:src="@drawable/icon_checkbox_planlist_u" />
+        android:src="@drawable/selector_pay" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -295,7 +295,7 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             //cast holder to VHItem and set data
             NavViewHolder navHolder = (NavViewHolder) viewHolder;
-            if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + MainActivity.STAGE_COUNT) {
+            if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.length) {
                 navHolder.getTextView().setText(mStageSet[position - 2 - MainActivity.MENU_COUNT]);
                 navHolder.getImgView().setImageResource(mStageImgSet[position - 2 - MainActivity.MENU_COUNT]);
             } else {
@@ -387,11 +387,11 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return TYPE_NAV;
         } else if (position == MainActivity.MENU_COUNT + 1) {
             return TYPE_NAV_STAGE_HEADER;
-        } else if (position > MainActivity.MENU_COUNT+ 1 && position <= MainActivity.MENU_COUNT+ 1 + MainActivity.STAGE_COUNT) {
+        } else if (position > MainActivity.MENU_COUNT+ 1 && position <= MainActivity.MENU_COUNT+ 1 + mStageSet.length) {
             return TYPE_NAV_STAGE;
-        } else if (position == MainActivity.MENU_COUNT+ 1 + MainActivity.STAGE_COUNT + 1) {
+        } else if (position == MainActivity.MENU_COUNT+ 1 + mStageSet.length + 1) {
             return TYPE_MARKET_HEADER;
-        } else if (position == (mDataSet.size() + MainActivity.MENU_COUNT+ 1 + MainActivity.STAGE_COUNT + 2)) {  //最后一个元素
+        } else if (position == (mDataSet.size() + MainActivity.MENU_COUNT+ 1 + mStageSet.length+ 2)) {  //最后一个元素
             return TYPE_MARKET_FOOTER;
         } else {
             return TYPE_MARKET;

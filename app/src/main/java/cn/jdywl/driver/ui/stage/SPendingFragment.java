@@ -71,8 +71,9 @@ public class SPendingFragment extends BaseFragment implements
 
         //设置下拉刷新
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(R.color.colorAccent,R.color.colorPrimary);
-
+        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+        mSwipeLayout.setEnabled(true);
+        mSwipeLayout.setRefreshing(true);
         //设置RecyclerView
         setupRecyclerView(rvCorder);
 

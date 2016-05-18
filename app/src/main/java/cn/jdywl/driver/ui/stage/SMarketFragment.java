@@ -76,6 +76,7 @@ public class SMarketFragment extends BaseFragment implements
          */
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+        mSwipeLayout.setRefreshing(true);
 
         setupRecyclerView(mRecyclerView);
 

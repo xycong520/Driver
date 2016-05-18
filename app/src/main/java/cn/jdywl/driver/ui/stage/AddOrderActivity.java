@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,7 +33,6 @@ import cn.jdywl.driver.model.OrderItem;
 import cn.jdywl.driver.model.PriceItem;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseActivity;
-import cn.jdywl.driver.ui.common.PayActivity;
 
 public class AddOrderActivity extends BaseActivity implements AddOrderFragment.OnAddOrderFragmentListener {
     //设置tag，用于在activity stop时取消Volley的请求
@@ -97,7 +97,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
 
 
         // Request a JSON response from the provided URL.
-        GsonRequest<OrderItem> myReq = new GsonRequest<OrderItem>(Request.Method.PUT,
+        GsonRequest<OrderItem> myReq = new GsonRequest<OrderItem>(Request.Method.POST,
                 //"http://valisendtime.jsontest.com/?json={'key':'value'}",
                 url,
                 OrderItem.class,
@@ -112,13 +112,14 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
                             return;
                         }
                         //跳转到支付页面
-                        Intent it = new Intent(AddOrderActivity.this, PayActivity.class);
+                        /*Intent it = new Intent(AddOrderActivity.this, PayActivity.class);
 
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("order", response);
                         it.putExtras(bundle);
 
-                        startActivity(it);
+                        startActivity(it);*/
+                        Toast.makeText(AddOrderActivity.this,"下单成功",Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -133,7 +134,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
                 });
 
         myReq.setTag(TAG);
-
+        myReq.setRetryPolicy(new DefaultRetryPolicy(20*1000,1,1.0f));
         VolleySingleton.getInstance(this).addToRequestQueue(myReq);
     }
 

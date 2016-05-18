@@ -74,7 +74,6 @@ public class MainActivity extends AppUpdateActivity {
     //设置RecycleView的span为4
     public final int SPAN_COUNT = 4;
     public final static int MENU_COUNT = 7;
-    public static int STAGE_COUNT = 4;
 
     protected Integer[] mTitleId = {
             R.string.home_title_carowner, R.string.home_title_driver,
@@ -185,7 +184,7 @@ public class MainActivity extends AppUpdateActivity {
                     return 1;
                 } else if (position == MENU_COUNT + 1) {
                     return SPAN_COUNT;
-                } else if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + STAGE_COUNT) {
+                } else if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.length) {
                     return 1;
                 } else {
                     return SPAN_COUNT;
@@ -195,6 +194,13 @@ public class MainActivity extends AppUpdateActivity {
 
         rv.setLayoutManager(mLayoutManager);
 
+        if (!getMasterRoles().equals("station_master")) {
+            isMaster= false;
+            mStageID = removeElement(mStageID, 1);
+            mStageImgID = removeElement(mStageImgID, 1);
+        }else{
+            isMaster = true;
+        }
         mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData());
         rv.setAdapter(mAdapter);
 
@@ -206,7 +212,7 @@ public class MainActivity extends AppUpdateActivity {
         rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         */
 
-        mAdapter.setOnItemClickLitener(new HomeGvAdapter.OnItemClickLitener() {
+        mAdapter.setOnItemClickLitener(onItemClickLitener = new HomeGvAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
                 if (position == 0) {
@@ -238,7 +244,10 @@ public class MainActivity extends AppUpdateActivity {
                     }
                     return;
                 }
-                if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + STAGE_COUNT) {
+                if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.length) {
+                    if (!isMaster && position >=MENU_COUNT+3){
+                        position +=1;
+                    }
                     switch (position) {
                         case MENU_COUNT + 2:
                             OpenCarStageActivity();
@@ -252,12 +261,11 @@ public class MainActivity extends AppUpdateActivity {
                         case MENU_COUNT + 5:
                             OpenMyAcceptOrderActivity();
                             break;
-
                     }
                     return;
                 }
 
-                if (position == MENU_COUNT + 1 + STAGE_COUNT + 1) {
+                if (position == MENU_COUNT + 1 + mStageID.length + 1) {
                     OpenDMainActivity();
                 }
             }
@@ -268,6 +276,7 @@ public class MainActivity extends AppUpdateActivity {
             }
         });
     }
+    HomeGvAdapter.OnItemClickLitener onItemClickLitener  ;
 
     void requestLocationPermission() {
         // Here, thisActivity is the current activity
@@ -516,27 +525,24 @@ public class MainActivity extends AppUpdateActivity {
             Intent it = new Intent(this, LoginActivity.class);
             startActivityForResult(it, LoginActivity.LOGIN);
         }
-
-
+        initStageMenu();
         //加载订单和统计
         loadStats();
         loadOrder();
-
     }
 
+    boolean isMaster = true;
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void
+    onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == LoginActivity.LOGIN) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 //登录成功
                 Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-                if (!getMasterRoles().equals("station_master")) {
-                    mStageID = removeElement(mStageID, 1);
-                    mStageImgID = removeElement(mStageImgID, 1);
-                    STAGE_COUNT -= 1;
-                }
+                initStageMenu();
+
                 //Android M以上版本需要动态申请权限
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //申请用户权限
@@ -548,6 +554,26 @@ public class MainActivity extends AppUpdateActivity {
                 }
             }
         }
+    }
+
+    private void initStageMenu() {
+        isMaster= true;
+        mStageID = new Integer[]{
+                R.string.home_title_stage1, R.string.home_title_stage2
+                , R.string.home_title_stage3, R.string.home_title_stage4
+        };
+        mStageImgID = new Integer[] {
+                R.drawable.home_title_fast_train, R.drawable.home_tile_stage
+                , R.drawable.home_title_fast_train, R.drawable.home_tile_stage
+        };
+        if (!getMasterRoles().equals("station_master")) {
+            isMaster= false;
+            mStageID = removeElement(mStageID, 1);
+            mStageImgID = removeElement(mStageImgID, 1);
+        }
+        mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData());
+        rvHome.setAdapter(mAdapter);
+        mAdapter.setOnItemClickLitener(onItemClickLitener);
     }
 
     @Override
