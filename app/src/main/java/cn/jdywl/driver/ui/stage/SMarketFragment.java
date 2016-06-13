@@ -128,7 +128,6 @@ public class SMarketFragment extends BaseFragment implements
     }
 
 
-
     @Override
     public void onStop() {
         super.onStop();
@@ -168,8 +167,7 @@ public class SMarketFragment extends BaseFragment implements
                             mData.getData().clear();
                             bReload = false;
                         }
-                        if(response == null)
-                        {
+                        if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
@@ -226,8 +224,7 @@ public class SMarketFragment extends BaseFragment implements
                     public void onResponse(StageOrderPage response) {
                         loading = false;
 
-                        if(response == null)
-                        {
+                        if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
@@ -272,8 +269,7 @@ public class SMarketFragment extends BaseFragment implements
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals(DMainActivity.REFRESH_ACTION))
-            {
+            if (action.equals(DMainActivity.REFRESH_ACTION)) {
                 boolean enabled = intent.getBooleanExtra("enabled", true);
                 mSwipeLayout.setEnabled(enabled);
             }

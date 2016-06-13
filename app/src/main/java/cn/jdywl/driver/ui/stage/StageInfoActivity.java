@@ -31,6 +31,7 @@ import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.model.ServiceItem;
 import cn.jdywl.driver.network.MyJsonRequest;
 import cn.jdywl.driver.ui.common.BaseActivity;
+import cn.jdywl.driver.ui.drayage.NearByActivity;
 
 /**
  * Created by Administrator on 2016/5/12.
@@ -136,7 +137,7 @@ public class StageInfoActivity extends BaseActivity {
     void setupRecyclerView(RecyclerView rv) {
         //布局为GridView
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 4);
-        ((GridLayoutManager) mLayoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 return 1;
@@ -156,13 +157,15 @@ public class StageInfoActivity extends BaseActivity {
         rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         */
 
-        mAdapter.setOnItemClickLitener(new View.OnClickListener(){
+        mAdapter.setOnItemClickLitener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String name  = (String) v.getTag();
-                if ("小板速运".equals(name)){
-                    startActivity(new Intent(StageInfoActivity.this,AddOrderActivity.class));
+                String name = (String) v.getTag();
+                if ("小板速运".equals(name)) {
+                    startActivity(new Intent(StageInfoActivity.this, AddOrderActivity.class));
+                }else if("市内提车".equals(name) || "室内交车".equals(name)){
+                    startActivity(new Intent(StageInfoActivity.this, NearByActivity.class));
                 }
             }
         });

@@ -116,12 +116,12 @@ public class StageOrderInfoActivity extends BaseActivity {
     }
 
     private void accept() {
-        String url="";
-        if (form == FROM_SMARKET){
+        String url = "";
+        if (form == FROM_SMARKET) {
             url = ApiConfig.api_url + ApiConfig.STAGE_ORDER_URL.replace("/", "/" + order.getId() + "/");
-        }else if(form == FROM_SPENDING){
+        } else if (form == FROM_SPENDING) {
             url = ApiConfig.api_url + ApiConfig.STAGE_CANCEL_URL.replace("/", "/" + order.getId() + "/");
-        }else if(form == FROM_SORDER){
+        } else if (form == FROM_SORDER) {
             url = ApiConfig.api_url + ApiConfig.STAGE_FINISH_URL.replace("/", "/" + order.getId() + "/");
         }
         AppConst.showDialog(this);
@@ -133,11 +133,11 @@ public class StageOrderInfoActivity extends BaseActivity {
                     @Override
                     public void onResponse(StageOrderItem response) {
                         AppConst.dismiss();
-                        if (form == FROM_SMARKET){
+                        if (form == FROM_SMARKET) {
                             Toast.makeText(StageOrderInfoActivity.this, "接单成功", Toast.LENGTH_SHORT).show();
-                        }else if(form == FROM_SPENDING){
+                        } else if (form == FROM_SPENDING) {
                             Toast.makeText(StageOrderInfoActivity.this, "取消成功", Toast.LENGTH_SHORT).show();
-                        }else if(form == FROM_SORDER){
+                        } else if (form == FROM_SORDER) {
                             Toast.makeText(StageOrderInfoActivity.this, "完成订单成功", Toast.LENGTH_SHORT).show();
                         }
 

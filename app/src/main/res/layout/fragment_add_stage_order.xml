@@ -109,7 +109,6 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:id="@+id/ll_carPrice"
                 android:layout_width="match_parent"
@@ -169,6 +168,7 @@
                     android:textColor="@color/gray_title"
                     android:textSize="14sp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -240,6 +240,7 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/title_margin"
             android:paddingRight="@dimen/title_margin">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -263,6 +264,7 @@
                     android:textColor="@color/gray_title"
                     android:textSize="14sp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -286,6 +288,7 @@
                     android:textColor="@color/gray_title"
                     android:textSize="14sp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_fetchAddr"
                 android:layout_width="match_parent"
@@ -327,6 +330,7 @@
                 android:inflatedId="@+id/stub_sanche"
                 android:layout="@layout/sanche_layout"/>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_carNum"
             android:layout_width="match_parent"

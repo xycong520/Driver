@@ -119,7 +119,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
                         it.putExtras(bundle);
 
                         startActivity(it);*/
-                        Toast.makeText(AddOrderActivity.this,"下单成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddOrderActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -134,7 +134,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
                 });
 
         myReq.setTag(TAG);
-        myReq.setRetryPolicy(new DefaultRetryPolicy(20*1000,1,1.0f));
+        myReq.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
         VolleySingleton.getInstance(this).addToRequestQueue(myReq);
     }
 
@@ -192,7 +192,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
     @Override
     public void updatePrice(PriceItem price) {
         if (price != null) {
-            tvTotalBill.setText(String.format("总费用：%d元", price.getCharge()+price.getInsurance()));
+            tvTotalBill.setText(String.format("总费用：%d元", price.getCharge() + price.getInsurance()));
             tvPrice.setText(String.format(getString(R.string.stage_price), price.getCharge(), price.getInsurance(), price.getSrvFee() + price.getDeposit()));
         } else {
             tvTotalBill.setText("总费用：0元");
@@ -208,8 +208,8 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            orderFragment.onActivityResult(requestCode,resultCode,data);
+        if (resultCode == RESULT_OK) {
+            orderFragment.onActivityResult(requestCode, resultCode, data);
 //            orderFragment.setAddress(data.getStringExtra("address"),data.getStringExtra("addressX"),data.getStringExtra("addressY"));
         }
     }

@@ -366,12 +366,13 @@ public class LoginActivity extends BaseActivity {
                                 editor.putString(AppConst.KEY_PREF_AUTH_PASSWORD, AppConfig.password);
                                 editor.putString(AppConst.KEY_PREF_AUTH_NAME, name);
                                 editor.putLong(AppConst.KEY_PREF_AUTH_LOGINTIME, AppConfig.logintime);
-                                if(response.getRoles()!=null){
-                                    for (String roles:response.getRoles()){
-                                        if ("station_driver".equals(roles)){
-                                            editor.putString(AppConst.KEY_PREF_AUTH_ROLES_DRIVER,roles);
-                                        }else if("station_master".equals(roles)){
-                                            editor.putString(AppConst.KEY_PREF_AUTH_ROLES_MASTER,roles);
+                                //TODO:没有处理角色减少的情况
+                                if (response.getRoles() != null) {
+                                    for (String roles : response.getRoles()) {
+                                        if ("station_driver".equals(roles)) {
+                                            editor.putString(AppConst.KEY_PREF_AUTH_ROLES_DRIVER, roles);
+                                        } else if ("station_master".equals(roles)) {
+                                            editor.putString(AppConst.KEY_PREF_AUTH_ROLES_MASTER, roles);
                                         }
                                     }
                                 }

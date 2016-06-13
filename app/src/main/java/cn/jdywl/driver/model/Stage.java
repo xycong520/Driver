@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class Stage implements Serializable{
+public class Stage implements Serializable {
     @Expose
     private int id;
     @SerializedName("master")
@@ -89,6 +89,7 @@ public class Stage implements Serializable{
     public int getId() {
         return id;
     }
+
     public String getOperation_center() {
         return operation_center;
     }

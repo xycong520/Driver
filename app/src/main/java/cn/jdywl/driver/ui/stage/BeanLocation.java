@@ -3,266 +3,266 @@ package cn.jdywl.driver.ui.stage;
 import java.io.Serializable;
 
 /**
- * 
+ *
  */
 public class BeanLocation implements /* Parcelable, */Cloneable, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private String uid;
-	public String locName;// 地名
-	public String province;// 省名
-	public String city;// 城市
-	public String district;// 区名
-	public String street;// 街道
-	public String streetNum;// 街道號
-	public Double latitude;// 纬度
-	public Double longitude;// 经度
-	public String time;
-	public int locType;
-	public float radius;
-	// gps才有的
-	public float speed;
-	public int satellite;
-	public float direction;
-	// wifi才有的
-	public String addStr;// 具体地址
-	public int operationers;
-	// 用户信息的
-	public String userId;
-	public String userName;
-	public String userAvator;
-	// 额外输入的详细地名
-	public String detailAddInput;
+    /**
+     *
+     */
+    private String uid;
+    public String locName;// 地名
+    public String province;// 省名
+    public String city;// 城市
+    public String district;// 区名
+    public String street;// 街道
+    public String streetNum;// 街道號
+    public Double latitude;// 纬度
+    public Double longitude;// 经度
+    public String time;
+    public int locType;
+    public float radius;
+    // gps才有的
+    public float speed;
+    public int satellite;
+    public float direction;
+    // wifi才有的
+    public String addStr;// 具体地址
+    public int operationers;
+    // 用户信息的
+    public String userId;
+    public String userName;
+    public String userAvator;
+    // 额外输入的详细地名
+    public String detailAddInput;
 
-	@Override
-	public Object clone() {
-		BeanLocation o = null;
-		try {
-			// Object中的clone()识别出你要复制的是哪一个对象。
-			o = (BeanLocation) super.clone();
-		} catch (CloneNotSupportedException e) {
-		}
-		return o;
-	}
+    @Override
+    public Object clone() {
+        BeanLocation o = null;
+        try {
+            // Object中的clone()识别出你要复制的是哪一个对象。
+            o = (BeanLocation) super.clone();
+        } catch (CloneNotSupportedException e) {
+        }
+        return o;
+    }
 
-	public String getUid() {
-		return uid;
-	}
+    public String getUid() {
+        return uid;
+    }
 
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-	public String getLocName() {
-		return locName;
-	}
+    public String getLocName() {
+        return locName;
+    }
 
-	public void setLocName(String locName) {
-		this.locName = locName;
-	}
+    public void setLocName(String locName) {
+        this.locName = locName;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getDistrict() {
-		return district;
-	}
+    public String getDistrict() {
+        return district;
+    }
 
-	public void setDistrict(String district) {
-		this.district = district;
-	}
+    public void setDistrict(String district) {
+        this.district = district;
+    }
 
-	public String getStreet() {
-		return street;
-	}
+    public String getStreet() {
+        return street;
+    }
 
-	public void setStreet(String Street) {
-		this.street = Street;
-	}
+    public void setStreet(String Street) {
+        this.street = Street;
+    }
 
-	public String getStreetNum() {
-		return streetNum;
-	}
+    public String getStreetNum() {
+        return streetNum;
+    }
 
-	public void setStreetNum(String streetNum) {
-		this.streetNum = streetNum;
-	}
+    public void setStreetNum(String streetNum) {
+        this.streetNum = streetNum;
+    }
 
-	public Double getLatitude() {
-		return latitude;
-	}
+    public Double getLatitude() {
+        return latitude;
+    }
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-	public Double getLongitude() {
-		return longitude;
-	}
+    public Double getLongitude() {
+        return longitude;
+    }
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
-	public String getProvince() {
-		return province;
-	}
+    public String getProvince() {
+        return province;
+    }
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
-	public String getTime() {
-		return time;
-	}
+    public String getTime() {
+        return time;
+    }
 
-	public void setTime(String time) {
-		this.time = time;
-	}
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	public int getLocType() {
-		return locType;
-	}
+    public int getLocType() {
+        return locType;
+    }
 
-	public void setLocType(int locType) {
-		this.locType = locType;
-	}
+    public void setLocType(int locType) {
+        this.locType = locType;
+    }
 
-	public float getRadius() {
-		return radius;
-	}
+    public float getRadius() {
+        return radius;
+    }
 
-	public void setRadius(float radius) {
-		this.radius = radius;
-	}
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
 
-	public float getSpeed() {
-		return speed;
-	}
+    public float getSpeed() {
+        return speed;
+    }
 
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
 
-	public int getSatellite() {
-		return satellite;
-	}
+    public int getSatellite() {
+        return satellite;
+    }
 
-	public void setSatellite(int satellite) {
-		this.satellite = satellite;
-	}
+    public void setSatellite(int satellite) {
+        this.satellite = satellite;
+    }
 
-	public String getAddStr() {
-		return addStr;
-	}
+    public String getAddStr() {
+        return addStr;
+    }
 
-	public void setAddStr(String addStr) {
-		this.addStr = addStr;
-	}
+    public void setAddStr(String addStr) {
+        this.addStr = addStr;
+    }
 
-	public int getOperationers() {
-		return operationers;
-	}
+    public int getOperationers() {
+        return operationers;
+    }
 
-	public void setOperationers(int operationers) {
-		this.operationers = operationers;
-	}
+    public void setOperationers(int operationers) {
+        this.operationers = operationers;
+    }
 
-	public float getDirection() {
-		return direction;
-	}
+    public float getDirection() {
+        return direction;
+    }
 
-	public void setDirection(float direction) {
-		this.direction = direction;
-	}
+    public void setDirection(float direction) {
+        this.direction = direction;
+    }
 
-	// @Override
-	// public int describeContents() {
-	// return 0;
-	// }
+    // @Override
+    // public int describeContents() {
+    // return 0;
+    // }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public String getUserAvator() {
-		return userAvator;
-	}
+    public String getUserAvator() {
+        return userAvator;
+    }
 
-	public void setUserAvator(String userAvator) {
-		this.userAvator = userAvator;
-	}
+    public void setUserAvator(String userAvator) {
+        this.userAvator = userAvator;
+    }
 
-	public String getDetailAddInput() {
-		return detailAddInput;
-	}
+    public String getDetailAddInput() {
+        return detailAddInput;
+    }
 
-	public void setDetailAddInput(String detailAddInput) {
-		this.detailAddInput = detailAddInput;
-	}
+    public void setDetailAddInput(String detailAddInput) {
+        this.detailAddInput = detailAddInput;
+    }
 
-	// @Override
-	// public void writeToParcel(Parcel dest, int flags) {
-	// dest.writeString(locName);
-	// dest.writeString(province);
-	// dest.writeString(city);
-	// dest.writeString(district);
-	// dest.writeString(street);
-	// dest.writeString(addStr);
-	// dest.writeDouble(latitude);
-	// dest.writeDouble(longitude);
-	// dest.writeString(userId);
-	// dest.writeString(userName);
-	// dest.writeString(userAvator);
-	// dest.writeString(detailAddInput);
-	// }
+    // @Override
+    // public void writeToParcel(Parcel dest, int flags) {
+    // dest.writeString(locName);
+    // dest.writeString(province);
+    // dest.writeString(city);
+    // dest.writeString(district);
+    // dest.writeString(street);
+    // dest.writeString(addStr);
+    // dest.writeDouble(latitude);
+    // dest.writeDouble(longitude);
+    // dest.writeString(userId);
+    // dest.writeString(userName);
+    // dest.writeString(userAvator);
+    // dest.writeString(detailAddInput);
+    // }
 
-	// public static final Parcelable.Creator<LocationBean> CREATOR = new
-	// Parcelable.Creator<LocationBean>() {
-	//
-	// public LocationBean createFromParcel(Parcel source) {
-	// LocationBean loc = new LocationBean();
-	// loc.setLocName(source.readString());
-	// loc.setProvince(source.readString());
-	// loc.setCity(source.readString());
-	// loc.setDistrict(source.readString());
-	// loc.setStreet(source.readString());
-	// loc.setAddStr(source.readString());
-	// loc.setLatitude(source.readDouble());
-	// loc.setLongitude(source.readDouble());
-	// loc.setUserId(source.readString());
-	// loc.setUserName(source.readString());
-	// loc.setUserAvator(source.readString());
-	// loc.setDetailAddInput(source.readString());
-	// return loc;
-	// }
-	//
-	// public LocationBean[] newArray(int size) {
-	// return new LocationBean[size];
-	// }
-	// };
+    // public static final Parcelable.Creator<LocationBean> CREATOR = new
+    // Parcelable.Creator<LocationBean>() {
+    //
+    // public LocationBean createFromParcel(Parcel source) {
+    // LocationBean loc = new LocationBean();
+    // loc.setLocName(source.readString());
+    // loc.setProvince(source.readString());
+    // loc.setCity(source.readString());
+    // loc.setDistrict(source.readString());
+    // loc.setStreet(source.readString());
+    // loc.setAddStr(source.readString());
+    // loc.setLatitude(source.readDouble());
+    // loc.setLongitude(source.readDouble());
+    // loc.setUserId(source.readString());
+    // loc.setUserName(source.readString());
+    // loc.setUserAvator(source.readString());
+    // loc.setDetailAddInput(source.readString());
+    // return loc;
+    // }
+    //
+    // public LocationBean[] newArray(int size) {
+    // return new LocationBean[size];
+    // }
+    // };
 
 }

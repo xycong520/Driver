@@ -58,6 +58,10 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2">
+                </action>
+            </intent-filter>
         </service>
 
         <activity
@@ -185,6 +189,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.stage.MyAcceptOrderActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.drayage.NearByActivity"
+            android:label="附近司机"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.stage.StageInfoActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.stage.StageInfoActivity"/>
         </activity>
         <activity
             android:name=".ui.LoginActivity"

@@ -279,7 +279,7 @@ public class AddOrderFragment extends BaseFragment {
             etGetCarAddress.setText(data.getStringExtra("address"));
             fLat = data.getStringExtra("addressX");
             fLon = data.getStringExtra("addressY");
-        } else if (requestCode == TO_ADDRESS  && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == TO_ADDRESS && resultCode == Activity.RESULT_OK) {
             etFetchAddr.setText(data.getStringExtra("address"));
             tLat = data.getStringExtra("addressX");
             tLon = data.getStringExtra("addressY");

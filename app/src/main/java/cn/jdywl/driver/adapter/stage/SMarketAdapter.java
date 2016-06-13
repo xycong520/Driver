@@ -182,7 +182,7 @@ public class SMarketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         dataHolder.tvSenddate.setText(data.getSendtime() + " 启运");
         dataHolder.tvMarketprice.setText("市场运价: " + data.getCharge() + "元");
         dataHolder.tvExpprice.setText("车价: " + data.getCar_price() + "元");
-        dataHolder.tvCarinfo.setText("提车地址："+data.getFrom_address());
+        dataHolder.tvCarinfo.setText("提车地址：" + data.getFrom_address());
         int status = data.getStatus();
         //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
         dataHolder.tvStatus.setText(OrderStatus.getDesc(status));

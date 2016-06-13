@@ -270,8 +270,7 @@ public class SPendingFragment extends BaseFragment implements
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals(DriverOrderActivity.REFRESH_ACTION))
-            {
+            if (action.equals(DriverOrderActivity.REFRESH_ACTION)) {
                 boolean enabled = intent.getBooleanExtra("enabled", true);
                 mSwipeLayout.setEnabled(enabled);
             }

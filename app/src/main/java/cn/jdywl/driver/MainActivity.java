@@ -31,10 +31,8 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.baidu.location.LocationClient;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -92,20 +90,27 @@ public class MainActivity extends AppUpdateActivity {
             R.drawable.home_tile_price, R.drawable.home_tile_helptel,
             R.drawable.home_tile_support
     };
+    /*
     protected Integer[] mStageID = {
             R.string.home_title_stage1, R.string.home_title_stage2
             , R.string.home_title_stage3, R.string.home_title_stage4
     };
+    */
+    /*
     protected Integer[] mStageImgID = {
             R.drawable.home_title_fast_train, R.drawable.home_tile_stage
             , R.drawable.home_title_fast_train, R.drawable.home_tile_stage
     };
+    */
+
+    protected ArrayList<Integer> mStageID = new ArrayList<>();
+    protected ArrayList<Integer> mStageImgID = new ArrayList<Integer>();
 
 
     @Bind(R.id.rv_home)
     RecyclerView rvHome;
 
-    protected HomeGvAdapter mAdapter;
+    protected HomeGvAdapter mAdapter = null;
     protected RecyclerView.LayoutManager mLayoutManager;
     private OrderPage mData = new OrderPage();
     StatsItem stats;
@@ -135,6 +140,9 @@ public class MainActivity extends AppUpdateActivity {
                 initPush(); //M以下版本默认全部获取权限，因此立即初始化
             }
         }
+
+        //初始化驿站功能入口
+        initStageMenu();
 
         setupRecyclerView(rvHome);
 
@@ -188,7 +196,7 @@ public class MainActivity extends AppUpdateActivity {
                     return 1;
                 } else if (position == MENU_COUNT + 1) {
                     return SPAN_COUNT;
-                } else if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.length) {
+                } else if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.size()) {
                     return 1;
                 } else {
                     return SPAN_COUNT;
@@ -198,13 +206,6 @@ public class MainActivity extends AppUpdateActivity {
 
         rv.setLayoutManager(mLayoutManager);
 
-        if (!getMasterRoles().equals("station_master")) {
-            isMaster= false;
-            mStageID = removeElement(mStageID, 1);
-            mStageImgID = removeElement(mStageImgID, 1);
-        }else{
-            isMaster = true;
-        }
         mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData());
         rv.setAdapter(mAdapter);
 
@@ -216,7 +217,7 @@ public class MainActivity extends AppUpdateActivity {
         rv.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         */
 
-        mAdapter.setOnItemClickLitener(onItemClickLitener = new HomeGvAdapter.OnItemClickLitener() {
+        mAdapter.setOnItemClickLitener(new HomeGvAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
                 if (position == 0) {
@@ -248,28 +249,29 @@ public class MainActivity extends AppUpdateActivity {
                     }
                     return;
                 }
-                if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.length) {
-                    if (!isMaster && position >=MENU_COUNT+3){
-                        position +=1;
-                    }
-                    switch (position) {
-                        case MENU_COUNT + 2:
+                if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.size()) {
+
+                    //为了更灵活的角色入口控制，使用action string来控制
+                    Integer action = mStageID.get(position - MENU_COUNT - 2);
+                    switch (action) {
+                        case R.string.home_title_stage1:
                             OpenCarStageActivity();
                             break;
-                        case MENU_COUNT + 3:
+                        case R.string.home_title_stage2:
                             OpenStageManagerActivity();
                             break;
-                        case MENU_COUNT + 4:
+                        case R.string.home_title_stage3:
                             OpenDriverOrderActivity();
                             break;
-                        case MENU_COUNT + 5:
+                        case R.string.home_title_stage4:
                             OpenMyAcceptOrderActivity();
                             break;
                     }
+
                     return;
                 }
 
-                if (position == MENU_COUNT + 1 + mStageID.length + 1) {
+                if (position == MENU_COUNT + 1 + mStageID.size() + 1) {
                     OpenDMainActivity();
                 }
             }
@@ -280,7 +282,6 @@ public class MainActivity extends AppUpdateActivity {
             }
         });
     }
-    HomeGvAdapter.OnItemClickLitener onItemClickLitener  ;
 
     void requestLocationPermission() {
         // Here, thisActivity is the current activity
@@ -529,14 +530,14 @@ public class MainActivity extends AppUpdateActivity {
             Intent it = new Intent(this, LoginActivity.class);
             startActivityForResult(it, LoginActivity.LOGIN);
         }
-        initStageMenu();
+        //注释掉，不必要每次resume都重新初始化
+        //initStageMenu();
         //加载订单和统计
         loadStats();
         loadOrder();
         loadRoles();
     }
 
-    boolean isMaster = true;
     @Override
     protected void
     onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -562,23 +563,29 @@ public class MainActivity extends AppUpdateActivity {
     }
 
     private void initStageMenu() {
-        isMaster= true;
-        mStageID = new Integer[]{
-                R.string.home_title_stage1, R.string.home_title_stage2
-                , R.string.home_title_stage3, R.string.home_title_stage4
-        };
-        mStageImgID = new Integer[] {
-                R.drawable.home_title_fast_train, R.drawable.home_tile_stage
-                , R.drawable.home_title_fast_train, R.drawable.home_tile_stage
-        };
-        if (!getMasterRoles().equals("station_master")) {
-            isMaster= false;
-            mStageID = removeElement(mStageID, 1);
-            mStageImgID = removeElement(mStageImgID, 1);
+        mStageID.clear();
+        mStageImgID.clear();
+
+        //初始化驿站功能入口
+        int count = 0;
+
+        if (getMasterRoles().equals("station_master")) {
+            mStageID.add(count, R.string.home_title_stage2);
+            mStageImgID.add(count++, R.drawable.home_tile_stage);
         }
-        mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData());
-        rvHome.setAdapter(mAdapter);
-        mAdapter.setOnItemClickLitener(onItemClickLitener);
+
+        //TODO: 正式版本上线前，需要开放customer功能
+        mStageID.add(count, R.string.home_title_stage1);
+        mStageImgID.add(count++, R.drawable.home_title_fast_train);
+        mStageID.add(count, R.string.home_title_stage3);
+        mStageImgID.add(count++, R.drawable.home_tile_stage);
+        mStageID.add(count, R.string.home_title_stage4);
+        mStageImgID.add(count++, R.drawable.home_title_fast_train);
+
+        //如果mAdapter已经初始化，通知更新recycle view
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -618,6 +625,7 @@ public class MainActivity extends AppUpdateActivity {
         Intent it = new Intent(this, CarStageActivity.class);
         startActivity(it);
     }
+
     /**
      * 打开驿站管理页面
      */
@@ -625,6 +633,7 @@ public class MainActivity extends AppUpdateActivity {
         Intent it = new Intent(this, StageManagerActivity.class);
         startActivity(it);
     }
+
     /**
      * 打开我的承运
      */
@@ -632,6 +641,7 @@ public class MainActivity extends AppUpdateActivity {
         Intent it = new Intent(this, MyAcceptOrderActivity.class);
         startActivity(it);
     }
+
     /**
      * 打开车小板运输
      */
@@ -775,6 +785,7 @@ public class MainActivity extends AppUpdateActivity {
 
     private void loadStats() {
         String url = ApiConfig.api_url + ApiConfig.STATS;
+
         GsonRequest<StatsItem> myReq = new GsonRequest<StatsItem>(Request.Method.GET,
                 url,
                 StatsItem.class,

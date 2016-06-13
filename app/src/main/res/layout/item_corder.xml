@@ -28,7 +28,7 @@
         android:layout_marginRight="@dimen/section_margin"
         android:background="@color/bg_status"
         android:padding="2dp"
-        android:text="垫资发运"
+        android:text="垫款发车"
         android:textColor="@android:color/white"
         android:textSize="11sp"
         android:layout_toLeftOf="@+id/tv_orderType"/>

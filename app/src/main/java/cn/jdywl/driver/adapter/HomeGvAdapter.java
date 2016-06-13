@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -39,8 +40,8 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private Integer[] mTitleSet;
     private Integer[] mImgSet;
-    private Integer[] mStageSet;
-    private Integer[] mStageImgSet;
+    private ArrayList<Integer> mStageSet;
+    private ArrayList<Integer> mStageImgSet;
     private List<OrderItem> mDataSet;
     private int mTotalCount = 0;
 
@@ -204,7 +205,7 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public HomeGvAdapter(Integer[] titleSet, Integer[] imgSet, Integer[] stageSet, Integer[] stageImgSet, List<OrderItem> dataSet) {
+    public HomeGvAdapter(Integer[] titleSet, Integer[] imgSet, ArrayList<Integer> stageSet, ArrayList<Integer> stageImgSet, List<OrderItem> dataSet) {
         mTitleSet = titleSet;
         mImgSet = imgSet;
         mStageSet = stageSet;
@@ -295,9 +296,9 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             //cast holder to VHItem and set data
             NavViewHolder navHolder = (NavViewHolder) viewHolder;
-            if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.length) {
-                navHolder.getTextView().setText(mStageSet[position - 2 - MainActivity.MENU_COUNT]);
-                navHolder.getImgView().setImageResource(mStageImgSet[position - 2 - MainActivity.MENU_COUNT]);
+            if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.size()) {
+                navHolder.getTextView().setText(mStageSet.get(position - 2 - MainActivity.MENU_COUNT));
+                navHolder.getImgView().setImageResource(mStageImgSet.get(position - 2 - MainActivity.MENU_COUNT));
             } else {
                 navHolder.getTextView().setText(mTitleSet[position - 1]);
                 navHolder.getImgView().setImageResource(mImgSet[position - 1]);
@@ -310,8 +311,8 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             MarketHeaderViewHolder vh = (MarketHeaderViewHolder) viewHolder;
         } else if (viewHolder instanceof MarketViewHolder) {
             MarketViewHolder vh = (MarketViewHolder) viewHolder;
-            int pos = position - mTitleSet.length - mStageSet.length - 3;
-            if (mDataSet.size() == 0){
+            int pos = position - mTitleSet.length - mStageSet.size() - 3;
+            if (mDataSet.size() == 0) {
                 return;
             }
             final OrderItem data = mDataSet.get(pos);
@@ -376,7 +377,7 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mTitleSet.length + mStageSet.length + mDataSet.size() + 4;
+        return mTitleSet.length + mStageSet.size() + mDataSet.size() + 4;
     }
 
     @Override
@@ -387,11 +388,11 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return TYPE_NAV;
         } else if (position == MainActivity.MENU_COUNT + 1) {
             return TYPE_NAV_STAGE_HEADER;
-        } else if (position > MainActivity.MENU_COUNT+ 1 && position <= MainActivity.MENU_COUNT+ 1 + mStageSet.length) {
+        } else if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.size()) {
             return TYPE_NAV_STAGE;
-        } else if (position == MainActivity.MENU_COUNT+ 1 + mStageSet.length + 1) {
+        } else if (position == MainActivity.MENU_COUNT + 1 + mStageSet.size() + 1) {
             return TYPE_MARKET_HEADER;
-        } else if (position == (mDataSet.size() + MainActivity.MENU_COUNT+ 1 + mStageSet.length+ 2)) {  //最后一个元素
+        } else if (position == (mDataSet.size() + MainActivity.MENU_COUNT + 1 + mStageSet.size() + 2)) {  //最后一个元素
             return TYPE_MARKET_FOOTER;
         } else {
             return TYPE_MARKET;

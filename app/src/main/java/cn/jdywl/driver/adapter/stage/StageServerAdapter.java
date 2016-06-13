@@ -20,8 +20,9 @@ import cn.jdywl.driver.model.ServiceItem;
  */
 public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<ServiceItem> services;
-    ImageLoader mImageLoader ;
-    public StageServerAdapter( List<ServiceItem> services){
+    ImageLoader mImageLoader;
+
+    public StageServerAdapter(List<ServiceItem> services) {
         this.services = services;
     }
 
@@ -37,7 +38,7 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         NavViewHolder navHolder = (NavViewHolder) holder;
         navHolder.getTextView().setText(services.get(position).getName());
-        navHolder.getImgView().setImageUrl(services.get(position).getIcon().getUrl(),mImageLoader);
+        navHolder.getImgView().setImageUrl(services.get(position).getIcon().getUrl(), mImageLoader);
         // 如果设置了回调，则设置点击事件
         if (onClickListener != null) {
             holder.itemView.setTag(services.get(position).getName());
@@ -49,11 +50,12 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount() {
         return services.size();
     }
+
     View.OnClickListener onClickListener;
+
     public void setOnItemClickLitener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
-
 
 
     public static class NavViewHolder extends RecyclerView.ViewHolder {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">筋斗云轿车物流</string>
+    <string name="app_name">筋斗云物流</string>
     <string name="carowner_name">轿车托运</string>
     <string name="driver_name">司机承运</string>
     <string name="title_carowner1">待托运</string>

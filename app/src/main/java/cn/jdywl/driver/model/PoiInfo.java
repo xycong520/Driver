@@ -27,10 +27,10 @@ public class PoiInfo implements Parcelable {
         this.city = var1.readString();
         this.phoneNum = var1.readString();
         this.postCode = var1.readString();
-        this.type = (POITYPE)var1.readValue(POITYPE.class.getClassLoader());
-        this.location = (LatLng)var1.readParcelable(LatLng.class.getClassLoader());
-        this.hasCaterDetails = ((Boolean)var1.readValue(Boolean.class.getClassLoader())).booleanValue();
-        this.isPano = ((Boolean)var1.readValue(Boolean.class.getClassLoader())).booleanValue();
+        this.type = (POITYPE) var1.readValue(POITYPE.class.getClassLoader());
+        this.location = var1.readParcelable(LatLng.class.getClassLoader());
+        this.hasCaterDetails = ((Boolean) var1.readValue(Boolean.class.getClassLoader())).booleanValue();
+        this.isPano = ((Boolean) var1.readValue(Boolean.class.getClassLoader())).booleanValue();
     }
 
     public int describeContents() {
@@ -50,7 +50,7 @@ public class PoiInfo implements Parcelable {
         var1.writeValue(Boolean.valueOf(this.isPano));
     }
 
-    public static enum POITYPE {
+    public enum POITYPE {
         POINT(0),
         BUS_STATION(1),
         BUS_LINE(2),
@@ -59,7 +59,7 @@ public class PoiInfo implements Parcelable {
 
         private int a;
 
-        private POITYPE(int var3) {
+        POITYPE(int var3) {
         }
 
         public int getInt() {
@@ -67,7 +67,7 @@ public class PoiInfo implements Parcelable {
         }
 
         public static POITYPE fromInt(int var0) {
-            switch(var0) {
+            switch (var0) {
                 case 0:
                     return POINT;
                 case 1:

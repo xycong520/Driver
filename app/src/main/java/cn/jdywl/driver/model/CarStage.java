@@ -40,6 +40,7 @@ public class CarStage {
     public int getId() {
         return id;
     }
+
     public String getOperation_center() {
         return operation_center;
     }

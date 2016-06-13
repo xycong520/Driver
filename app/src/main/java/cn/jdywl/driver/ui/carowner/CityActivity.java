@@ -136,7 +136,7 @@ public class CityActivity extends BaseActivity {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            } ;
+                            }
                             //获取分页信息
 //                            mCityPage.getCityItems().addAll(response.getCityItems());
 
@@ -186,7 +186,6 @@ public class CityActivity extends BaseActivity {
         }
 
 
-
     }
 
     //根据始发地加载目的地
@@ -196,42 +195,42 @@ public class CityActivity extends BaseActivity {
         if (isExpress) {
             url = ApiConfig.api_url + ApiConfig.STAGE_DESTINATIONS_URL +
                     "&origin=" + URLEncoder.encode(origin);
-                MyJsonRequest myReq = new MyJsonRequest(Request.Method.GET,
-                        url,
-                        "",
-                        null,
-                        new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response) {
-                                if (response == null) {
-                                    LogHelper.i(TAG, "response为空");
-                                    return;
+            MyJsonRequest myReq = new MyJsonRequest(Request.Method.GET,
+                    url,
+                    "",
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            if (response == null) {
+                                LogHelper.i(TAG, "response为空");
+                                return;
+                            }
+                            try {
+                                for (int i = 0; i < response.length(); i++) {
+                                    mCityPage.getCityItems().add(new Gson().fromJson(response.getJSONObject(i).toString(), CityItem.class));
                                 }
-                                try {
-                                    for (int i = 0; i < response.length(); i++) {
-                                        mCityPage.getCityItems().add(new Gson().fromJson(response.getJSONObject(i).toString(), CityItem.class));
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                } ;
-                                //获取分页信息
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //获取分页信息
 //                            mCityPage.getCityItems().addAll(response.getCityItems());
 
-                                //
-                                adapter.setItemAll((ArrayList<CityItem>) mCityPage.getCityItems());
-                                adapter.notifyDataSetChanged();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                            //
+                            adapter.setItemAll((ArrayList<CityItem>) mCityPage.getCityItems());
+                            adapter.notifyDataSetChanged();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                                Helper.processVolleyErrorMsg(CityActivity.this, error);
-                            }
-                        });
-                myReq.setTag(TAG);
-                VolleySingleton.getInstance(this).addToRequestQueue(myReq);
-        }else{
+                            Helper.processVolleyErrorMsg(CityActivity.this, error);
+                        }
+                    });
+            myReq.setTag(TAG);
+            VolleySingleton.getInstance(this).addToRequestQueue(myReq);
+        } else {
             GsonRequest<CityPage> myReq = new GsonRequest<CityPage>(Request.Method.GET,
                     url,
                     CityPage.class,

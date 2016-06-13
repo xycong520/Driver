@@ -305,7 +305,7 @@ public class CarStageActivity extends BaseActivity implements
     }
 
     private void loadCity() {
-        if (citys!=null && citys.size()>0){
+        if (citys != null && citys.size() > 0) {
             showPw(tvCity, tvCity, citys);
             return;
         }
@@ -490,30 +490,31 @@ public class CarStageActivity extends BaseActivity implements
     }
 
 
-    String lat,lon;
+    String lat, lon;
+
     @Override
     public void onLocationSuccess(BDLocation location) {
         if (!isMapView) {
-            tvPro.setText(location.getProvince().replace("省",""));
-            tvCity.setText(location.getCity().replace("市",""));
+            tvPro.setText(location.getProvince().replace("省", ""));
+            tvCity.setText(location.getCity().replace("市", ""));
             lat = String.valueOf(location.getLatitude());
             lon = String.valueOf(location.getLongitude());
-            if (mData.getData().size()<1){
+            if (mData.getData().size() < 1) {
                 loadData();
-            }else {
+            } else {
                 mSwipeLayout.setRefreshing(false);
             }
-            if (provinceItemList == null){
+            if (provinceItemList == null) {
                 loadProvinces();
             }
             return;
         }
         //Receive Location
-        if (mMarker != null) {
-            mMarker.remove();
-        } else {
-            mBaiduMap.clear();
-        }
+//        if (mMarker != null) {
+//            mMarker.remove();
+//        } else {
+//            mBaiduMap.clear();
+//        }
         mMarker = BaiduMapUtilByRacer.showMarkerByResource(
                 location.getLatitude(),
                 location.getLongitude(), R.drawable.icon_point,

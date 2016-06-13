@@ -55,7 +55,7 @@ public class CTodosFragment extends BaseFragment implements
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment STransportingFragment.
+     * @return A new instance of fragment CTodosFragment.
      */
     public static CTodosFragment newInstance() {
         return new CTodosFragment();

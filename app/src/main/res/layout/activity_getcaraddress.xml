@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="fill_parent"
+              android:fitsSystemWindows="true"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_height="wrap_content"
@@ -22,24 +23,24 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/llMLMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <com.baidu.mapapi.map.MapView
                     android:id="@+id/mMapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clickable="true" />
+                    android:clickable="true"/>
 
                 <LinearLayout
                     android:id="@+id/llLocationTipMain"
@@ -47,14 +48,14 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical" >
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/tvShowLocation"
@@ -65,21 +66,21 @@
                             android:singleLine="true"
                             android:textColor="@color/black"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <ImageView
                             android:id="@+id/ivLocationTip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-6dp"
-                            android:src="@drawable/icon_gcoding" />
+                            android:src="@drawable/icon_gcoding"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="vertical" >
+                        android:orientation="vertical">
                     </LinearLayout>
                 </LinearLayout>
 
@@ -89,19 +90,19 @@
                     android:layout_gravity="right|bottom"
                     android:layout_marginBottom="80dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/btMapZoomIn"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/button_zoom_in" />
+                        android:background="@drawable/button_zoom_in"/>
 
                     <Button
                         android:id="@+id/btMapZoomOut"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/button_zoom_out" />
+                        android:background="@drawable/button_zoom_out"/>
                 </LinearLayout>
 
                 <ImageButton
@@ -113,14 +114,14 @@
                     android:layout_marginBottom="23dp"
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:src="@drawable/button_location" />
+                    android:src="@drawable/button_location"/>
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:background="@color/window_background"
                 android:layout_height="0dp"
-                android:layout_weight="0.6" >
+                android:layout_weight="0.6">
 
 
                 <ListView
@@ -132,7 +133,7 @@
                     android:fastScrollEnabled="true"
                     android:scrollbars="none"
                     android:scrollingCache="false"
-                    android:visibility="gone" >
+                    android:visibility="gone">
                 </ListView>
             </FrameLayout>
         </LinearLayout>
@@ -149,7 +150,7 @@
             android:hint="搜索"
             android:padding="5dp"
             android:singleLine="true"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <ListView
             android:id="@+id/lvMLCityPoi"
@@ -162,7 +163,7 @@
             android:fastScrollEnabled="true"
             android:scrollbars="none"
             android:scrollingCache="false"
-            android:visibility="gone" >
+            android:visibility="gone">
         </ListView>
     </RelativeLayout>
 

@@ -93,6 +93,18 @@ public class BaiduMapUtilByRacer {
         }
         return (Marker) (mBaiduMap.addOverlay(ooView));
     }
+    public static Marker showMarkerByResource(double lat, double lon,
+                                              View resource, BaiduMap mBaiduMap, int distance, boolean isMoveTo) {
+        BitmapDescriptor bdView = BitmapDescriptorFactory
+                .fromView(resource);
+        OverlayOptions ooView = new MarkerOptions()
+                .position(new LatLng(lat, lon)).icon(bdView).zIndex(distance)
+                .draggable(true);
+        if (isMoveTo) {
+            moveToTarget(lat, lon, mBaiduMap);
+        }
+        return (Marker) (mBaiduMap.addOverlay(ooView));
+    }
 
     /**
      * @param lat
@@ -560,7 +572,7 @@ public class BaiduMapUtilByRacer {
      * @return boolean
      * @throws
      *//*
-	public static boolean NaviByWebBaidu(String mLat1, String mLon1,
+    public static boolean NaviByWebBaidu(String mLat1, String mLon1,
 			String mLat2, String mLon2, Context mContext) {
 		if (mLat1 != null && !mLat1.equals("") && !mLat1.equals("null")
 				&& !mLat1.equals("0") && mLon1 != null && !mLon1.equals("")
@@ -998,13 +1010,27 @@ public class BaiduMapUtilByRacer {
         mPoiDetailSearchListener = null;
     }
 
-    public static void addOverlay(int iconID,double lat, double lon,
+    public static void addOverlay(int iconID, double lat, double lon,
                                   BaiduMap mBaiduMap) {
         //定义Maker坐标点
         LatLng point = new LatLng(lat, lon);
         //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory
                 .fromResource(iconID);
+        //构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions()
+                .position(point)
+                .icon(bitmap);
+        //在地图上添加Marker，并显示
+        mBaiduMap.addOverlay(option);
+    }
+    public static void addOverlay(View view, double lat, double lon,
+                                  BaiduMap mBaiduMap) {
+        //定义Maker坐标点
+        LatLng point = new LatLng(lat, lon);
+        //构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromView(view);
         //构建MarkerOption，用于在地图上添加Marker
         OverlayOptions option = new MarkerOptions()
                 .position(point)

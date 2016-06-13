@@ -229,9 +229,9 @@ public class JindouyunApplication extends Application {
             }
 
             LogHelper.i(TAG, sb.toString());
-            if (mLocationWatcher!=null){
+            if (mLocationWatcher != null) {
                 mLocationWatcher.onLocationSuccess(location);
-            }else{
+            } else {
                 //将位置推送到服务器
                 uploadLocation(location);
             }
@@ -308,7 +308,5 @@ public class JindouyunApplication extends Application {
 
         VolleySingleton.getInstance(this).addToRequestQueue(myReq);
     }
-
-
 
 }

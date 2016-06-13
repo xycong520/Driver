@@ -110,7 +110,7 @@ public class SHistoryOrderFragment extends BaseFragment implements
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
         //设置adapter
-        mAdapter = new SOrderRvAdapter(mData.getData(),SOrderRvAdapter.FROM_SHISTORY_ORDER);
+        mAdapter = new SOrderRvAdapter(mData.getData(), SOrderRvAdapter.FROM_SHISTORY_ORDER);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

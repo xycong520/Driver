@@ -70,6 +70,7 @@ public class GsonRequest<T> extends Request<T> {
         setBasicAuth();
         setApiVersion();
     }
+
     public GsonRequest(int method,
                        String url,
                        Map<String, String> params,
@@ -79,7 +80,8 @@ public class GsonRequest<T> extends Request<T> {
         if (url.equals(ApiConfig.api_url + ApiConfig.STAGE_OFMASTER_URL)) {
             debug = true;
         }
-        Type type = new TypeToken<ArrayList<Stage>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Stage>>() {
+        }.getType();
         mClazz = (Class<T>) Type.class;
         this.params = params;
         this.mListener = listener;

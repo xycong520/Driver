@@ -168,7 +168,7 @@ public class DDetailActivity extends BaseActivity {
         int srv = order.getAddtionalSrv();
         switch (srv) {
             case AddOrderFragment.SRV_CREDIT:
-                tvAddtionalSrv.setText("垫资发运");
+                tvAddtionalSrv.setText("垫款发车");
                 break;
             case AddOrderFragment.SRV_REGULATORY:
                 tvAddtionalSrv.setText("代收车款");

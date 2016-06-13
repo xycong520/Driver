@@ -158,7 +158,7 @@ public class STransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         dataHolder.tvRoute.setText(data.getOrigin() + " — " + data.getDestination());
         dataHolder.tvOrderno.setText(data.getOrder_no());
         dataHolder.tvMarketprice.setText("接收人: " + data.getReceiver_name() + "\n" +
-                        "联系方式：" + data.getReceiver_phone() + "\n接收地址：" + data.getTo_address()
+                "联系方式：" + data.getReceiver_phone() + "\n接收地址：" + data.getTo_address()
         );
         dataHolder.tvBill.setText("成交运价: " + data.getCharge() + "元");
 

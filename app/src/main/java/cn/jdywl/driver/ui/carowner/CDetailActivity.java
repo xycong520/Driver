@@ -197,7 +197,7 @@ public class CDetailActivity extends BaseActivity {
             case OrderStatus.ORDER_RECEIVER_MISMATCH:
                 stubCarphoto.setVisibility(View.VISIBLE);
                 stubLocation.setVisibility(View.VISIBLE);
-                //代收车款和垫资发运才显示接车人照片
+                //代收车款和垫款发车才显示接车人照片
                 if (order.getAddtionalSrv() > AddOrderFragment.SRV_NONE) {
                     stubReceiverPhoto.setVisibility(View.VISIBLE);
                 }
@@ -214,6 +214,7 @@ public class CDetailActivity extends BaseActivity {
                 } else {//散车支付
                     btnSubmit.setText(getString(R.string.sanche_cpay_btn));
                 }
+                break;
             default:
                 break;
         }
@@ -236,7 +237,7 @@ public class CDetailActivity extends BaseActivity {
         //融资相关信息
         if (order.getAddtionalSrv() == AddOrderFragment.SRV_CREDIT) {
             //设置增值服务标签
-            tvAddtionalSrv.setText("垫资发运");
+            tvAddtionalSrv.setText("垫款发车");
 
             stubCredit.setVisibility(View.VISIBLE); //显示STUB
 
@@ -321,11 +322,14 @@ public class CDetailActivity extends BaseActivity {
 
         //接车人照片
         if (stubReceiverPhoto.getVisibility() == View.VISIBLE) {
+            OrderItem.ReceiverPhotoEntity receiverPhoto = order.getReceiverPhoto();
             //加载收车人照片
-            String url = order.getReceiverPhoto().getThumbnail();
-            ivReceiverPhoto = (NetworkImageView) findViewById(R.id.iv_receiver_photo);
-            ImageLoader mImageLoader = VolleySingleton.getInstance(this).getImageLoader();
-            ivReceiverPhoto.setImageUrl(url, mImageLoader);
+            if (receiverPhoto != null) {
+                String url = receiverPhoto.getThumbnail();
+                ivReceiverPhoto = (NetworkImageView) findViewById(R.id.iv_receiver_photo);
+                ImageLoader mImageLoader = VolleySingleton.getInstance(this).getImageLoader();
+                ivReceiverPhoto.setImageUrl(url, mImageLoader);
+            }
 
             if (status == OrderStatus.ORDER_RECEIVER_CONFIRM) {
                 rgReceiverConfirm = (RadioGroup) findViewById(R.id.rg_receiverConfirm);
@@ -491,7 +495,7 @@ public class CDetailActivity extends BaseActivity {
 
         etPrepay.setError(null);
         if (order.getAddtionalSrv() != AddOrderFragment.SRV_CREDIT) {
-            Toast.makeText(this, "非垫资发运订单，无法提交，请咨询客服", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "非垫款发车订单，无法提交，请咨询客服", Toast.LENGTH_SHORT).show();
             return;
         }
 

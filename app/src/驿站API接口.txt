@@ -1,4 +1,4 @@
-﻿一、用户角色相关接口
+一、用户角色相关接口
 1. 用户登录接口：登录成功后返回用户角色列表：
 POST users/login：
 返回：
@@ -7,7 +7,8 @@ POST users/login：
   "message": "用户名",
   "roles": [
     "station_driver",  //驿站司机，可以接提车和交车订单
-    "station_master"   //驿站站长，兼具接单和上传驿站位置功能
+    "station_master",   //驿站站长，兼具接单和上传驿站位置功能
+    "customer"     //增加普通用户权限
   ]
 }
 2. 新增获取登录用户角色列表功能：
@@ -18,11 +19,10 @@ GET user/roles：
   "message": "用户名",
   "roles": [
     "station_driver",  //驿站司机，可以接提车和交车订单
-    "station_master"   //驿站站长，兼具接单和上传驿站位置功能
+    "station_master",   //驿站站长，兼具接单和上传驿站位置功能
+    "customer"     //增加普通用户权限
   ]
 }
-
-
 
 二、驿站相关接口
 1. 获取驿站省份列表（用于筛选驿站）
@@ -37,8 +37,6 @@ GET /stations/provinces
     "province": "\u7518\u8083"
   }
 ]
-
-
 
  2. 获取驿站城市列表（用于筛选驿站）
 GET /stations/cities
@@ -57,8 +55,6 @@ province: 省份，可选
     "city": "\u6c49\u4e2d"
   }
 ]
-
-
 
 
 3. 获取驿站列表：
@@ -129,7 +125,7 @@ GET /stations/{id}
 }
 
 5. 站长上传驿站位置信息
-POST  /stations/{id}/position
+PUT  /stations/{id}/position
 参数：
 longitude： 经度
 latitude: 纬度
@@ -158,8 +154,6 @@ gathertime: 2015-03-09  20:30:00，位置采集时间
   "status_code": 422    //HTTP错误码，可以是403，422等
 }
 
-
-
 5. 获取某个驿站站长名下的所有驿站列表
 GET  /stations/ofmaster
 成功返回：
@@ -179,8 +173,6 @@ GET  /stations/ofmaster
     "gathertime": "0000-00-00 00:00:00"
   }
 ]
-
-
 
 6. 获取指定位置附近的驿站
 GET  /stations/nearby
@@ -207,34 +199,41 @@ latitude: 纬度
   }
 ]
 
-
-
 7. 根据驿站id获取此驿站提供的服务
 GET  /stations/{sid}/service
 从LBS获取驿站位置后，如果需要获取驿站开放的功能，就通过LBS表的sid字段获取
 
 成功返回：
 [
-  {
-    "name": "市内提车"
-  },
-  {
-    "name": "市内交车"
-  },
-  {
-    "name": "大板运输"
-  },
-  {
-    "name": "小板速运"
-  },
-  {
-    "name": "专线运输"
-  }
+    {
+        "name": "市内提车",
+        "icon": {  //服务图标
+            "id": 10,
+            "url": "http://localhost/laravel/public/images/service/1463059938_icon-专线.png",  //原版图标URL
+            "thumbnail": "http://localhost/laravel/public/images/service/thumbnail_1463059938_icon-专线.png" //缩略图
+        }
+    },
+    {
+        "name": "市内交车",
+        "icon": null
+    },
+    {
+        "name": "大板运输",
+        "icon": null
+    },
+    {
+        "name": "小板速运",
+        "icon": null
+    },
+    {
+        "name": "专线运输",
+        "icon": null
+    }
 ]
 
-
-
 三 、小板速运相关接口
+
+小板速运订单流程：1. 客户提交订单，进入待运输状态(20)，2. 司机接单，进入验车提车状态(2)，验车提车是对待运输交车进行验证和确认的过程。3. 司机验车提车失败，订单关闭(101);验车提车通过，进入运输中状态(51), 此时会进行在线投保，一般几分钟之后保单生成，即可以通过APP查看电子保单(PDF文件)。运输中状态下亦可以获取在途位置信息。 4. 到达目的地后，司机点击完成按钮，订单完成(102)
 
 1. 计算小板速运（跨城市）价格：
 按照城市区间计费
@@ -251,8 +250,6 @@ car_price: 轿车价格(用于计算保险，让用户输入)
   insurance: 200.5 //保险费
 }
 
-
-
 2. 获取指定区间的小板快运线路（可以判断指定线路是否支持小板速运）：
 GET /express/route
 
@@ -267,15 +264,14 @@ destination: 目的地(城市名)
   "express_price": 1920   // express_price > 0表示支持小板速运，否则不支持小板速运
 }
 
-
-
-3. 创建小板速订单
+3. 创建小板速订单，创建此订单时，始发地和目的地通过下拉框选择，对于不支持小板的线路会返回“本条线路暂不支持小板速运”错误
 POST /express
 参数：
 origin: 始发地(城市名)
 destination: 目的地(城市名)
 sendtime: 启运时间(2016-04-15 00:00:00)
-ifIns: 是否需要购买保险？ 可接受的输入是true、false、1、0、"1" 和 "0"。
+ifIns: 是否需要购买保险？ 可接受的输入是1、0、"1" 和 "0"。
+old_car: 是否二手车？ 可接受的输入是1、0、"1" 和 "0"。
 car_price: 轿车价格(用于计算保险，让用户输入)
 //下边这些信息用于司机提车和交车，在地图上点选位置输入起点和终点
 from_longitude： 起点经度
@@ -285,7 +281,7 @@ to_longitude： 终点经度
 to_latitude: 终点纬度
 to_address: 终点地址
 receiver_name: 收车人姓名
-receiver_phone：收车人手机  
+receiver_phone：收车人手机
 
 成功返回：
 {
@@ -294,11 +290,12 @@ receiver_phone：收车人手机
   "sdriver_id": 0,     //驿站司机ID
   "shipping_id": 2,   //发运经理id
   "order_no": "E20160422000011",
-  "status": 20,
+  "status": 20, //待运输状态
   "origin": "\u5357\u4eac",
   "destination": "\u4e0a\u6d77",
   "sendtime": "2016-05-01 00:00:00",
   "ifIns": 1,  //是否购买保险
+  "old_car": 1,  //是否二手车
   "car_price": 100,
   "vin_car_price": 0,   //通过VIN查询出来的车价
   "charge": 1920,
@@ -315,8 +312,6 @@ receiver_phone：收车人手机
   "receiver_phone": "18626468980",
   "receiver_cypher": "541005"  //交车密码，把车交给目的地客户时的验证
 }
-
-
 
 4. 客户获取自己所有未完成的订单：
 GET /express/carowner
@@ -363,8 +358,6 @@ page_size:每页大小，可选，默认50
   ]
 }
 
-
-
 5. 客户获取自己所有历史订单
 GET /express/carownerHistory
 参数：
@@ -408,8 +401,6 @@ page_size:每页大小，可选，默认50
     }
   ]
 }
-
-
 
 6. 驿站司机获取自己所有未完成的订单：
 GET /express/sdriver
@@ -456,8 +447,6 @@ page_size:每页大小，可选，默认50
   ]
 }
 
-
-
 7. 驿站司机获取自己所有历史订单
 GET /express/sdriverHistory
 参数：
@@ -503,41 +492,37 @@ page_size:每页大小，可选，默认50
 }
 
 
-
-
 8. 获取指定小板速运订单
 GET /express/{id}  //id为express 订单id
 
 成功返回： 
 {
   "id": 8,
-  "carowner_id": 0,	//汽车所有者
-  "sdriver_id": 0,	//司机
-  "shipping_id": 0,	//
-  "order_no": "E20160422000001",	//订单号
-  "status": 0,				//订单状态
-  "origin": "\u5357\u4eac",		//原始发车点
-  "destination": "\u4e0a\u6d77",	//目的地
-  "sendtime": "2016-05-01 00:00:00",	//发送时间
-  "ifIns": 1,				
-  "car_price": 100,			//汽车价格
+  "carowner_id": 0,
+  "sdriver_id": 0,
+  "shipping_id": 0,
+  "order_no": "E20160422000001",
+  "status": 0,
+  "origin": "\u5357\u4eac",
+  "destination": "\u4e0a\u6d77",
+  "sendtime": "2016-05-01 00:00:00",
+  "ifIns": 1,
+  "car_price": 100,
   "vin_car_price": 0,
-  "charge": 1920,			//费用
-  "insurance": 50,			//保险
-  "actual_insurance": 0,		//起点经纬度
+  "charge": 1920,
+  "insurance": 50,
+  "actual_insurance": 0,
   "from_longitude": 2.2,
   "from_latitude": 3.3,
-  "from_address": "\u59cb\u53d1\u5730\u70b9",	//起点描述
-  "to_latitude": 5.5,			//终点经纬度
+  "from_address": "\u59cb\u53d1\u5730\u70b9",
+  "to_latitude": 5.5,
   "to_longitude": 4.4,
-  "to_address": "\u76ee\u7684\u5730",	//终点描述
-  "cypher": "535549",			//	
-  "receiver_name": "wwt",		//接收者
-  "receiver_phone": "18626468980",		
+  "to_address": "\u76ee\u7684\u5730",
+  "cypher": "535549",
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
   "receiver_cypher": "525352"
 }
-
-
 
 9. 驿站司机接单
 PUT /express/{id}/order //id为express 订单id
@@ -549,7 +534,7 @@ PUT /express/{id}/order //id为express 订单id
   "sdriver_id": 1,
   "shipping_id": 2,
   "order_no": "E20160422000011",
-  "status": 20,
+  "status": 2,  //验车提车状态
   "origin": "\u5357\u4eac",
   "destination": "\u4e0a\u6d77",
   "sendtime": "2016-05-01 00:00:00",
@@ -571,10 +556,191 @@ PUT /express/{id}/order //id为express 订单id
   "receiver_cypher": "541005"
 }
 
+补充接口1.  获取所有小板速运线路的始发地
+GET /express/origins
+无参数
+
+成功返回：
+[
+  {
+    "origin": "\u4fdd\u5b9a",
+    "letter": "b",  //首字母（以下三个字段用于筛选)
+    "abb": "bd",  //缩写
+    "pinyin": "baoding" //全拼
+  },
+  {
+    "origin": "\u5317\u4eac\u5e02\u5ef6\u5e86\u533a",
+    "letter": "b",
+    "abb": "bj",
+    "pinyin": "beijing"
+  }
+]
+
+补充接口2. 根据始发地获取所有目的地
+GET /express/destinations
+参数：
+origin: '西安'   //始发地
+
+成功返回：
+[
+  {
+    "destination": "\u5b89\u5eb7",
+    "letter": "a",
+    "abb": "ak",
+    "pinyin": "ankang"
+  },
+  {
+    "destination": "\u5b9d\u9e21",
+    "letter": "b",
+    "abb": "bj",
+    "pinyin": "baoji"
+  }
+]
+
+10. 客户取消自己的订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。只有待运输状态才能取消。
+PUT /express/{id}/cancel //id为express订单id
+
+返回：
+{
+  "status_code": 0,  //0标识成功，其它标识失败
+  "message": "\u8ba2\u5355\u5b8c\u6210\u6210\u529f"
+}
+
+11. 司机完成订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。只有运输中状态才能标记完成。
+PUT /express/{id}/finish //id为express订单id
+
+成功返回：
+{
+  "status_code": 0,  //0标识成功，其它标识失败
+  "message": "\u8ba2\u5355\u5b8c\u6210\u6210\u529f"
+}
+
+12. 获取所有待接单的订单
+GET /express/market
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+返回：
+{
+  "total": 3,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 3,
+  "data": [
+    {
+      "id": 12,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "order_no": "E20160422000012",
+      "status": 20,
+      "origin": "\u5357\u4eac",
+      "destination": "\u4e0a\u6d77",
+      "sendtime": "2016-05-01 00:00:00",
+      "ifIns": 1,
+      "car_price": 100,
+      "vin_car_price": 0,
+      "charge": 1920,
+      "insurance": 50,
+      "actual_insurance": 0,
+      "from_longitude": 2.2,
+      "from_latitude": 3.3,
+      "from_address": "\u59cb\u53d1\u5730\u70b9",
+      "to_latitude": 5.5,
+      "to_longitude": 4.4,
+      "to_address": "\u76ee\u7684\u5730",
+      "cypher": "535549",
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "514898"
+    }
+  ]
+}
+
+13. 获取订单的在途位置(GPS)信息,用于在途跟踪，获取到之后把位置信息在地图上标记出来（只有运输中订单能够获取，其它状态订单返回失败。）
+GET /express/{id}/gpses
+
+成功返回:  // 返回所有开始运输之后到目前为止的所有GPS位置信息
+[
+  {
+    "id": 3,
+    "user_id": 5,
+    "longitude": 118.728,
+    "latitude": 32.1201,
+    "position": "\u597d\u53c8\u591a(\u57ce\u533a\u67f3\u5dde\u5357\u8def\u9999\u69ad\u7f8e\u9882\u5927\u95e8\u53e3\u5e97)",
+    "gathertime": "2016-05-12 00:33:17"
+  },
+  {
+    "id": 4,
+    "user_id": 5,
+    "longitude": 118.728,
+    "latitude": 32.1201,
+    "position": "\u597d\u53c8\u591a(\u57ce\u533a\u67f3\u5dde\u5357\u8def\u9999\u69ad\u7f8e\u9882\u5927\u95e8\u53e3\u5e97)",
+    "gathertime": "2016-05-12 00:33:18"
+  }
+]
+
+14. 验车提车确认
+PUT /express/{id}/verify
+参数：
+result: 1:验车提车通过，进入运输中状态，0：验车提车失败，订单直接关闭
+vin: 车架号，17位，投保用，本地要做校验。验车提车通过时改字段必须填，否则可以不填
+brand: 轿车型号，验车提车通过时改字段必须填，否则可以不填
+
+成功返回：
+{
+  "id": 13,
+  "carowner_id": 1,
+  "sdriver_id": 1,
+  "shipping_id": 2,
+  "order_no": "E20160512000013",
+  "status": 51,
+  "origin": "\u5317\u4eac\u5e02\u671d\u9633\u533a",
+  "destination": "\u4e1c\u8425",
+  "sendtime": "2016-05-08 22:00:00",
+  "ifIns": 1,
+  "old_car": 0,
+  "car_price": 10000,
+  "vin_car_price": 0,
+  "plate_number": "",
+  "charge": 3000,
+  "insurance": 50,
+  "actual_insurance": 0,
+  "from_longitude": 1.1,
+  "from_latitude": 2.2,
+  "from_address": "\u59cb\u53d1\u5730",
+  "to_latitude": 3.3,
+  "to_longitude": 4.4,
+  "to_address": "\u76ee\u7684\u5730",
+  "cypher": "535551",
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "525052"
+}
+
+15. 查看电子保单状态
+查看电子保单有两个接口：
+
+第一个接口通过REST接口获取垫资保单的状态，然后根据返回信息决定提示用户错误或者打开保单PDF。建议在Android上使用，如果返回了保单PDF，直接打开PDF，否则提示用户错误信息（参见InsuranceActivity）
+GET /express/{id}/insurance
+成功返回：
+{
+    "status_code": 0,  //0：电子保单生成成功，此时message携带的是电子保单的URL地址。 其它返回码，电子保单获取失败，message携带失败原因
+    "message": "http://www.jdywl.cn:8080/assets/insurance/O201605121001007640.pdf"
+}
+
+第二个接口直接通过webview显示保单或者错误信息。因为ios的webview可直接显示PDF文档，因此在ios使用此接口。
+GET /express/{id}/insshow
 
 
 四、 提车接车相关接口
-1. 获取指定位置附近的司机列表（用户下单时显示在地图上）
+
+市内提车交车订单流程：1. 客户提交订单，进入待运输状态(20)，2. 司机接单，进入运输中状态(51)，此时可以获取在途位置信息 3. 到达目的地后，司机点击完成按钮，订单完成(102)
+
+1. 获取指定位置附近的司机列表（用户下单时显示在地图上），此接口弃用！！
 GET  /sdrivers/nearby
 备注：sdriver表示station driver
 参数：
@@ -599,10 +765,356 @@ latitude: 纬度
   }
 ]
 
-2. 创建提车接口订单
+2. 计算市内短驳（提车交车）订单价格：
+按照城市区间计费
+GET /drayage/price
+
+参数：
+city: 城市
+distance: 运输距离，市内短驳按照里程计价
+
+成功返回：
+{
+  charge：200.5 //运费
+}
+
+3. 创建市内短驳速订单
+POST /drayage
+参数：
+station_id: 驿站ID,一用来统计驿站的订单辆，二用来获取城市并计算费用
+origin: 始发地址
+from_longitude： 起点经度
+from_latitude: 起点纬度
+destination: 目的地址
+to_longitude： 终点经度
+to_latitude: 终点纬度
+distance: 运输距离，市内短驳按照里程计价
+sendtime: 启运时间(2016-04-15 00:00:00)
+receiver_name: 收车人姓名
+receiver_phone：收车人手机
+
+成功返回：
+{
+  "id": 2,
+  "carowner_id": 1,
+  "sdriver_id": 0,
+  "shipping_id": 2,
+  "station_id": 1,
+  "order_no": "D20160508000002",
+  "status": 20,
+  "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+  "from_longitude": 1.1,
+  "from_latitude": 2.2,
+  "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+  "to_latitude": 3.3,
+  "to_longitude": 4.4,
+  "distance": 100,
+  "sendtime": "2016-05-08 22:00:00",
+  "cypher": "535550",
+  "charge": 760,
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "979956"
+}
+
+4. 客户获取自己所有未完成的订单：
+GET /drayage/carowner
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+成功返回：
+{
+  "total": 2,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 2,
+  "data": [
+    {
+      "id": 2,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "station_id": 1,
+      "order_no": "D20160508000002",
+      "status": 20,
+      "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+      "from_longitude": 1.1,
+      "from_latitude": 2.2,
+      "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+      "to_latitude": 3.3,
+      "to_longitude": 4.4,
+      "distance": 100,
+      "sendtime": "2016-05-08 22:00:00",
+      "cypher": "535550",
+      "charge": 760,
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "979956"
+    }
+  ]
+}
+
+5. 客户获取自己所有市内短驳历史订单
+GET /drayage/carownerHistory
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+成功返回：
+{
+  "total": 1,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 1,
+  "data": [
+    {
+      "id": 2,
+      "carowner_id": 1,
+      "sdriver_id": 0,
+      "shipping_id": 2,
+      "station_id": 1,
+      "order_no": "D20160508000002",
+      "status": 102,
+      "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+      "from_longitude": 1.1,
+      "from_latitude": 2.2,
+      "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+      "to_latitude": 3.3,
+      "to_longitude": 4.4,
+      "distance": 100,
+      "sendtime": "2016-05-08 22:00:00",
+      "cypher": "535550",
+      "charge": 760,
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "979956"
+    }
+  ]
+}
+
+6. 驿站司机获取自己所有市内短驳未完成的订单：
+GET /drayage/sdriver
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+成功返回：
+{
+  "total": 1,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 1,
+  "data": [
+    {
+      "id": 1,
+      "carowner_id": 1,
+      "sdriver_id": 1,
+      "shipping_id": 2,
+      "station_id": 0,
+      "order_no": "D20160508000001",
+      "status": 51,
+      "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+      "from_longitude": 1.1,
+      "from_latitude": 2.2,
+      "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+      "to_latitude": 3.3,
+      "to_longitude": 4.4,
+      "distance": 100,
+      "sendtime": "2016-05-08 22:00:00",
+      "cypher": "535550",
+      "charge": 760,
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "574810"
+    }
+  ]
+}
+
+7. 驿站司机获取自己所有市内短驳历史订单
+GET /drayage/sdriverHistory
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+成功返回：
+{
+  "total": 1,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 1,
+  "data": [
+    {
+      "id": 1,
+      "carowner_id": 1,
+      "sdriver_id": 1,
+      "shipping_id": 2,
+      "station_id": 0,
+      "order_no": "D20160508000001",
+      "status": 102,
+      "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+      "from_longitude": 1.1,
+      "from_latitude": 2.2,
+      "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+      "to_latitude": 3.3,
+      "to_longitude": 4.4,
+      "distance": 100,
+      "sendtime": "2016-05-08 22:00:00",
+      "cypher": "535550",
+      "charge": 760,
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "574810"
+    }
+  ]
+}
 
 
+8. 获取指定id的订单
+GET /drayage/{id}  //id为drayage 订单id
 
-SHA1): 37:EE:E1:35:CB:EB:BD:82:01:5E:82:A6:6F:1F:23:E3:D7:3A:80:8D
-B8:15:08:35:F3:AE:76:6B:85:87:07:B4:77:59:D7:93:7D:D5:06:C3
-外包发布 21:82:D6:3B:DA:4D:14:A8:98:FA:76:23:8B:CB:49:1F:B6:52:AD:0F
+成功返回： 
+{
+  "id": 1,
+  "carowner_id": 1,
+  "sdriver_id": 1,
+  "shipping_id": 2,
+  "station_id": 0,
+  "order_no": "D20160508000001",
+  "status": 102,
+  "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+  "from_longitude": 1.1,
+  "from_latitude": 2.2,
+  "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+  "to_latitude": 3.3,
+  "to_longitude": 4.4,
+  "distance": 100,
+  "sendtime": "2016-05-08 22:00:00",
+  "cypher": "535550",
+  "charge": 760,
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "574810"
+}
+
+9. 驿站司机接单
+PUT /drayage/{id}/order //id为drayage订单id
+
+成功返回：
+{
+  "id": 1,
+  "carowner_id": 1,
+  "sdriver_id": 1,
+  "shipping_id": 2,
+  "station_id": 0,
+  "order_no": "D20160508000001",
+  "status": 51,
+  "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+  "from_longitude": 1.1,
+  "from_latitude": 2.2,
+  "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+  "to_latitude": 3.3,
+  "to_longitude": 4.4,
+  "distance": 100,
+  "sendtime": "2016-05-08 22:00:00",
+  "cypher": "535550",
+  "charge": 760,
+  "receiver_name": "wwt",
+  "receiver_phone": "18626468980",
+  "receiver_cypher": "574810"
+}
+
+10. 客户取消自己的订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。对于市内短驳，只有待运输状态才能取消。
+PUT /drayage/{id}/cancel //id为drayage订单id
+
+返回：
+{
+  "status_code": 0,  //0标识成功，其它标识失败
+  "message": "\u8ba2\u5355\u5b8c\u6210\u6210\u529f"
+}
+
+11. 司机完成订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。对于市内短驳，只有运输中状态才能标记完成。
+PUT /drayage/{id}/finish //id为drayage订单id
+
+成功返回：
+{
+  "status_code": 0,  //0标识成功，其它标识失败
+  "message": "\u8ba2\u5355\u5b8c\u6210\u6210\u529f"
+}
+
+12. 获取所有待接单的订单
+GET /drayage/market
+参数：
+page: 页码，可选，不指定默认为第一页
+page_size:每页大小，可选，默认50
+
+返回：
+{
+  "total": 1,
+  "per_page": 50,
+  "current_page": 1,
+  "last_page": 1,
+  "from": 1,
+  "to": 1,
+  "data": [
+    {
+      "id": 1,
+      "carowner_id": 1,
+      "sdriver_id": 1,
+      "shipping_id": 2,
+      "station_id": 0,
+      "order_no": "D20160508000001",
+      "status": 20,
+      "origin": "\u897f\u5b89\u59cb\u53d1\u5730",
+      "from_longitude": 1.1,
+      "from_latitude": 2.2,
+      "destination": "\u897f\u5b89\u76ee\u7684\u5730",
+      "to_latitude": 3.3,
+      "to_longitude": 4.4,
+      "distance": 100,
+      "sendtime": "2016-05-08 22:00:00",
+      "cypher": "535550",
+      "charge": 760,
+      "receiver_name": "wwt",
+      "receiver_phone": "18626468980",
+      "receiver_cypher": "574810"
+    }
+  ]
+}
+
+13. 获取订单的在途位置(GPS)信息,用于在途跟踪，获取到之后把位置信息在地图上标记出来（只有运输中订单能够获取，其它状态订单返回失败。）
+GET /drayage/{id}/gpses
+
+成功返回:  // 返回所有开始运输之后到目前为止的所有GPS位置信息
+[
+  {
+    "id": 3,
+    "user_id": 5,
+    "longitude": 118.728,
+    "latitude": 32.1201,
+    "position": "\u597d\u53c8\u591a(\u57ce\u533a\u67f3\u5dde\u5357\u8def\u9999\u69ad\u7f8e\u9882\u5927\u95e8\u53e3\u5e97)",
+    "gathertime": "2016-05-12 00:33:17"
+  },
+  {
+    "id": 4,
+    "user_id": 5,
+    "longitude": 118.728,
+    "latitude": 32.1201,
+    "position": "\u597d\u53c8\u591a(\u57ce\u533a\u67f3\u5dde\u5357\u8def\u9999\u69ad\u7f8e\u9882\u5927\u95e8\u53e3\u5e97)",
+    "gathertime": "2016-05-12 00:33:18"
+  }
+]
+
+
+新增功能如下：
+1、驿站详情中显示 “提车交车” 功能，点击进入地图显示附近的司机，在地图上显示电话及姓名，在点击生成订单进入新增订单界面，界面布局类似小板运输下单界面（使用不同接口）
+2、首页新增 市内短驳 栏目放置短驳订单查询入口包含客户和司机角色
+3、新增短驳订单详情页面、司机在该页面有确认订单的操作按钮
+4、小板运输和短驳订单详情中显示gps在途信息
+5、小板运输订单详情中获取保单信息使用web查看方式

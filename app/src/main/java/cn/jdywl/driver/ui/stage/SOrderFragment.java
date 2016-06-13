@@ -110,7 +110,7 @@ public class SOrderFragment extends BaseFragment implements
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
         //设置adapter
-        mAdapter = new SOrderRvAdapter(mData.getData(),SOrderRvAdapter.FROM_SORDER);
+        mAdapter = new SOrderRvAdapter(mData.getData(), SOrderRvAdapter.FROM_SORDER);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

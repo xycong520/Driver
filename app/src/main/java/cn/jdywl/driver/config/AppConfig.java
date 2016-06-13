@@ -21,5 +21,4 @@ public class AppConfig {
         //登录时间30天有效
         return (bLogin && ((now - logintime) < (30 * 24 * 3600)) && !TextUtils.isEmpty(name));
     }
-
 }

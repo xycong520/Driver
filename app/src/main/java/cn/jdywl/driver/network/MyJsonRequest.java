@@ -35,7 +35,7 @@ public class MyJsonRequest extends JsonArrayRequest {
                          Listener<JSONArray> listener, ErrorListener errorListener) {
         super(method, url, requestBody, listener,
                 errorListener);
-        this.params= params;
+        this.params = params;
         //设置basic auth header
         setBasicAuth();
         setApiVersion();
@@ -51,19 +51,19 @@ public class MyJsonRequest extends JsonArrayRequest {
      * @param listener      Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public MyJsonRequest(int method, String url, Map<String, String> params,JSONArray jsonRequest,
+    public MyJsonRequest(int method, String url, Map<String, String> params, JSONArray jsonRequest,
                          Listener<JSONArray> listener, ErrorListener errorListener) {
         super(method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener,
                 errorListener);
         //设置basic auth header
-        this.params= params;
+        this.params = params;
         setBasicAuth();
         setApiVersion();
     }
 
-    public MyJsonRequest(String url, Map<String, String> params,JSONArray jsonRequest,  Listener<JSONArray> listener,
+    public MyJsonRequest(String url, Map<String, String> params, JSONArray jsonRequest, Listener<JSONArray> listener,
                          ErrorListener errorListener) {
-        this(jsonRequest == null ? Method.GET : Method.POST, url,params, jsonRequest,
+        this(jsonRequest == null ? Method.GET : Method.POST, url, params, jsonRequest,
                 listener, errorListener);
         //设置basic auth header
         setBasicAuth();
@@ -93,7 +93,7 @@ public class MyJsonRequest extends JsonArrayRequest {
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
 
-        return params ;
+        return params;
     }
 
 
@@ -117,9 +117,10 @@ public class MyJsonRequest extends JsonArrayRequest {
     @Override
     protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
         try {
+
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
-            Log.i("json",ascii2native(jsonString));
+            Log.i("json", ascii2native(jsonString));
             JSONArray array = new JSONArray(jsonString);
             return Response.success(array,
                     HttpHeaderParser.parseCacheHeaders(response));

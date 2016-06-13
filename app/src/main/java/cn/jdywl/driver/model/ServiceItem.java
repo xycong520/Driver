@@ -12,6 +12,7 @@ public class ServiceItem {
     String imgeurl;
     @Expose
     Icon icon;
+
     public String getName() {
         return name;
     }
@@ -24,7 +25,7 @@ public class ServiceItem {
         return icon;
     }
 
-    public class Icon{
+    public class Icon {
         @Expose
         int id;
         @Expose

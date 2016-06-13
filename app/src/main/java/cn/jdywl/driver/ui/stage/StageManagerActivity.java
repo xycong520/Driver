@@ -101,14 +101,14 @@ public class StageManagerActivity extends BaseActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         int position = requestCode;
-        if(resultCode == Activity.RESULT_OK && data!=null){
-            setLocation(position,data.getStringExtra("addressX"),data.getStringExtra("addressY"),data.getStringExtra("address"));
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            setLocation(position, data.getStringExtra("addressX"), data.getStringExtra("addressY"), data.getStringExtra("address"));
         }
     }
 
-    private void setLocation(final int i,String lon,String lat,String Address) {
+    private void setLocation(final int i, String lon, String lat, String Address) {
         AppConst.showDialog(this);
-        String position = ApiConfig.STAGE_POSOTION_URL.replace("/","/"+mData.get(i).getId()+"/");
+        String position = ApiConfig.STAGE_POSOTION_URL.replace("/", "/" + mData.get(i).getId() + "/");
         String url = ApiConfig.api_url + position;
         Map<String, String> params = new HashMap<String, String>();
         params.put("longitude", lon);
@@ -124,7 +124,7 @@ public class StageManagerActivity extends BaseActivity implements
                     @Override
                     public void onResponse(Stage response) {
                         AppConst.dismiss();
-                        mData.set(i,response);
+                        mData.set(i, response);
                         mAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {

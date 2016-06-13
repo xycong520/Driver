@@ -220,7 +220,7 @@ public class COrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (srv) {
             case AddOrderFragment.SRV_CREDIT:
                 dataHolder.tvSrvtype.setVisibility(View.VISIBLE);
-                dataHolder.tvSrvtype.setText("垫资发运");
+                dataHolder.tvSrvtype.setText("垫款发车");
                 break;
             case AddOrderFragment.SRV_REGULATORY:
                 dataHolder.tvSrvtype.setVisibility(View.VISIBLE);

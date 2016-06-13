@@ -109,11 +109,11 @@ public class GetAddressInMap extends BaseActivity {
                     @Override
                     public void onLocateSucceed(BeanLocation locationBean) {
                         mLocationBean = locationBean;
-                        if (mMarker != null) {
-                            mMarker.remove();
-                        } else {
-                            mBaiduMap.clear();
-                        }
+//                        if (mMarker != null) {
+//                            mMarker.remove();
+//                        } else {
+//                            mBaiduMap.clear();
+//                        }
                         mMarker = BaiduMapUtilByRacer.showMarkerByResource(
                                 locationBean.getLatitude(),
                                 locationBean.getLongitude(), R.drawable.icon_point,
@@ -462,7 +462,7 @@ public class GetAddressInMap extends BaseActivity {
                         // + mLocationBean.getStreetNum(),
                         // Toast.LENGTH_SHORT).show();
                         String chosenLocation = mLocationBean.getProvince()
-                                +  mLocationBean.getCity()
+                                + mLocationBean.getCity()
                                 + mLocationBean.getDistrict()
                                 + mLocationBean.getStreet()
                                 + mLocationBean.getStreetNum();
@@ -481,14 +481,14 @@ public class GetAddressInMap extends BaseActivity {
                         if (poiList != null) {
                             aroundPoiList.addAll(poiList);
                         } else {
-                            Toast.makeText(GetAddressInMap.this,"该点周边没有热点",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GetAddressInMap.this, "该点周边没有热点", Toast.LENGTH_SHORT).show();
                         }
                         updatePoiListAdapter(aroundPoiList, -1);
                     }
 
                     @Override
                     public void onGetFailed() {
-                        Toast.makeText(GetAddressInMap.this,"抱歉，未能找到结果",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GetAddressInMap.this, "抱歉，未能找到结果", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -511,14 +511,14 @@ public class GetAddressInMap extends BaseActivity {
                 finish();
             case R.id.action_ok:
                 Intent intent = new Intent();
-                if (mChoseItemPos!=0){
-                    intent.putExtra("address", tvShowLocation.getText().toString()+this.aroundPoiList.get(mChoseItemPos).name);
-                }else{
+                if (mChoseItemPos != 0) {
+                    intent.putExtra("address", tvShowLocation.getText().toString() + this.aroundPoiList.get(mChoseItemPos).name);
+                } else {
                     intent.putExtra("address", tvShowLocation.getText().toString());
                 }
                 intent.putExtra("addressX", String.valueOf(mLocationBean.getLatitude()));
                 intent.putExtra("addressY", String.valueOf(mLocationBean.getLongitude()));
-                setResult(RESULT_OK,intent);
+                setResult(RESULT_OK, intent);
                 finish();
             default:
                 return super.onOptionsItemSelected(item);

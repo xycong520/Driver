@@ -71,7 +71,7 @@ public class AddOrderFragment extends BaseFragment {
 
     public static final int SRV_NONE = 0; //无
     public static final int SRV_REGULATORY = 1; //代收车款
-    public static final int SRV_CREDIT = 2; //垫资发运
+    public static final int SRV_CREDIT = 2; //垫款发车
 
     private boolean rgEnabled = true;
 

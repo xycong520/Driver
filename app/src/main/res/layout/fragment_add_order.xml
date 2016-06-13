@@ -277,7 +277,7 @@
                     android:id="@+id/rb_srvCredit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="垫资发运"
+                    android:text="垫款发车"
                     android:textColor="@color/gray_title"
                     android:textSize="14sp"/>
             </RadioGroup>

@@ -182,8 +182,10 @@ public class CarStageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return TYPE_DATA;
         }
     }
+
     View.OnClickListener onClickListener;
-    public void setOnItemClickListener(View.OnClickListener onClickListener){
+
+    public void setOnItemClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 }

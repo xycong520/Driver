@@ -94,7 +94,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
             return;
         }
 
-        //对于垫资发运订单，进入下一页填写融资信息
+        //对于垫款发车订单，进入下一页填写融资信息
         if (creditFragment == null && orderFragment.rbSrvCredit.isChecked()) {
             creditFragment = AddCreditFragment.newInstance(Integer.valueOf(orderFragment.etCarPrice.getText().toString()));
             // Add the fragment to the 'fragment_container' FrameLayout
@@ -107,7 +107,7 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
             return;
         }
 
-        //校验垫资发运订单内容
+        //校验垫款发车订单内容
         if (creditFragment != null && orderFragment.rgAddtionalSrv.getCheckedRadioButtonId() == R.id.rb_srvCredit) {
             if (!creditFragment.verification()) {
                 LogHelper.w(TAG, "融资信息校验失败");

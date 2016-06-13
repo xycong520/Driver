@@ -41,6 +41,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.jdywl.driver.BuildConfig;
 import cn.jdywl.driver.MainActivity;
 import cn.jdywl.driver.R;
 import cn.jdywl.driver.alipay.PayResult;
@@ -265,7 +266,7 @@ public class PayActivity extends BaseActivity {
         int srv = order.getAddtionalSrv();
         switch (srv) {
             case AddOrderFragment.SRV_CREDIT:
-                tvAddtionalSrv.setText("垫资发运");
+                tvAddtionalSrv.setText("垫款发车");
                 break;
             case AddOrderFragment.SRV_REGULATORY:
                 tvAddtionalSrv.setText("代收车款");
@@ -623,8 +624,9 @@ public class PayActivity extends BaseActivity {
         } else {  //货主支付
             orderPrice = String.valueOf(order.getDeposit());
         }
-        //TODO:修改为实际的额度
-        orderPrice = "0.01";
+        if (BuildConfig.DEBUG) {
+            orderPrice = "0.01";
+        }
 
         String orderInfo = getOrderInfo(subject, body, orderPrice);
 
@@ -796,8 +798,10 @@ public class PayActivity extends BaseActivity {
             orderNO = "C-" + order.getOrderNo() + "-" + order.getPayNum();
             orderPrice = order.getDeposit() * 100;
         }
-        //TODO:发布时修改为真实价格
-        orderPrice = 1;
+        //DEBUG版本修改价格为1分钱
+        if (BuildConfig.DEBUG) {
+            orderPrice = 1;
+        }
 
         String url = ApiConfig.api_url + ApiConfig.WXORDER_URL;
 

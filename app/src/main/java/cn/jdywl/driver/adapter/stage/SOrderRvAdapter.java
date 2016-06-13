@@ -168,11 +168,11 @@ public class SOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 it.putExtras(bundle);
                 if (from == FROM_SORDER) {
                     it.putExtra("from", StageOrderInfoActivity.FROM_SORDER);
-                }else if (from == FROM_SHISTORY_ORDER){
+                } else if (from == FROM_SHISTORY_ORDER) {
                     it.putExtra("from", StageOrderInfoActivity.FROM_SHISTORY_ORDER);
-                }else if(from == FROM_PENDING){
+                } else if (from == FROM_PENDING) {
                     it.putExtra("from", StageOrderInfoActivity.FROM_SPENDING);
-                }else if (from == FROM_TODOS){
+                } else if (from == FROM_TODOS) {
                     it.putExtra("from", StageOrderInfoActivity.FROM_STODOS);
                 }
                 context.startActivity(it);

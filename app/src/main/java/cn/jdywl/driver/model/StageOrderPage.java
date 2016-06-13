@@ -29,18 +29,14 @@ public class StageOrderPage {
     private List<StageOrderItem> data = new ArrayList<StageOrderItem>();
 
     /**
-     * 
-     * @return
-     *     The total
+     * @return The total
      */
     public int getTotal() {
         return total;
     }
 
     /**
-     * 
-     * @param total
-     *     The total
+     * @param total The total
      */
     public void setTotal(int total) {
         this.total = total;
@@ -52,18 +48,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The perPage
+     * @return The perPage
      */
     public int getPerPage() {
         return perPage;
     }
 
     /**
-     * 
-     * @param perPage
-     *     The per_page
+     * @param perPage The per_page
      */
     public void setPerPage(int perPage) {
         this.perPage = perPage;
@@ -75,18 +67,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The currentPage
+     * @return The currentPage
      */
     public int getCurrentPage() {
         return currentPage;
     }
 
     /**
-     * 
-     * @param currentPage
-     *     The current_page
+     * @param currentPage The current_page
      */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
@@ -98,18 +86,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The lastPage
+     * @return The lastPage
      */
     public int getLastPage() {
         return lastPage;
     }
 
     /**
-     * 
-     * @param lastPage
-     *     The last_page
+     * @param lastPage The last_page
      */
     public void setLastPage(int lastPage) {
         this.lastPage = lastPage;
@@ -121,18 +105,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The from
+     * @return The from
      */
     public int getFrom() {
         return from;
     }
 
     /**
-     * 
-     * @param from
-     *     The from
+     * @param from The from
      */
     public void setFrom(int from) {
         this.from = from;
@@ -144,18 +124,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The to
+     * @return The to
      */
     public int getTo() {
         return to;
     }
 
     /**
-     * 
-     * @param to
-     *     The to
+     * @param to The to
      */
     public void setTo(int to) {
         this.to = to;
@@ -167,18 +143,14 @@ public class StageOrderPage {
     }
 
     /**
-     * 
-     * @return
-     *     The data
+     * @return The data
      */
     public List<StageOrderItem> getData() {
         return data;
     }
 
     /**
-     * 
-     * @param data
-     *     The data
+     * @param data The data
      */
     public void setData(List<StageOrderItem> data) {
         this.data = data;

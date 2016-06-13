@@ -60,13 +60,14 @@ public class AppConst {
     }
 
     public static void dismiss() {
-        if (dialog!=null){
+        if (dialog != null) {
             dialog.dismiss();
         }
     }
-    public static String getCurTime(){
+
+    public static String getCurTime() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        return  df.format(new Date());
+        return df.format(new Date());
     }
 }
 
