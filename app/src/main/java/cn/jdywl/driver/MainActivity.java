@@ -31,6 +31,9 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.baidu.location.LocationClient;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 
 import butterknife.Bind;
@@ -43,6 +46,7 @@ import cn.jdywl.driver.config.AppConfig;
 import cn.jdywl.driver.config.AppConst;
 import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
+import cn.jdywl.driver.model.BeanRoles;
 import cn.jdywl.driver.model.OrderPage;
 import cn.jdywl.driver.model.StatsItem;
 import cn.jdywl.driver.model.VersionItem;
@@ -529,6 +533,7 @@ public class MainActivity extends AppUpdateActivity {
         //加载订单和统计
         loadStats();
         loadOrder();
+        loadRoles();
     }
 
     boolean isMaster = true;
@@ -770,7 +775,6 @@ public class MainActivity extends AppUpdateActivity {
 
     private void loadStats() {
         String url = ApiConfig.api_url + ApiConfig.STATS;
-
         GsonRequest<StatsItem> myReq = new GsonRequest<StatsItem>(Request.Method.GET,
                 url,
                 StatsItem.class,
@@ -792,6 +796,52 @@ public class MainActivity extends AppUpdateActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
+                        Helper.processVolleyErrorMsg(MainActivity.this, error);
+                    }
+                });
+
+        //设置TAG，用于取消请求
+        myReq.setTag(TAG);
+
+        VolleySingleton.getInstance(this).addToRequestQueue(myReq);
+    }
+
+    private void loadRoles() {
+        String url = ApiConfig.api_url + ApiConfig.USER_ROLES_URL;
+        GsonRequest<BeanRoles> myReq = new GsonRequest<BeanRoles>(Request.Method.GET,
+                url,
+                BeanRoles.class,
+                null,
+                new Response.Listener<BeanRoles>() {
+                    @Override
+                    public void onResponse(BeanRoles response) {
+                        if (response == null) {
+                            return;
+                        }
+                        if(response.getRoles()!=null){
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            //先删除
+                            editor.remove(AppConst.KEY_PREF_AUTH_ROLES_DRIVER);
+                            editor.remove(AppConst.KEY_PREF_AUTH_ROLES_MASTER);
+                            editor.commit();
+                            editor = sharedPref.edit();
+                            for (String roles:response.getRoles()){
+                                if ("station_driver".equals(roles)){
+                                    editor.putString(AppConst.KEY_PREF_AUTH_ROLES_DRIVER,roles);
+                                }else if("station_master".equals(roles)){
+                                    editor.putString(AppConst.KEY_PREF_AUTH_ROLES_MASTER,roles);
+                                }
+                            }
+                            editor.commit(); //需要立即生效
+                        }
+
+                        setupRecyclerView(rvHome);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
                         Helper.processVolleyErrorMsg(MainActivity.this, error);
                     }
                 });
