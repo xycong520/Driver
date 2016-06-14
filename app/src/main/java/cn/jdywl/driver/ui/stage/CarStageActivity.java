@@ -155,7 +155,7 @@ public class CarStageActivity extends BaseActivity implements
                     mBaiduMap.getUiSettings().setZoomGesturesEnabled(true);// 缩放手势
                     // 开启定位图层
                     mBaiduMap.setMyLocationEnabled(true);
-                    if (mData.getData() !=null&& mData.getData().size()>0){
+                    if (mData.getData() !=null&& mData.getData().size()>0 &&mData.getData().get(0).getLatitude()>0){
                         mMarker = BaiduMapUtilByRacer.showMarkerByResource(
                                 mData.getData().get(0).getLatitude(),
                                 mData.getData().get(0).getLongitude(), R.drawable.icon_point,
