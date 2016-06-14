@@ -846,8 +846,8 @@ public class MainActivity extends AppUpdateActivity {
                             }
                             editor.commit(); //需要立即生效
                         }
-
-                        setupRecyclerView(rvHome);
+                            initStageMenu();
+//                        setupRecyclerView(rvHome);
                     }
                 },
                 new Response.ErrorListener() {

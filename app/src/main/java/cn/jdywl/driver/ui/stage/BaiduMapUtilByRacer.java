@@ -93,6 +93,7 @@ public class BaiduMapUtilByRacer {
         }
         return (Marker) (mBaiduMap.addOverlay(ooView));
     }
+
     public static Marker showMarkerByResource(double lat, double lon,
                                               View resource, BaiduMap mBaiduMap, int distance, boolean isMoveTo) {
         BitmapDescriptor bdView = BitmapDescriptorFactory
@@ -608,7 +609,7 @@ public class BaiduMapUtilByRacer {
      * @return boolean
      * @throws
      *//*
-	public static boolean NaviByBaidu(double mLat1, double mLon1, double mLat2,
+    public static boolean NaviByBaidu(double mLat1, double mLon1, double mLat2,
 			double mLon2, final Context mContext) {
 		if ((Double) mLat1 instanceof Double
 				&& (Double) mLon1 instanceof Double
@@ -1024,6 +1025,7 @@ public class BaiduMapUtilByRacer {
         //在地图上添加Marker，并显示
         mBaiduMap.addOverlay(option);
     }
+
     public static void addOverlay(View view, double lat, double lon,
                                   BaiduMap mBaiduMap) {
         //定义Maker坐标点

@@ -94,16 +94,21 @@ public class NearByActivity extends BaseActivity implements ILocationWatcher {
                         }
                         //移动到自己的当前位子
                         mMarker = BaiduMapUtilByRacer.showMarkerByResource(
-                                lon,
-                                lat, R.drawable.icon_point,
+                                lat, lon, R.drawable.icon_point,
                                 mBaiduMap, 0, true);
-                       /* for (int i = 0; i < mData.size(); i++) {
+                        for (int i = 0; i < mData.size(); i++) {
                             BeanNearDriver driver = mData.get(i);
-                            View view = getLayoutInflater().inflate(R.layout.layout_orerlay,null);
+                            View view = getLayoutInflater().inflate(R.layout.layout_orerlay, null);
                             TextView tvName = (TextView) view.findViewById(R.id.tvName);
-                            tvName.setText(driver.getName()+"\n"+driver.getPhone());
-                            BaiduMapUtilByRacer.addOverlay(view, driver.getGps().get(0).getLatitude(), driver.getGps().get(0).getLongitude(), mBaiduMap);
-                        }*/
+                            tvName.setText(driver.getName() + "\n" + driver.getPhone());
+                            BeanGPS gps = driver.getGps().get(0);
+                            if (gps == null) {
+                                continue;
+                            }
+                            BaiduMapUtilByRacer.addOverlay(tvName, gps.getLatitude(), gps.getLongitude(), mBaiduMap);
+//                            BaiduMapUtilByRacer.addOverlay( R.drawable.icon_point, driver.getGps().get(0).getLatitude(), driver.getGps().get(0).getLongitude(), mBaiduMap);
+                        }
+                        BaiduMapUtilByRacer.setZoom(12, mBaiduMap);
                     }
                 }, new Response.ErrorListener() {
             @Override
