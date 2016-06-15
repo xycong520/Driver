@@ -285,8 +285,8 @@ public class AddOrderFragment extends BaseFragment {
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.STAGE_ROUTE_URL
-                + "&origin=" + URLEncoder.encode(etGetCarAddress.getText().toString())
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_PRICE_URL
+                + "&origin=" + URLEncoder.encode(city)
                 + "&destination=" + URLEncoder.encode(etDestination.getText().toString());
 
         GsonRequest<RouteItem> myReq = new GsonRequest<RouteItem>(Request.Method.GET,
