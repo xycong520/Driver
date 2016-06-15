@@ -518,6 +518,7 @@ public class GetAddressInMap extends BaseActivity {
                 }
                 intent.putExtra("addressX", String.valueOf(mLocationBean.getLatitude()));
                 intent.putExtra("addressY", String.valueOf(mLocationBean.getLongitude()));
+                intent.putExtra("cityName",mLocationBean.getCity());
                 setResult(RESULT_OK, intent);
                 finish();
             default:

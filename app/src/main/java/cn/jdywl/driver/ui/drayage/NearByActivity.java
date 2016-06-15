@@ -1,8 +1,9 @@
 package cn.jdywl.driver.ui.drayage;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -15,9 +16,6 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
-import com.google.common.base.Equivalence;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,11 +33,9 @@ import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.model.BeanGPS;
 import cn.jdywl.driver.model.BeanNearDriver;
-import cn.jdywl.driver.model.Stage;
 import cn.jdywl.driver.network.MyJsonRequest;
 import cn.jdywl.driver.ui.common.BaseActivity;
 import cn.jdywl.driver.ui.stage.BaiduMapUtilByRacer;
-import cn.jdywl.driver.ui.stage.BeanLocation;
 import cn.jdywl.driver.ui.stage.ILocationWatcher;
 
 /**
@@ -49,16 +45,32 @@ public class NearByActivity extends BaseActivity implements ILocationWatcher {
     private static String TAG = LogHelper.makeLogTag(NearByActivity.class);
 
 
+    @Bind(R.id.btn_submit)
+    Button btAdd;
     @Bind(R.id.mMapView)
     MapView mMapView;
     List<BeanNearDriver> mData = new ArrayList<>();
 
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby);
         ButterKnife.bind(this);
+        id = getIntent().getIntExtra("id",-1);
         location();
+        init();
+    }
+
+    private void init() {
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NearByActivity.this,AddOrderActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadNearBy() {

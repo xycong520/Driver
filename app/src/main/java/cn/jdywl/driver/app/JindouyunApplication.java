@@ -33,7 +33,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
-import com.squareup.leakcanary.LeakCanary;
 
 import org.acra.ACRA;
 import org.acra.annotation.ReportsCrashes;
@@ -96,7 +95,7 @@ public class JindouyunApplication extends Application {
         super.onCreate();
         SDKInitializer.initialize(this);
         //检查内存泄露
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
         // The following line triggers the initialization of ACRA
         ACRA.init(this);
