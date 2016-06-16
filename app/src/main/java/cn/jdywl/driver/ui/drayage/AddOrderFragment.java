@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +30,6 @@ import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
 import cn.jdywl.driver.model.PriceItem;
-import cn.jdywl.driver.model.RouteItem;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
 import cn.jdywl.driver.ui.stage.BaiduMapUtilByRacer;
@@ -71,7 +69,6 @@ public class AddOrderFragment extends BaseFragment {
     //运输线路价格
     PriceItem mPrice;
 
-    private RouteItem mRoute;
 
     private OnAddOrderFragmentListener mListener;
 
@@ -215,7 +212,6 @@ public class AddOrderFragment extends BaseFragment {
     //在运输区间变化是，需要重置价格
     void resetBill() {
         mPrice = null;
-
         if (mListener != null) {
             mListener.updatePrice(null);
         }
@@ -286,27 +282,24 @@ public class AddOrderFragment extends BaseFragment {
         }
 
         String url = ApiConfig.api_url + ApiConfig.SDRIVERS_PRICE_URL
-                + "&origin=" + URLEncoder.encode(city)
-                + "&destination=" + URLEncoder.encode(etDestination.getText().toString());
+                + "&city=" + URLEncoder.encode(city.replace("市",""))
+                + "&distance=" + URLEncoder.encode(BaiduMapUtilByRacer.getDistanceWithUtil(fLat,fLon,tLat,tLon));
 
-        GsonRequest<RouteItem> myReq = new GsonRequest<RouteItem>(Request.Method.GET,
+        GsonRequest<PriceItem> myReq = new GsonRequest<PriceItem>(Request.Method.GET,
                 url,
-                RouteItem.class,
+                PriceItem.class,
                 null,
-                new Response.Listener<RouteItem>() {
+                new Response.Listener<PriceItem>() {
                     @Override
-                    public void onResponse(RouteItem response) {
+                    public void onResponse(PriceItem response) {
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
-                        mRoute = response;
-
-                        if (mRoute.getExpress_price() <= 0) {
-                            Toast.makeText(getActivity(), "不支持该目的地,请重新选择", Toast.LENGTH_SHORT).show();
-                            etDestination.setText("");
+                        mPrice = response;
+                        if (mListener != null) {
+                            mListener.updatePrice(mPrice);
                         }
-
 
                     }
                 },

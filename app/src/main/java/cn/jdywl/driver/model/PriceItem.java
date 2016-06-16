@@ -30,12 +30,16 @@ public class PriceItem {
     @SerializedName("insurance")
     private int insurance;
     @SerializedName("charge")
-    private int charge;
+    private float charge;
     @SerializedName("srvFee")
     private int srvFee;
 
-    public int getCharge() {
+    public float getCharge() {
         return charge;
+    }
+
+    public void setCharge(float charge) {
+        this.charge = charge;
     }
 
     public void setTotalBill(int totalBill) {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,7 +98,7 @@ public class GetAddressInMap extends BaseActivity {
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(16));
         mBaiduMap.setOnMapStatusChangeListener(mapStatusChangeListener);
         mBaiduMap.setOnMapClickListener(mapOnClickListener);
-        mBaiduMap.getUiSettings().setZoomGesturesEnabled(false);// 缩放手势
+//        mBaiduMap.getUiSettings().setZoomGesturesEnabled(false);// 缩放手势
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
     }
@@ -209,7 +210,7 @@ public class GetAddressInMap extends BaseActivity {
                 // searchPoiList.get(arg2).getCity()).address(
                 // searchPoiList.get(arg2).getLocName()));
                 hideSoftinput(GetAddressInMap.this);
-                isCanUpdateMap = false;
+                isCanUpdateMap = true;
                 BaiduMapUtilByRacer.moveToTarget(searchPoiList.get(arg2)
                                 .getLatitude(), searchPoiList.get(arg2).getLongitude(),
                         mBaiduMap);
@@ -217,7 +218,7 @@ public class GetAddressInMap extends BaseActivity {
                 // 反Geo搜索
                 reverseGeoCode(new LatLng(
                         searchPoiList.get(arg2).getLatitude(), searchPoiList
-                        .get(arg2).getLongitude()), false);
+                        .get(arg2).getLongitude()));
                 showMapOrSearch(SHOW_MAP);
             }
         });
@@ -277,6 +278,13 @@ public class GetAddressInMap extends BaseActivity {
          *            点击的地理坐标
          */
         public void onMapClick(LatLng point) {
+            Log.i("map","click");
+            LatLng ptCenter = new LatLng(point.latitude,
+                    point.longitude);
+            BaiduMapUtilByRacer.moveToTarget(point.latitude, point.longitude,
+                    mBaiduMap);
+            // 反Geo搜索
+            reverseGeoCode(ptCenter);
             hideSoftinput(GetAddressInMap.this);
         }
 
@@ -287,6 +295,7 @@ public class GetAddressInMap extends BaseActivity {
          *            点击的 poi 信息
          */
         public boolean onMapPoiClick(MapPoi poi) {
+            Log.i("map","onMapPoiClick");
             return false;
         }
     };
@@ -299,6 +308,7 @@ public class GetAddressInMap extends BaseActivity {
          *            地图状态改变开始时的地图状态
          */
         public void onMapStatusChangeStart(MapStatus status) {
+            Log.i("map","onMapStatusChangeStart");
         }
 
         /**
@@ -308,6 +318,7 @@ public class GetAddressInMap extends BaseActivity {
          *            当前地图状态
          */
         public void onMapStatusChange(MapStatus status) {
+            Log.i("map","onMapStatusChange");
         }
 
         /**
@@ -317,11 +328,12 @@ public class GetAddressInMap extends BaseActivity {
          *            地图状态改变结束后的地图状态
          */
         public void onMapStatusChangeFinish(MapStatus status) {
+            Log.i("map","onMapStatusChangeFinish  "+isCanUpdateMap);
             if (isCanUpdateMap) {
                 LatLng ptCenter = new LatLng(status.target.latitude,
                         status.target.longitude);
                 // 反Geo搜索
-                reverseGeoCode(ptCenter, true);
+                reverseGeoCode(ptCenter);
             } else {
                 isCanUpdateMap = true;
             }
@@ -443,7 +455,7 @@ public class GetAddressInMap extends BaseActivity {
                 });
     }
 
-    public void reverseGeoCode(LatLng ll, final boolean isShowTextView) {
+    public void reverseGeoCode(LatLng ll) {
         AppConst.showDialog(GetAddressInMap.this);
         BaiduMapUtilByRacer.getPoisByGeoCode(ll.latitude, ll.longitude,
                 new BaiduMapUtilByRacer.GeoCodePoiListener() {
@@ -453,24 +465,16 @@ public class GetAddressInMap extends BaseActivity {
                                              List<PoiInfo> poiList) {
                         AppConst.dismiss();
                         mLocationBean = (BeanLocation) locationBean.clone();
-                        // Toast.makeText(
-                        // mContext,
-                        // mLocationBean.getProvince() + "-"
-                        // + mLocationBean.getCity() + "-"
-                        // + mLocationBean.getDistrict() + "-"
-                        // + mLocationBean.getStreet() + "-"
-                        // + mLocationBean.getStreetNum(),
-                        // Toast.LENGTH_SHORT).show();
                         String chosenLocation = mLocationBean.getProvince()
                                 + mLocationBean.getCity()
                                 + mLocationBean.getDistrict()
                                 + mLocationBean.getStreet()
                                 + mLocationBean.getStreetNum();
                         tvShowLocation.setText(chosenLocation);
-                        // mBaiduMap.setMapStatus(MapStatusUpdateFactory
-                        // .newLatLng(new LatLng(locationBean
-                        // .getLatitude(), locationBean
-                        // .getLongitude())));
+                        /* mBaiduMap.setMapStatus(MapStatusUpdateFactory
+                         .newLatLng(new LatLng(locationBean
+                         .getLatitude(), locationBean
+                         .getLongitude())));*/
                         // if (isShowTextView) {
                         // tvShowLocation.setText(locationBean.getLocName());
                         // }

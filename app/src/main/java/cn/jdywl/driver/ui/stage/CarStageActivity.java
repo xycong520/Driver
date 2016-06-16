@@ -278,7 +278,6 @@ public class CarStageActivity extends BaseActivity implements
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i("省份：", response.toString());
                         provinceItemList = new ArrayList<>();
                         try {
                             for (int i = 0; i < response.length(); i++) {

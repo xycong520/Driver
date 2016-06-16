@@ -201,6 +201,12 @@
                 android:value=".ui.stage.StageInfoActivity"/>
         </activity>
         <activity
+            android:name=".ui.stage.CarLocationActivity"
+            android:label="当前位子"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".ui.drayage.AddOrderActivity"
             android:label="@string/sender_info"
             android:launchMode="singleTask"

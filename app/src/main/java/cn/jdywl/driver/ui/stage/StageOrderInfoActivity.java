@@ -1,9 +1,11 @@
 package cn.jdywl.driver.ui.stage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +61,12 @@ public class StageOrderInfoActivity extends BaseActivity {
     TextView tvPhone;
     @Bind(R.id.tvDate)
     TextView tvDate;
+    @Bind(R.id.tvLocation)
+    TextView tvLocation;
     @Bind(R.id.btn_submit)
     Button btSub;
+    @Bind(R.id.layoutLocation)
+    LinearLayout layoutLocation;
     StageOrderItem order;
 
     @Override
@@ -86,7 +92,19 @@ public class StageOrderInfoActivity extends BaseActivity {
         tvBX.setText("￥：" + order.getInsurance());
         tvPrice.setText("￥：" + order.getCar_price());
         tvTotal.setText("￥：" + order.getCharge());
-
+        if (order.getStatus() == OrderStatus.ORDER_TRADING) {
+            layoutLocation.setVisibility(View.VISIBLE);
+            tvLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(StageOrderInfoActivity.this, CarLocationActivity.class);
+                    intent.putExtra("id", order.getId());
+                    startActivity(intent);
+                }
+            });
+        } else {
+            layoutLocation.setVisibility(View.GONE);
+        }
         switch (form) {
             case FROM_SPENDING:
                 btSub.setText("取消订单");

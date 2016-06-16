@@ -500,9 +500,9 @@ public class BaiduMapUtilByRacer {
             float distance = (float) DistanceUtil.getDistance(
                     new LatLng(Double.valueOf(mLat1), Double.valueOf(mLon1)),
                     new LatLng(Double.valueOf(mLat2), Double.valueOf(mLon2)));
-            return addUnit(distance);
+            return String.valueOf(distance);
         } else {
-            return "0M";
+            return "0";
         }
     }
 
@@ -797,9 +797,9 @@ public class BaiduMapUtilByRacer {
     public static void getPoisByGeoCode(double lat, double lon,
                                         GeoCodePoiListener listener) {
         mGeoCodePoiListener = listener;
-        if (mGeoCoder == null) {
+//        if (mGeoCoder == null) {
             mGeoCoder = GeoCoder.newInstance();
-        }
+//        }
         mGeoCoder.setOnGetGeoCodeResultListener(new MyGeoCodeListener());
         // 反Geo搜索
         mGeoCoder.reverseGeoCode(new ReverseGeoCodeOption()

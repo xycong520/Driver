@@ -114,14 +114,6 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
-                        //跳转到支付页面
-                        /*Intent it = new Intent(AddOrderActivity.this, PayActivity.class);
-
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("order", response);
-                        it.putExtras(bundle);
-
-                        startActivity(it);*/
                         Toast.makeText(AddOrderActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
                     }
                 },
@@ -195,8 +187,8 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
     @Override
     public void updatePrice(PriceItem price) {
         if (price != null) {
-            tvTotalBill.setText(String.format("总费用：%d元", price.getCharge() + price.getInsurance()));
-            tvPrice.setText(String.format(getString(R.string.stage_price), price.getCharge(), price.getInsurance(), price.getSrvFee() + price.getDeposit()));
+            tvTotalBill.setText(String.format("总费用：%.2f元", price.getCharge() ));
+//            tvPrice.setText(String.format("运费%1$d元", price.getCharge()));
         } else {
             tvTotalBill.setText("总费用：0元");
             tvPrice.setText("");

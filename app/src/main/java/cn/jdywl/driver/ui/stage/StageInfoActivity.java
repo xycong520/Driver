@@ -164,7 +164,7 @@ public class StageInfoActivity extends BaseActivity {
                 String name = (String) v.getTag();
                 if ("小板速运".equals(name)) {
                     startActivity(new Intent(StageInfoActivity.this, AddOrderActivity.class));
-                }else if("市内提车".equals(name) || "室内交车".equals(name)){
+                }else if("市内提车".equals(name) || "市内交车".equals(name)){
                     Intent intent = new Intent(StageInfoActivity.this, NearByActivity.class);
                     intent.putExtra("id",id);
                     startActivity(intent);
