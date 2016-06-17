@@ -1,4 +1,4 @@
-package cn.jdywl.driver.ui.stage;
+package cn.jdywl.driver.ui.drayage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +23,7 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.stage.STransportingRvAdapter;
+import cn.jdywl.driver.adapter.drayage.DOrderRvAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
@@ -32,53 +32,51 @@ import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
 import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
+import cn.jdywl.driver.ui.stage.DriverOrderActivity;
 
-
-public class STransportingFragment extends BaseFragment implements
+/**
+ * A fragment representing a list of Items.
+ * <p/>
+ */
+public class DPendingFragment extends BaseFragment implements
         SwipeRefreshLayout.OnRefreshListener {
 
-    private static String TAG = LogHelper.makeLogTag(STransportingFragment.class);
+    //设置tag，用于在activity stop时取消Volley的请求
+    public static final String TAG = LogHelper.makeLogTag(DPendingFragment.class);
 
-    @Bind(R.id.rv_ctransporting)
-    RecyclerView rvCtransporting;
+    @Bind(R.id.rv_corder)
+    RecyclerView rvCorder;
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout mSwipeLayout;
 
-    private boolean bReload = false;   //
+    private boolean bReload = false;
     private boolean loading = false;   //是否正在加载
-
-    private STransportingRvAdapter mAdapter;
-
     private StageOrderPage mData = new StageOrderPage();
+    private DOrderRvAdapter mAdapter;
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DTransportingFragment.
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
      */
-    public static STransportingFragment newInstance() {
-        return new STransportingFragment();
+    public DPendingFragment() {
     }
 
-    public STransportingFragment() {
-        // Required empty public constructor
+    public static DPendingFragment newInstance() {
+        return new DPendingFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rv = inflater.inflate(R.layout.fragment_ctransporting, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rv = inflater.inflate(R.layout.fragment_corder, container, false);
         ButterKnife.bind(this, rv);
 
-        /*
-         * 设置下拉刷新
-         */
+        //设置下拉刷新
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-
-        setupRecyclerView(rvCtransporting);
+        mSwipeLayout.setEnabled(true);
+        mSwipeLayout.setRefreshing(true);
+        //设置RecyclerView
+        setupRecyclerView(rvCorder);
 
         //注册local Broadcast
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
@@ -97,7 +95,7 @@ public class STransportingFragment extends BaseFragment implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         //设置adapter
-        mAdapter = new STransportingRvAdapter(mData.getData());
+        mAdapter = new DOrderRvAdapter(mData.getData(), DOrderRvAdapter.FROM_PENDING);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -115,27 +113,23 @@ public class STransportingFragment extends BaseFragment implements
         });
     }
 
-    @Override
-    public void onRefresh() {
-        bReload = true;
-        loadData();
-    }
 
     @Override
     public void onResume() {
         super.onResume();
+
         bReload = true;
         loadData();
         mSwipeLayout.setRefreshing(true);
+
     }
 
     private void loadData() {
         if (bReload) {
             mData.setCurrentPage(0);
         }
-        int page = mData.getCurrentPage() + 1;
-        //获取自己所有未完成的订单：
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        long page = mData.getCurrentPage() + 1;
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
@@ -146,6 +140,8 @@ public class STransportingFragment extends BaseFragment implements
                 new Response.Listener<StageOrderPage>() {
                     @Override
                     public void onResponse(StageOrderPage response) {
+
+                        //mInError = false;
 
                         // 取消refresh
                         mSwipeLayout.setRefreshing(false);
@@ -177,6 +173,8 @@ public class STransportingFragment extends BaseFragment implements
                         mSwipeLayout.setRefreshing(false);
                         bReload = false;
 
+                        //mInError = true;
+
                         Helper.processVolleyErrorMsg(getActivity(), error);
                     }
                 });
@@ -187,22 +185,22 @@ public class STransportingFragment extends BaseFragment implements
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(myReq);
     }
 
-
-    private void loadMoreData(int current_page) {
+    private void loadMoreData(int currentPage) {
 
         if (loading) {  //如果正在加载，直接返回
             return;
         }
 
         //到达尾页，直接返回
-        if (current_page > mData.getLastPage()) {
-            LogHelper.i(TAG, "已经到达尾页");
+        if (currentPage > mData.getLastPage()) {
+            LogHelper.i(TAG, "已经到达最后一页");
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        int page = mData.getCurrentPage() + 1;
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_MARKET_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
-                "&page=" + current_page;
+                "&page=" + page;
 
         GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
                 url,
@@ -212,6 +210,7 @@ public class STransportingFragment extends BaseFragment implements
                     @Override
                     public void onResponse(StageOrderPage response) {
                         loading = false;
+
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
@@ -223,7 +222,6 @@ public class STransportingFragment extends BaseFragment implements
                         mData.setLastPage(response.getLastPage());
                         mData.setFrom(response.getFrom());
                         mData.setTo(response.getTo());
-
                         mData.getData().addAll(response.getData());
 
                         mAdapter.notifyDataSetChanged();
@@ -234,7 +232,6 @@ public class STransportingFragment extends BaseFragment implements
                     public void onErrorResponse(VolleyError error) {
                         // 返回错误也要取消正在加载
                         loading = false;
-
                         Helper.processVolleyErrorMsg(getActivity(), error);
                     }
                 });
@@ -256,12 +253,19 @@ public class STransportingFragment extends BaseFragment implements
     }
 
     @Override
+    public void onRefresh() {
+        bReload = true;
+        loadData();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
         //取消local broadcast的注册
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRefreshReceiver);
     }
+
 
     private BroadcastReceiver mRefreshReceiver = new BroadcastReceiver() {
         @Override

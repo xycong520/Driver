@@ -54,7 +54,7 @@ public class StageOrderItem implements Parcelable {
     int receiver_cypher;
     @SerializedName("charge")
     @Expose
-    int charge;
+    float charge;
     @SerializedName("insurance")
     @Expose
     int insurance;
@@ -136,6 +136,10 @@ public class StageOrderItem implements Parcelable {
 
     public int getCarowner_id() {
         return carowner_id;
+    }
+
+    public float getCharge() {
+        return charge;
     }
 
     public void setCarowner_id(int carowner_id) {
@@ -238,9 +242,6 @@ public class StageOrderItem implements Parcelable {
         this.receiver_cypher = receiver_cypher;
     }
 
-    public int getCharge() {
-        return charge;
-    }
 
     public void setCharge(int charge) {
         this.charge = charge;
@@ -347,7 +348,7 @@ public class StageOrderItem implements Parcelable {
         dest.writeInt(vin_car_price);
         dest.writeInt(cypher);
         dest.writeInt(receiver_cypher);
-        dest.writeInt(charge);
+        dest.writeFloat(charge);
         dest.writeInt(insurance);
         dest.writeInt(actual_insurance);
         dest.writeDouble(from_longitude);

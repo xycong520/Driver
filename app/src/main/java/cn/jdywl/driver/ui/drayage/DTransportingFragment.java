@@ -1,4 +1,4 @@
-package cn.jdywl.driver.ui.stage;
+package cn.jdywl.driver.ui.drayage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +23,7 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.stage.STransportingRvAdapter;
+import cn.jdywl.driver.adapter.driver.DTransportingRvAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
@@ -32,12 +32,13 @@ import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
 import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
+import cn.jdywl.driver.ui.stage.DriverOrderActivity;
 
 
-public class STransportingFragment extends BaseFragment implements
+public class DTransportingFragment extends BaseFragment implements
         SwipeRefreshLayout.OnRefreshListener {
 
-    private static String TAG = LogHelper.makeLogTag(STransportingFragment.class);
+    private static String TAG = LogHelper.makeLogTag(DTransportingFragment.class);
 
     @Bind(R.id.rv_ctransporting)
     RecyclerView rvCtransporting;
@@ -47,7 +48,7 @@ public class STransportingFragment extends BaseFragment implements
     private boolean bReload = false;   //
     private boolean loading = false;   //是否正在加载
 
-    private STransportingRvAdapter mAdapter;
+    private DTransportingRvAdapter mAdapter;
 
     private StageOrderPage mData = new StageOrderPage();
 
@@ -57,11 +58,11 @@ public class STransportingFragment extends BaseFragment implements
      *
      * @return A new instance of fragment DTransportingFragment.
      */
-    public static STransportingFragment newInstance() {
-        return new STransportingFragment();
+    public static DTransportingFragment newInstance() {
+        return new DTransportingFragment();
     }
 
-    public STransportingFragment() {
+    public DTransportingFragment() {
         // Required empty public constructor
     }
 
@@ -97,7 +98,7 @@ public class STransportingFragment extends BaseFragment implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         //设置adapter
-        mAdapter = new STransportingRvAdapter(mData.getData());
+        mAdapter = new DTransportingRvAdapter(mData.getData());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -135,7 +136,7 @@ public class STransportingFragment extends BaseFragment implements
         }
         int page = mData.getCurrentPage() + 1;
         //获取自己所有未完成的订单：
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_CAROWNER_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
@@ -200,7 +201,7 @@ public class STransportingFragment extends BaseFragment implements
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_CAROWNER_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 

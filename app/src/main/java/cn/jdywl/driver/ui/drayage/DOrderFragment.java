@@ -1,10 +1,11 @@
-package cn.jdywl.driver.ui.stage;
+package cn.jdywl.driver.ui.drayage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,7 +24,7 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.stage.STransportingRvAdapter;
+import cn.jdywl.driver.adapter.drayage.DOrderRvAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
@@ -32,44 +33,48 @@ import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
 import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
+import cn.jdywl.driver.ui.driver.DMainActivity;
 
-
-public class STransportingFragment extends BaseFragment implements
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link DOrderFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DOrderFragment extends BaseFragment implements
         SwipeRefreshLayout.OnRefreshListener {
 
-    private static String TAG = LogHelper.makeLogTag(STransportingFragment.class);
+    private static String TAG = LogHelper.makeLogTag(DOrderFragment.class);
 
-    @Bind(R.id.rv_ctransporting)
-    RecyclerView rvCtransporting;
+    @Bind(R.id.rv_dorder)
+    RecyclerView mRecyclerView;
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout mSwipeLayout;
 
     private boolean bReload = false;   //
     private boolean loading = false;   //是否正在加载
 
-    private STransportingRvAdapter mAdapter;
+    protected DOrderRvAdapter mAdapter;
 
     private StageOrderPage mData = new StageOrderPage();
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DTransportingFragment.
      */
-    public static STransportingFragment newInstance() {
-        return new STransportingFragment();
+    public static DOrderFragment newInstance() {
+        return new DOrderFragment();
     }
 
-    public STransportingFragment() {
+    public DOrderFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rv = inflater.inflate(R.layout.fragment_ctransporting, container, false);
+        View rv = inflater.inflate(R.layout.fragment_dorder, container, false);
         ButterKnife.bind(this, rv);
 
         /*
@@ -78,11 +83,18 @@ public class STransportingFragment extends BaseFragment implements
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
-        setupRecyclerView(rvCtransporting);
+        /*
+         * 设置RecyclerView
+         */
+
+        setupRecyclerView(mRecyclerView);
 
         //注册local Broadcast
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
-                mRefreshReceiver, new IntentFilter(DriverOrderActivity.REFRESH_ACTION));
+                mRefreshReceiver, new IntentFilter(DMainActivity.REFRESH_ACTION));
+
+        //加载数据
+        //loadData();
 
         return rv;
     }
@@ -96,8 +108,9 @@ public class STransportingFragment extends BaseFragment implements
         //设置为线性布局
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+
         //设置adapter
-        mAdapter = new STransportingRvAdapter(mData.getData());
+        mAdapter = new DOrderRvAdapter(mData.getData(), DOrderRvAdapter.FROM_SORDER);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -121,21 +134,12 @@ public class STransportingFragment extends BaseFragment implements
         loadData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        bReload = true;
-        loadData();
-        mSwipeLayout.setRefreshing(true);
-    }
-
     private void loadData() {
         if (bReload) {
             mData.setCurrentPage(0);
         }
         int page = mData.getCurrentPage() + 1;
-        //获取自己所有未完成的订单：
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
@@ -153,12 +157,10 @@ public class STransportingFragment extends BaseFragment implements
                             mData.getData().clear();
                             bReload = false;
                         }
-
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
-
                         mData.setTotal(response.getTotal());
                         mData.setPerPage(response.getPerPage());
                         mData.setCurrentPage(response.getCurrentPage());
@@ -196,11 +198,11 @@ public class STransportingFragment extends BaseFragment implements
 
         //到达尾页，直接返回
         if (current_page > mData.getLastPage()) {
-            LogHelper.i(TAG, "已经到达尾页");
+            LogHelper.i(TAG, "已经到达最后一页");
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 
@@ -212,11 +214,11 @@ public class STransportingFragment extends BaseFragment implements
                     @Override
                     public void onResponse(StageOrderPage response) {
                         loading = false;
+
                         if (response == null) {
                             LogHelper.i(TAG, "response为空");
                             return;
                         }
-
                         mData.setTotal(response.getTotal());
                         mData.setPerPage(response.getPerPage());
                         mData.setCurrentPage(response.getCurrentPage());
@@ -246,13 +248,11 @@ public class STransportingFragment extends BaseFragment implements
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        //取消volley 连接
-        RequestQueue queue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
-        if (queue != null) {
-            queue.cancelAll(TAG);
-        }
+    public void onResume() {
+        super.onResume();
+        bReload = true;
+        loadData();
+        mSwipeLayout.setRefreshing(true);
     }
 
     @Override
@@ -263,11 +263,12 @@ public class STransportingFragment extends BaseFragment implements
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRefreshReceiver);
     }
 
+
     private BroadcastReceiver mRefreshReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(DriverOrderActivity.REFRESH_ACTION)) {
+            if (action.equals(DMainActivity.REFRESH_ACTION)) {
                 boolean enabled = intent.getBooleanExtra("enabled", true);
                 mSwipeLayout.setEnabled(enabled);
             }

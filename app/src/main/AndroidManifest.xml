@@ -191,6 +191,12 @@
                 android:value=".ui.stage.MyAcceptOrderActivity"/>
         </activity>
         <activity
+            android:name=".ui.drayage.DrayageOrderInfoActivity"
+            android:label="短驳订单详情"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".ui.drayage.NearByActivity"
             android:label="附近司机"
             android:launchMode="singleTask"
@@ -215,6 +221,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.drayage.NearByActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.drayage.DrayageOrderActivity"
+            android:label="@string/home_title_stage5"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.drayage.MyAcceptDrayageOrderActivity"
+            android:label="@string/home_title_stage6"
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
         </activity>
         <activity
             android:name=".ui.LoginActivity"

@@ -77,63 +77,6 @@
                     android:layout_height="wrap_content"
                     android:minWidth="100dp"
                     android:padding="10dp"
-                    android:text="汽车价格：" />
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="100dp"
-                    android:padding="10dp"
-                    android:text="保险：" />
-
-                <TextView
-                    android:id="@+id/tvBX"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="100dp"
-                    android:padding="10dp"
-                    android:text="运输：" />
-
-                <TextView
-                    android:id="@+id/tvPTP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="100dp"
-                    android:padding="10dp"
                     android:text="起点：" />
 
                 <TextView
@@ -274,17 +217,6 @@
                 android:background="@drawable/selector_submit_btn"
                 android:onClick="driverPay"
                 android:text="我要接单"
-                android:textColor="@android:color/white"
-                android:textSize="17sp" />
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/stub_sanche"
-                android:layout_margin="@dimen/title_margin"
-                android:background="@drawable/selector_submit_btn"
-                android:visibility="gone"
-                android:text="取消接车"
                 android:textColor="@android:color/white"
                 android:textSize="17sp" />
         </LinearLayout>

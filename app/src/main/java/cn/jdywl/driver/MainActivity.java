@@ -59,6 +59,8 @@ import cn.jdywl.driver.ui.common.HelptelActivity;
 import cn.jdywl.driver.ui.common.PriceQueryActivity;
 import cn.jdywl.driver.ui.common.RMainActivity;
 import cn.jdywl.driver.ui.common.SupportActivity;
+import cn.jdywl.driver.ui.drayage.DrayageOrderActivity;
+import cn.jdywl.driver.ui.drayage.MyAcceptDrayageOrderActivity;
 import cn.jdywl.driver.ui.driver.DMainActivity;
 import cn.jdywl.driver.ui.stage.CarStageActivity;
 import cn.jdywl.driver.ui.stage.DriverOrderActivity;
@@ -265,6 +267,12 @@ public class MainActivity extends AppUpdateActivity {
                             break;
                         case R.string.home_title_stage4:
                             OpenMyAcceptOrderActivity();
+                            break;
+                        case R.string.home_title_stage5:
+                            OpenDrayageOrderActivity();
+                            break;
+                        case R.string.home_title_stage6:
+                            OpenMyAcceptDrayageOrderActivity();
                             break;
                     }
 
@@ -581,6 +589,10 @@ public class MainActivity extends AppUpdateActivity {
         mStageImgID.add(count++, R.drawable.home_tile_stage);
         mStageID.add(count, R.string.home_title_stage4);
         mStageImgID.add(count++, R.drawable.home_title_fast_train);
+        mStageID.add(count, R.string.home_title_stage5);
+        mStageImgID.add(count++, R.drawable.home_tile_carowner);
+        mStageID.add(count, R.string.home_title_stage6);
+        mStageImgID.add(count++, R.drawable.home_tile_driver);
 
         //如果mAdapter已经初始化，通知更新recycle view
         if (mAdapter != null) {
@@ -655,6 +667,21 @@ public class MainActivity extends AppUpdateActivity {
      */
     public void OpenPriceQueryActivity() {
         Intent it = new Intent(this, PriceQueryActivity.class);
+        startActivity(it);
+    }
+    /**
+     * 打开我的短驳运单
+     */
+    public void OpenDrayageOrderActivity() {
+        Intent it = new Intent(this, DrayageOrderActivity.class);
+        startActivity(it);
+    }
+
+    /**
+     * 打开我承运的短驳订单
+     */
+    public void OpenMyAcceptDrayageOrderActivity() {
+        Intent it = new Intent(this, MyAcceptDrayageOrderActivity.class);
         startActivity(it);
     }
 

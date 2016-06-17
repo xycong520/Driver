@@ -1,4 +1,4 @@
-package cn.jdywl.driver.ui.stage;
+package cn.jdywl.driver.ui.drayage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +23,7 @@ import com.android.volley.VolleyError;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jdywl.driver.R;
-import cn.jdywl.driver.adapter.stage.STransportingRvAdapter;
+import cn.jdywl.driver.adapter.drayage.DOrderRvAdapter;
 import cn.jdywl.driver.app.VolleySingleton;
 import cn.jdywl.driver.config.ApiConfig;
 import cn.jdywl.driver.helper.Helper;
@@ -32,22 +32,23 @@ import cn.jdywl.driver.libsrc.recylerview.EndlessRecyclerOnScrollListener;
 import cn.jdywl.driver.model.StageOrderPage;
 import cn.jdywl.driver.network.GsonRequest;
 import cn.jdywl.driver.ui.common.BaseFragment;
+import cn.jdywl.driver.ui.stage.DriverOrderActivity;
 
 
-public class STransportingFragment extends BaseFragment implements
+public class DTodosFragment extends BaseFragment implements
         SwipeRefreshLayout.OnRefreshListener {
 
-    private static String TAG = LogHelper.makeLogTag(STransportingFragment.class);
+    private static String TAG = LogHelper.makeLogTag(DTodosFragment.class);
 
-    @Bind(R.id.rv_ctransporting)
-    RecyclerView rvCtransporting;
+    @Bind(R.id.rv_corder)
+    RecyclerView rvCorder;
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout mSwipeLayout;
 
     private boolean bReload = false;   //
     private boolean loading = false;   //是否正在加载
 
-    private STransportingRvAdapter mAdapter;
+    private DOrderRvAdapter mAdapter;
 
     private StageOrderPage mData = new StageOrderPage();
 
@@ -57,11 +58,11 @@ public class STransportingFragment extends BaseFragment implements
      *
      * @return A new instance of fragment DTransportingFragment.
      */
-    public static STransportingFragment newInstance() {
-        return new STransportingFragment();
+    public static DTodosFragment newInstance() {
+        return new DTodosFragment();
     }
 
-    public STransportingFragment() {
+    public DTodosFragment() {
         // Required empty public constructor
     }
 
@@ -69,7 +70,7 @@ public class STransportingFragment extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rv = inflater.inflate(R.layout.fragment_ctransporting, container, false);
+        View rv = inflater.inflate(R.layout.fragment_corder, container, false);
         ButterKnife.bind(this, rv);
 
         /*
@@ -78,7 +79,7 @@ public class STransportingFragment extends BaseFragment implements
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
-        setupRecyclerView(rvCtransporting);
+        setupRecyclerView(rvCorder);
 
         //注册local Broadcast
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
@@ -97,7 +98,7 @@ public class STransportingFragment extends BaseFragment implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         //设置adapter
-        mAdapter = new STransportingRvAdapter(mData.getData());
+        mAdapter = new DOrderRvAdapter(mData.getData(), DOrderRvAdapter.FROM_TODOS);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -134,9 +135,8 @@ public class STransportingFragment extends BaseFragment implements
             mData.setCurrentPage(0);
         }
         int page = mData.getCurrentPage() + 1;
-        //获取自己所有未完成的订单：
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
-                "&page_size=" + ApiConfig.PAGE_SIZE +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_CAROWNER_HISTRY_URL +
+                "page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + page;
 
         GsonRequest<StageOrderPage> myReq = new GsonRequest<StageOrderPage>(Request.Method.GET,
@@ -200,7 +200,7 @@ public class STransportingFragment extends BaseFragment implements
             return;
         }
 
-        String url = ApiConfig.api_url + ApiConfig.STAGE_CAROWNER_URL +
+        String url = ApiConfig.api_url + ApiConfig.SDRIVERS_CAROWNER_HISTRY_URL +
                 "&page_size=" + ApiConfig.PAGE_SIZE +
                 "&page=" + current_page;
 

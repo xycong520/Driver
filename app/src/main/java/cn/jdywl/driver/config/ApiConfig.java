@@ -87,16 +87,25 @@ public class ApiConfig {
     public static String STAGE_ORDER_URL = "express/order" + DEBUG_PARA;//接单
     public static String STAGE_CANCEL_URL = "express/cancel" + DEBUG_PARA;//取消订单
     public static String STAGE_FINISH_URL = "express/finish" + DEBUG_PARA;//完成订单
+    public static String STAGE_VERIFY_URL = "express/verify" + DEBUG_PARA;//提车验车
     public static final String STAGE_SDRIVER_HISTORY_URL = "express/sdriverHistory" + DEBUG_PARA;
     public static final String STAGE_SDRIVER_URL = "express/sdriver" + DEBUG_PARA;
     public static final String STAGE_ORIGINS_URL = "express/origins" + DEBUG_PARA;
     public static final String STAGE_DESTINATIONS_URL = "express/destinations" + DEBUG_PARA;
     public static final String USER_ROLES_URL = "user/roles" +DEBUG_PARA;
 
-    //提车交车
+    //短驳
     public static final String SDRIVERS_NEARBY_URL = "sdrivers/nearby" +DEBUG_PARA;
     public static final String SDRIVERS_PRICE_URL = "drayage/price" +DEBUG_PARA;
     public static final String SDRIVERS_DRAYAGE_URL = "drayage" +DEBUG_PARA;
+    public static final String SDRIVERS_URL = "drayage/sdriver" + DEBUG_PARA;//司机未完成
+    public static final String SDRIVERS_DRIVER_HISTRY_URL = "drayage/sdriverHistory" + DEBUG_PARA;//司机历史所有
+    public static final String SDRIVERS_MARKET_URL = "drayage/market" + DEBUG_PARA;//待拖运
+    public static final String SDRIVERS_CAROWNER_URL = "drayage/carowner" + DEBUG_PARA;//托运中
+    public static final String SDRIVERS_CAROWNER_HISTRY_URL = "drayage/carownerHistory" + DEBUG_PARA;//所有
+    public static String SDRIVERS_ORDER_URL = "drayage/order" + DEBUG_PARA;//司机接单
+    public static String SDRIVERS_CANCEL_URL = "drayage/cancel" + DEBUG_PARA;//取消订单 客户取消自己的订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。对于市内短驳，只有待运输状态才能取消。
+    public static String SDRIVERS_FINISH_URL = "drayage/finish" + DEBUG_PARA;//完成订单  司机完成订单，订单有四个状态：20（待运输）， 51（运输中），100（订单取消），102 （订单完成）。对于市内短驳，只有运输中状态才能标记完成。
     //mobile网页
     public static final String WEB_ADDTIONAL_SERVICE = "mobile/service";
     public static final String WEB_SERVICE_AGREEMENT = "mobile/agreement";

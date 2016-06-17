@@ -1,10 +1,15 @@
 package cn.jdywl.driver.ui.stage;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +18,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,6 +73,8 @@ public class StageOrderInfoActivity extends BaseActivity {
     TextView tvLocation;
     @Bind(R.id.btn_submit)
     Button btSub;
+    @Bind(R.id.btnCancel)
+    Button btCancel;
     @Bind(R.id.layoutLocation)
     LinearLayout layoutLocation;
     StageOrderItem order;
@@ -89,9 +99,12 @@ public class StageOrderInfoActivity extends BaseActivity {
         tvEnd.setText(order.getTo_address());
         tvStar.setText(order.getFrom_address());
         tvPTP.setText(order.getOrigin() + "-" + order.getDestination());
-        tvBX.setText("￥：" + order.getInsurance());
-        tvPrice.setText("￥：" + order.getCar_price());
-        tvTotal.setText("￥：" + order.getCharge());
+        tvTotal.setText(String.format("￥：&f.2元" ,order.getCharge()));
+        tvBX.setText(String.format("￥：&f.2元" ,order.getInsurance()));
+        tvPrice.setText(String.format("￥：&f.2元" ,order.getCar_price()));
+//        tvBX.setText("￥：" + order.getInsurance());
+//        tvPrice.setText("￥：" + order.getCar_price());
+//        tvTotal.setText("￥：" + order.getCharge());
         if (order.getStatus() == OrderStatus.ORDER_TRADING) {
             layoutLocation.setVisibility(View.VISIBLE);
             tvLocation.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +131,13 @@ public class StageOrderInfoActivity extends BaseActivity {
             case FROM_SMARKET:
                 break;
             case FROM_SORDER:
-                btSub.setText("完成订单");
+                if (OrderStatus.ORDER_TRADING == order.getStatus()) {//运输中的需要先提车
+                    btSub.setText("确认提车");
+                    btCancel.setVisibility(View.VISIBLE);
+                } else {
+                    btCancel.setVisibility(View.GONE);
+                    btSub.setText("完成订单");
+                }
                 break;
             case FROM_SHISTORY_ORDER:
                 btSub.setVisibility(View.GONE);
@@ -127,10 +146,48 @@ public class StageOrderInfoActivity extends BaseActivity {
         btSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accept();
+                if (OrderStatus.ORDER_TRADING == order.getStatus()) {//确认提车操作
+                    showDialog("确定接车吗","1");
+                } else {
+                    accept();
+                }
             }
         });
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog("确定取消接车吗","0");
+            }
+        });
+    }
 
+    private void showDialog(String title,final String value) {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View textEntryView = factory.inflate(R.layout.layout_dialog, null);
+        final AlertDialog dlg = new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setView(textEntryView)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        EditText etVin = (EditText) textEntryView.findViewById(R.id.etVin);
+                        EditText etBrand = (EditText) textEntryView.findViewById(R.id.etBrand);
+                        String vin = etVin.getText().toString();
+                        String brand = etBrand.getText().toString();
+                        if (TextUtils.isEmpty(vin) || TextUtils.isEmpty(brand)) {
+                            Toast.makeText(StageOrderInfoActivity.this, "车架号或轿车型号不能为空", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        verify(vin, brand,value);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dlg.show();
     }
 
     private void accept() {
@@ -159,6 +216,39 @@ public class StageOrderInfoActivity extends BaseActivity {
                             Toast.makeText(StageOrderInfoActivity.this, "完成订单成功", Toast.LENGTH_SHORT).show();
                         }
 
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AppConst.dismiss();
+                        Helper.processVolleyErrorMsg(StageOrderInfoActivity.this, error);
+                    }
+                });
+
+        //设置TAG，用于取消请求
+        myReq.setTag(TAG);
+
+        VolleySingleton.getInstance(StageOrderInfoActivity.this).addToRequestQueue(myReq);
+    }
+
+    private void verify(String vin, String brand,String value) {
+        String url = "";
+        url = ApiConfig.api_url + ApiConfig.STAGE_VERIFY_URL.replace("/", "/" + order.getId() + "/");
+        AppConst.showDialog(this);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("result", value);
+        params.put("vin", vin);
+        params.put("brand", brand);
+        GsonRequest<StageOrderItem> myReq = new GsonRequest<StageOrderItem>(Request.Method.PUT,
+                url,
+                StageOrderItem.class,
+                params,
+                new Response.Listener<StageOrderItem>() {
+                    @Override
+                    public void onResponse(StageOrderItem response) {
+                        AppConst.dismiss();
+                        Toast.makeText(StageOrderInfoActivity.this, "提车成功", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
