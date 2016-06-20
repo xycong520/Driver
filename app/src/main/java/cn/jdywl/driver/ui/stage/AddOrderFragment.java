@@ -147,14 +147,14 @@ public class AddOrderFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 isGetCarAddress = true;
-                startActivityForResult(new Intent(getActivity(), GetAddressInMap.class), GETCAR_ADDRESS);
+                getActivity().startActivityForResult(new Intent(getActivity(), GetAddressInMap.class), GETCAR_ADDRESS);
             }
         });
         etFetchAddr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isGetCarAddress = false;
-                startActivityForResult(new Intent(getActivity(), GetAddressInMap.class), TO_ADDRESS);
+                getActivity().startActivityForResult(new Intent(getActivity(), GetAddressInMap.class), TO_ADDRESS);
             }
         });
         etCarPrice.addTextChangedListener(new TextWatcher() {
@@ -210,7 +210,7 @@ public class AddOrderFragment extends BaseFragment {
                 it.putExtra(B_ORIGIN, false);
                 it.putExtra("isExpress", true);
                 it.putExtra(ORIGIN_CITY, etOrigin.getText().toString());
-                startActivityForResult(it, SELECT_DESTINATION);
+                getActivity().startActivityForResult(it, SELECT_DESTINATION);
             }
         });
 
@@ -273,8 +273,7 @@ public class AddOrderFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
+//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GETCAR_ADDRESS && resultCode == Activity.RESULT_OK) {
             etGetCarAddress.setText(data.getStringExtra("address"));
             fLat = data.getStringExtra("addressX");
@@ -399,6 +398,7 @@ public class AddOrderFragment extends BaseFragment {
         params.put("destination", destination);
         params.put("sendtime", sendtime);
         params.put("car_price", carPrice);
+        params.put("old_car", "0");//新增参数，未处理
         params.put("from_longitude", fLon);
         params.put("from_latitude", fLat);
         params.put("from_address", etGetCarAddress.getText().toString());

@@ -23,8 +23,12 @@
 
     <TextView
         android:id="@+id/tv_route"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
+        android:maxLines="2"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_marketprice"
         android:textColor="@color/gray_title"
         android:textSize="17sp"
         android:text="上海 — 北京"
@@ -48,7 +52,7 @@
         android:layout_below="@+id/tv_marketprice"
         android:layout_marginTop="@dimen/content_margin"
         android:textColor="@color/gray_content"
-        android:text="期望运价: 66000元"
+        android:text="运距: "
         android:textSize="13sp"/>
 
     <TextView

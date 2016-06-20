@@ -183,15 +183,15 @@ public class DOrderRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         dataHolder.tvOrderNO.setText("单号: " + data.getOrder_no());
         dataHolder.tvRoute.setText(data.getOrigin() + " — " + data.getDestination());
         dataHolder.tvSenddate.setText(data.getSendtime() + " 启运");
-        dataHolder.tvMarketprice.setText("市场运价: " + data.getCharge() + "元");
+        dataHolder.tvMarketprice.setText(String.format("市场运价:%.2f元", data.getCharge() ));
 
         int status = data.getStatus();
         //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
         dataHolder.tvStatus.setText(OrderStatus.getDesc(status));
-        dataHolder.tvExpprice.setText("保险：" + data.getInsurance());
+        dataHolder.tvExpprice.setVisibility(View.GONE);/*.setText("保险：" + data.getInsurance())*/;
         dataHolder.tvOrderType.setVisibility(View.GONE);
         dataHolder.tvSrvtype.setVisibility(View.GONE);
-        dataHolder.tvCarinfo.setText("收货人：" + data.getReceiver_name() + "\n手机号：" + data.getReceiver_phone() + "\n地址：" + data.getTo_address());
+        dataHolder.tvCarinfo.setText("收货人：" + data.getReceiver_name() + "\n手机号：" + data.getReceiver_phone() /*+ "\n地址：" + data.getTo_address()*/);
 
 
     }

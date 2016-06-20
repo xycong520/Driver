@@ -1,6 +1,8 @@
 package cn.jdywl.driver.ui.stage;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +34,18 @@ import cn.jdywl.driver.config.AppConst;
 import cn.jdywl.driver.config.OrderStatus;
 import cn.jdywl.driver.helper.Helper;
 import cn.jdywl.driver.helper.LogHelper;
+import cn.jdywl.driver.model.BeanBD;
 import cn.jdywl.driver.model.StageOrderItem;
 import cn.jdywl.driver.network.GsonRequest;
+import cn.jdywl.driver.network.MyJsonRequest;
+import cn.jdywl.driver.network.MyStringRequest;
 import cn.jdywl.driver.ui.common.BaseActivity;
 
 /**
  * Created by Administrator on 2016/5/12.
  */
 public class StageOrderInfoActivity extends BaseActivity {
+    Context mContext;
     public static final String TAG = LogHelper.makeLogTag(StageOrderInfoActivity.class);
     public static final int FROM_SPENDING = 1;//待拖运
     public static final int FROM_STRANSPORTING = 2;//运输中
@@ -71,23 +78,67 @@ public class StageOrderInfoActivity extends BaseActivity {
     TextView tvDate;
     @Bind(R.id.tvLocation)
     TextView tvLocation;
+    @Bind(R.id.tvBD)
+    TextView tvBD;
     @Bind(R.id.btn_submit)
     Button btSub;
     @Bind(R.id.btnCancel)
     Button btCancel;
     @Bind(R.id.layoutLocation)
     LinearLayout layoutLocation;
+    @Bind(R.id.layoutBD)
+    LinearLayout layoutBD;
     StageOrderItem order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         order = getIntent().getParcelableExtra("order");
+        mContext = this;
         setContentView(R.layout.activity_orderinfo);
         setupToolbar();
         ButterKnife.bind(this);
         form = getIntent().getIntExtra("from", 4);
         init();
+        loadBD();
+    }
+
+    private void loadBD() {
+      String  url = ApiConfig.api_url + ApiConfig.STAGE_INSSHOW_URL.replace("/", "/" + order.getId() + "/");
+        MyStringRequest myReq = new MyStringRequest(Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response!=null ){
+                            layoutBD.setVisibility(View.VISIBLE);
+                            final Intent i = new Intent(mContext,WebViewActivity.class);
+                            i.putExtra("data",response);
+                            tvBD.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    startActivity(i);
+                                }
+                            });
+                        }else{
+//                            layoutBD.setVisibility(View.GONE);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AppConst.dismiss();
+                        Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_SHORT).show();
+                        Helper.processVolleyErrorMsg(StageOrderInfoActivity.this, error);
+                    }
+                });
+
+        //设置TAG，用于取消请求
+        myReq.setTag(TAG);
+
+        VolleySingleton.getInstance(StageOrderInfoActivity.this).addToRequestQueue(myReq);
     }
 
     private void init() {
@@ -99,9 +150,9 @@ public class StageOrderInfoActivity extends BaseActivity {
         tvEnd.setText(order.getTo_address());
         tvStar.setText(order.getFrom_address());
         tvPTP.setText(order.getOrigin() + "-" + order.getDestination());
-        tvTotal.setText(String.format("￥：&f.2元" ,order.getCharge()));
-        tvBX.setText(String.format("￥：&f.2元" ,order.getInsurance()));
-        tvPrice.setText(String.format("￥：&f.2元" ,order.getCar_price()));
+        tvTotal.setText(String.format("￥:%.2f元" ,order.getCharge()));
+        tvBX.setText(String.format("￥:%.2f元" ,order.getInsurance()));
+        tvPrice.setText(String.format("￥:%.2f元" ,order.getCar_price()));
 //        tvBX.setText("￥：" + order.getInsurance());
 //        tvPrice.setText("￥：" + order.getCar_price());
 //        tvTotal.setText("￥：" + order.getCharge());
@@ -131,7 +182,7 @@ public class StageOrderInfoActivity extends BaseActivity {
             case FROM_SMARKET:
                 break;
             case FROM_SORDER:
-                if (OrderStatus.ORDER_TRADING == order.getStatus()) {//运输中的需要先提车
+                if (OrderStatus.ORDER_FETCH == order.getStatus()) {//运输中的需要先提车
                     btSub.setText("确认提车");
                     btCancel.setVisibility(View.VISIBLE);
                 } else {
@@ -146,7 +197,7 @@ public class StageOrderInfoActivity extends BaseActivity {
         btSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (OrderStatus.ORDER_TRADING == order.getStatus()) {//确认提车操作
+                if (OrderStatus.ORDER_FETCH == order.getStatus()) {//确认提车操作
                     showDialog("确定接车吗","1");
                 } else {
                     accept();
@@ -222,6 +273,7 @@ public class StageOrderInfoActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AppConst.dismiss();
+                        Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_SHORT).show();
                         Helper.processVolleyErrorMsg(StageOrderInfoActivity.this, error);
                     }
                 });
@@ -255,6 +307,7 @@ public class StageOrderInfoActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AppConst.dismiss();
+                        Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_SHORT).show();
                         Helper.processVolleyErrorMsg(StageOrderInfoActivity.this, error);
                     }
                 });

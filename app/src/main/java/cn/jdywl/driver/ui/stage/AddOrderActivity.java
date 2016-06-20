@@ -192,8 +192,8 @@ public class AddOrderActivity extends BaseActivity implements AddOrderFragment.O
     @Override
     public void updatePrice(PriceItem price) {
         if (price != null) {
-            tvTotalBill.setText(String.format("总费用：%d元", price.getCharge() + price.getInsurance()));
-            tvPrice.setText(String.format(getString(R.string.stage_price), price.getCharge(), price.getInsurance(), price.getSrvFee() + price.getDeposit()));
+            tvTotalBill.setText(String.format("总费用：%.2f元",(price.getCharge() + price.getInsurance())));
+            tvPrice.setText(String.format(getString(R.string.stage_price2), price.getCharge(), price.getInsurance(), price.getSrvFee() + price.getDeposit()));
         } else {
             tvTotalBill.setText("总费用：0元");
             tvPrice.setText("");

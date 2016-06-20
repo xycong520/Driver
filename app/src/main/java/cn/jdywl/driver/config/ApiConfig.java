@@ -93,6 +93,7 @@ public class ApiConfig {
     public static final String STAGE_ORIGINS_URL = "express/origins" + DEBUG_PARA;
     public static final String STAGE_DESTINATIONS_URL = "express/destinations" + DEBUG_PARA;
     public static final String USER_ROLES_URL = "user/roles" +DEBUG_PARA;
+    public static final String STAGE_INSSHOW_URL = "express/insshow" +DEBUG_PARA;
 
     //短驳
     public static final String SDRIVERS_NEARBY_URL = "sdrivers/nearby" +DEBUG_PARA;

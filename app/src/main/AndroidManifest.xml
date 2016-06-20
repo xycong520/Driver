@@ -46,13 +46,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <!-- 原cFGbf1oOITGgWm0TGAz5Ud7Y 外包使用Midz9gDeXetGk3eSrY5EL50TzRgCAPNN SHtrlCSFFwBNgg7rNvrXv2Rq -->
+        <!-- 原cFGbf1oOITGgWm0TGAz5Ud7Y 外包使用 Midz9gDeXetGk3eSrY5EL50TzRgCAPNN SHtrlCSFFwBNgg7rNvrXv2Rq -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="SHtrlCSFFwBNgg7rNvrXv2Rq"/>
+            android:value="Midz9gDeXetGk3eSrY5EL50TzRgCAPNN"/>
         <meta-data
             android:name="com.baidu.cloudpush.API_KEY"
-            android:value="SHtrlCSFFwBNgg7rNvrXv2Rq"/>
+            android:value="Midz9gDeXetGk3eSrY5EL50TzRgCAPNN"/>
 
         <service
             android:name="com.baidu.location.f"
@@ -208,8 +208,14 @@
         </activity>
         <activity
             android:name=".ui.stage.CarLocationActivity"
-            android:label="当前位子"
+            android:label="在途位子"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.stage.WebViewActivity"
+            android:launchMode="singleTask"
+            android:label="保单"
             android:screenOrientation="portrait">
         </activity>
         <activity

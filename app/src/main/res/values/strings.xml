@@ -32,9 +32,9 @@
     <string name="home_title_stage1">车驿站</string>
     <string name="home_title_stage2">驿站管理</string>
     <string name="home_title_stage3">小板速运</string>
-    <string name="home_title_stage4">我的承运</string>
-    <string name="home_title_stage5">短驳承运</string>
-    <string name="home_title_stage6">短驳订单</string>
+    <string name="home_title_stage4">小板承运</string>
+    <string name="home_title_stage5">市内短驳</string>
+    <string name="home_title_stage6">市内承运</string>
 
     <string-array name="prompt_arrays">
         <item>请选择</item>
@@ -85,6 +85,7 @@
     <string name="zhengban_price">运费%1$d元, 保险费%2$d元, 服务费%3$d元</string>
     <string name="sanche_price">运费%1$d元, 保险费%2$d元, 服务费(含取车费)%3$d元</string>
     <string name="stage_price">运费%1$d元, 保险费%2$d元, 服务费(含取车费)%3$d元</string>
+    <string name="stage_price2">运费%1$.2f元, 保险费%2$d元, 服务费(含取车费)%3$d元</string>
 
     <string name="prompt_city">输入名称、拼音或者简拼过滤</string>
     <string name="title_activity_driver_order_detail">运单详情</string>

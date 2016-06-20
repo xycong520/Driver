@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package cn.jdywl.driver.adapter.driver;
+package cn.jdywl.driver.adapter.drayage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,13 +38,14 @@ import cn.jdywl.driver.ui.drayage.DrayageOrderInfoActivity;
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = LogHelper.makeLogTag(DTransportingRvAdapter.class);
-
-    private List<StageOrderItem> mDataSet;
+public class DMarketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = LogHelper.makeLogTag(DMarketAdapter.class);
 
     private static final int TYPE_EMPTY = 0;
     private static final int TYPE_DATA = 1;
+
+    private List<StageOrderItem> mDataSet;
+    private int mType;
 
     /**
      * 当列表为空时显示“空试图”
@@ -66,21 +67,22 @@ public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    static class DataViewHolder extends RecyclerView.ViewHolder {
+    public static class DataViewHolder extends RecyclerView.ViewHolder {
+
         @Bind(R.id.tv_route)
         TextView tvRoute;
-        @Bind(R.id.tv_orderno)
-        TextView tvOrderno;
+        @Bind(R.id.tv_senddate)
+        TextView tvSenddate;
         @Bind(R.id.tv_carinfo)
         TextView tvCarinfo;
         @Bind(R.id.tv_marketprice)
         TextView tvMarketprice;
-        @Bind(R.id.tv_bill)
-        TextView tvBill;
-        @Bind(R.id.tv_location)
-        TextView tvLocation;
+        @Bind(R.id.tv_expprice)
+        TextView tvExpprice;
         @Bind(R.id.tv_status)
         TextView tvStatus;
+        @Bind(R.id.tv_orderType)
+        TextView tvOrderType;
 
         public final View mView;
 
@@ -88,6 +90,26 @@ public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             super(v);
             mView = v;
             ButterKnife.bind(this, v);
+
+            /*
+            // Define click listener for the ViewHolder's View.
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //LogHelper.d(TAG, "Element " + getPosition() + " clicked.");
+                    if (mType == DRIVER_TYPE) {
+                        Intent it = new Intent(mContext, DDetailActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("order", order);
+                        it.putExtras(bundle);
+
+                        mContext.startActivity(it);
+                    }
+
+                }
+            });
+            */
         }
 
     }
@@ -97,10 +119,11 @@ public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public DTransportingRvAdapter(List<StageOrderItem> dataSet) {
+    public DMarketAdapter(List<StageOrderItem> dataSet) {
         mDataSet = dataSet;
     }
 
+    // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
     // Create new views (invoked by the layout manager)
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -115,31 +138,31 @@ public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_ctransporting, viewGroup, false);
+                .inflate(R.layout.item_market, viewGroup, false);
 
         return new DataViewHolder(v);
     }
+    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
     // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
         //数据为空，显示empty holder
         if (viewHolder instanceof EmptyViewHolder) {
             EmptyViewHolder emptyHolder = (EmptyViewHolder) viewHolder;
-            emptyHolder.tvEmpty.setText("空空如也~\n托运车辆请点击右下角的“下单”按钮");
+            emptyHolder.tvEmpty.setText("空空如也~\n请您稍后再来看看");
             return;
         }
 
         //正常数据
         DataViewHolder dataHolder = (DataViewHolder) viewHolder;
-
         final StageOrderItem data = mDataSet.get(position);
-
+        dataHolder.tvOrderType.setVisibility(View.INVISIBLE);
         final Context context = dataHolder.mView.getContext();
 
-        // Define click listener for the DataViewHolder's View.
+        // Define click listener for the ViewHolder's View.
         dataHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,22 +173,38 @@ public class DTransportingRvAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("order", data);
                 it.putExtras(bundle);
-                it.putExtra("from", DrayageOrderInfoActivity.FROM_STRANSPORTING);
+                it.putExtra("from", DrayageOrderInfoActivity.FROM_SMARKET);
                 context.startActivity(it);
             }
         });
 
-        dataHolder.tvRoute.setText(data.getOrigin() + " — " + data.getDestination());
-        dataHolder.tvOrderno.setText(data.getOrder_no());
-        dataHolder.tvMarketprice.setText("接收人: " + data.getReceiver_name() + "\n" +
-                "联系方式：" + data.getReceiver_phone() + "\n接收地址：" + data.getTo_address()
-        );
-        dataHolder.tvBill.setText("成交运价: " + data.getCharge() + "元");
+        dataHolder.tvRoute.setText(data.getDestination());
+        dataHolder.tvSenddate.setText(data.getSendtime() + " 启运");
+        dataHolder.tvMarketprice.setText(String.format("市场运价:%.2f元", data.getCharge()));
+        dataHolder.tvCarinfo.setText("提车地址：" + data.getOrigin());
+        dataHolder.tvExpprice.setText("运距：" + data.getDistance()+"米");
+        int status = data.getStatus();
+        //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
+        dataHolder.tvStatus.setText(OrderStatus.getDesc(status));
 
-        dataHolder.tvLocation.setText("");
-        dataHolder.tvStatus.setText(OrderStatus.getDesc(data.getStatus()));
-        dataHolder.tvCarinfo.setVisibility(View.GONE);
+        //散车业务不现实竞拍价
+//        if (data.getCarNum() < ApiConfig.CAR_SIZE) {
+//            dataHolder.tvExpprice.setVisibility(View.GONE);
+//
+//            //散车
+//            dataHolder.tvOrderType.setBackgroundColor(context.getResources().getColor(R.color.bg_sanche));
+//            dataHolder.tvOrderType.setText("散车");
+//        } else {
+//            dataHolder.tvExpprice.setVisibility(View.VISIBLE);
+//            dataHolder.tvExpprice.setText("期望运价: " + data.getExpectationPrice() + "元");
+//
+//            //整版车
+//            dataHolder.tvOrderType.setBackgroundColor(context.getResources().getColor(R.color.bg_zhengban));
+//            dataHolder.tvOrderType.setText("整板");
+//        }
+//
 //        dataHolder.tvCarinfo.setText(Helper.getCarTypeByid(context, data.getBrand()) + " " + data.getCarNum() + "辆");
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

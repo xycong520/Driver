@@ -119,11 +119,16 @@ public class NearByActivity extends BaseActivity implements ILocationWatcher {
                             View view = getLayoutInflater().inflate(R.layout.layout_orerlay, null);
                             TextView tvName = (TextView) view.findViewById(R.id.tvName);
                             tvName.setText(driver.getName() + "\n" + driver.getPhone());
-                            BeanGPS gps = driver.getGps().get(0);
-                            if (gps == null) {
+                            if (driver.getGps().size()>0){
+                                BeanGPS gps = driver.getGps().get(0);
+                                if (gps == null) {
+                                    continue;
+                                }
+                                BaiduMapUtilByRacer.addOverlay(tvName, gps.getLatitude(), gps.getLongitude(), mBaiduMap);
+                            }else{
                                 continue;
                             }
-                            BaiduMapUtilByRacer.addOverlay(tvName, gps.getLatitude(), gps.getLongitude(), mBaiduMap);
+
 //                            BaiduMapUtilByRacer.addOverlay( R.drawable.icon_point, driver.getGps().get(0).getLatitude(), driver.getGps().get(0).getLongitude(), mBaiduMap);
                         }
 //                        BaiduMapUtilByRacer.setZoom(12, mBaiduMap);

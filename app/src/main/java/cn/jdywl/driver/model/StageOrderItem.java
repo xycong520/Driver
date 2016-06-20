@@ -42,7 +42,7 @@ public class StageOrderItem implements Parcelable {
     int ifIns;
     @SerializedName("car_price")
     @Expose
-    int car_price;
+    float car_price;
     @SerializedName("vin_car_price")
     @Expose
     int vin_car_price;
@@ -57,7 +57,7 @@ public class StageOrderItem implements Parcelable {
     float charge;
     @SerializedName("insurance")
     @Expose
-    int insurance;
+    float insurance;
     @SerializedName("actual_insurance")
     @Expose
     int actual_insurance;
@@ -85,6 +85,17 @@ public class StageOrderItem implements Parcelable {
     @SerializedName("receiver_phone")
     @Expose
     String receiver_phone;
+    @SerializedName("distance")
+    @Expose
+    String distance;
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
 
     protected StageOrderItem(Parcel in) {
         id = in.readInt();
@@ -97,12 +108,12 @@ public class StageOrderItem implements Parcelable {
         destination = in.readString();
         sendtime = in.readString();
         ifIns = in.readInt();
-        car_price = in.readInt();
+        car_price = in.readFloat();
         vin_car_price = in.readInt();
         cypher = in.readInt();
         receiver_cypher = in.readInt();
-        charge = in.readInt();
-        insurance = in.readInt();
+        charge = in.readFloat();
+        insurance = in.readFloat();
         actual_insurance = in.readInt();
         from_longitude = in.readDouble();
         from_latitude = in.readDouble();
@@ -112,6 +123,7 @@ public class StageOrderItem implements Parcelable {
         receiver_name = in.readString();
         to_address = in.readString();
         receiver_phone = in.readString();
+        distance = in.readString();
     }
 
     public static final Creator<StageOrderItem> CREATOR = new Creator<StageOrderItem>() {
@@ -210,7 +222,7 @@ public class StageOrderItem implements Parcelable {
         this.ifIns = ifIns;
     }
 
-    public int getCar_price() {
+    public float getCar_price() {
         return car_price;
     }
 
@@ -247,7 +259,7 @@ public class StageOrderItem implements Parcelable {
         this.charge = charge;
     }
 
-    public int getInsurance() {
+    public float getInsurance() {
         return insurance;
     }
 
@@ -344,12 +356,12 @@ public class StageOrderItem implements Parcelable {
         dest.writeString(destination);
         dest.writeString(sendtime);
         dest.writeInt(ifIns);
-        dest.writeInt(car_price);
+        dest.writeFloat(car_price);
         dest.writeInt(vin_car_price);
         dest.writeInt(cypher);
         dest.writeInt(receiver_cypher);
         dest.writeFloat(charge);
-        dest.writeInt(insurance);
+        dest.writeFloat(insurance);
         dest.writeInt(actual_insurance);
         dest.writeDouble(from_longitude);
         dest.writeDouble(from_latitude);
@@ -359,5 +371,6 @@ public class StageOrderItem implements Parcelable {
         dest.writeString(receiver_name);
         dest.writeString(to_address);
         dest.writeString(receiver_phone);
+        dest.writeString(distance);
     }
 }

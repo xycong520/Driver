@@ -83,7 +83,7 @@ public class DrayageOrderInfoActivity extends BaseActivity {
         tvPhone.setText(order.getReceiver_phone());
         tvEnd.setText(order.getDestination());
         tvStar.setText(order.getOrigin());
-        tvTotal.setText(String.format("￥：&f.2元" ,order.getCharge()));
+        tvTotal.setText(String.format("￥:%.2f元" ,order.getCharge()));
         if (order.getStatus() == OrderStatus.ORDER_TRADING) {
             layoutLocation.setVisibility(View.VISIBLE);
             tvLocation.setOnClickListener(new View.OnClickListener() {
