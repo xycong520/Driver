@@ -106,7 +106,7 @@ public class StageManagerActivity extends BaseActivity implements
         }
     }
 
-    private void setLocation(final int i, String lon, String lat, String Address) {
+    private void setLocation(final int i, String lat, String lon, String Address) {
         AppConst.showDialog(this);
         String position = ApiConfig.STAGE_POSOTION_URL.replace("/", "/" + mData.get(i).getId() + "/");
         String url = ApiConfig.api_url + position;

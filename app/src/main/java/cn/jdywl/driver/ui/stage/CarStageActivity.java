@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +28,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
+import com.baidu.mapapi.cloud.CloudListener;
+import com.baidu.mapapi.cloud.CloudManager;
+import com.baidu.mapapi.cloud.CloudPoiInfo;
+import com.baidu.mapapi.cloud.CloudSearchResult;
+import com.baidu.mapapi.cloud.DetailSearchResult;
+import com.baidu.mapapi.cloud.LocalSearchInfo;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +78,7 @@ import cn.jdywl.driver.ui.common.BaseActivity;
  * Created by Administrator on 2016/5/6.
  */
 public class CarStageActivity extends BaseActivity implements
-        SwipeRefreshLayout.OnRefreshListener, ILocationWatcher {
+        SwipeRefreshLayout.OnRefreshListener, ILocationWatcher,CloudListener {
     //设置tag，用于在activity stop时取消Volley的请求
     public static final String TAG = LogHelper.makeLogTag(CarStageActivity.class);
 
@@ -103,7 +117,7 @@ public class CarStageActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carstage);
         setupToolbar();
-
+        CloudManager.getInstance().init(this);
         ButterKnife.bind(this);
 
         if (!AppConfig.isLogin()) {
@@ -149,10 +163,10 @@ public class CarStageActivity extends BaseActivity implements
                 if (isMapView) {
                     tvShowMap.setText("显示列表");
                     mBaiduMap = mapView.getMap();
+                    mapView.showZoomControls(false);
                     mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(16));
-//                    mBaiduMap.setOnMapStatusChangeListener(mapStatusChangeListener);
-//                    mBaiduMap.setOnMapClickListener(mapOnClickListener);
-                    mBaiduMap.getUiSettings().setZoomGesturesEnabled(true);// 缩放手势
+                    getLBS();
+                    /*mBaiduMap.getUiSettings().setZoomGesturesEnabled(true);// 缩放手势
                     // 开启定位图层
                     mBaiduMap.setMyLocationEnabled(true);
                     if (mData.getData() !=null&& mData.getData().size()>0&&mData.getData().get(0).getLatitude()>0){
@@ -162,7 +176,7 @@ public class CarStageActivity extends BaseActivity implements
                                 mBaiduMap, 0, true);
                     }else{
                         location();
-                    }
+                    }*/
                 } else {
                     tvShowMap.setText("显示地图");
                 }
@@ -560,6 +574,8 @@ public class CarStageActivity extends BaseActivity implements
                         tvCity.setText("");
                     }
                     tv.setText(string.get(i));
+                    if (isMapView)
+                        getLBS();
                     loadData();
                     popupWindow.dismiss();
 
@@ -569,4 +585,47 @@ public class CarStageActivity extends BaseActivity implements
         }
     }
 
+    public void getLBS() {
+        LocalSearchInfo info = new LocalSearchInfo();
+        info.ak = "Aj3xSCsoKx4xU1XirWTlakwg7uUWVVwb";
+        //此处info.ak为服务端ak，非Adnroid sdk端ak， 且此服务端ak和Adnroid sdk端ak 是在同一个账户。
+        info.geoTableId = 138855;
+        // info.geoTableId 是存储在于info.ak相同开发账户中。
+        info.tags = "";
+        info.q = "";
+        info.region = TextUtils.isEmpty(tvCity.getText().toString())?" ":tvCity.getText().toString();
+        CloudManager.getInstance().localSearch(info);
+        MapStatusUpdateFactory.zoomTo(12);
+    }
+
+    @Override
+    public void onGetSearchResult(CloudSearchResult result, int i) {
+        if (result != null && result.poiList != null
+                && result.poiList.size() > 0) {
+            mBaiduMap.clear();
+//            mapView.refreshDrawableState();
+            mBaiduMap = mapView.getMap();
+            mapView.showZoomControls(false);
+//            mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(16));
+//            BaiduMapUtilByRacer.setZoom(12f,mBaiduMap);
+            BitmapDescriptor bd = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+            LatLng ll;
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (CloudPoiInfo info : result.poiList) {
+                ll = new LatLng(info.latitude, info.longitude);
+                OverlayOptions oo = new MarkerOptions().icon(bd).position(ll);
+                mBaiduMap.addOverlay(oo);
+                builder.include(ll);
+            }
+            LatLngBounds bounds = builder.build();
+            MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(bounds);
+
+            mBaiduMap.animateMapStatus(u);
+        }
+    }
+
+    @Override
+    public void onGetDetailSearchResult(DetailSearchResult detailSearchResult, int i) {
+
+    }
 }
