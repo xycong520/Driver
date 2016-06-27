@@ -233,7 +233,7 @@ public class CarStageActivity extends BaseActivity implements
                 int positon = (int) v.getTag();
                 Intent i = new Intent(CarStageActivity.this, StageInfoActivity.class);
                 i.putExtra(StageInfoActivity.ID, mData.getData().get(positon).getId());
-                i.putExtra(StageInfoActivity.PAC, mData.getData().get(positon).getProvince() + " " + mData.getData().get(positon).getCity());
+                i.putExtra(StageInfoActivity.PAC,mData.getData().get(positon).getPhone());
                 i.putExtra(StageInfoActivity.ADDRESS, mData.getData().get(positon).getAddress());
                 i.putExtra(StageInfoActivity.MASTER, mData.getData().get(positon).getMaster());
                 i.putExtra(StageInfoActivity.STAGENAME, mData.getData().get(positon).getStation());

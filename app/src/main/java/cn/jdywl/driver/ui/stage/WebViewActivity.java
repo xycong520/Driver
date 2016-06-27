@@ -1,6 +1,7 @@
 package cn.jdywl.driver.ui.stage;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.android.volley.RequestQueue;
 
@@ -25,7 +26,15 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
         String data = getIntent().getStringExtra("data");
+        String url = getIntent().getStringExtra("url");
+        String title = getIntent().getStringExtra("title");
+
         setupToolbar();
+        setToolbarTitle(title);
+        if (!TextUtils.isEmpty(url)){
+            webView.loadUrl(url);
+            return;
+        }
         //        try {
 
             webView.loadDataWithBaseURL(null,data, "text/html", "utf-8", null);//webView.loadData(URLEncoder.encode(data, "utf-8"), "text/html", "utf-8");

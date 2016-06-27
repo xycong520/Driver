@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/6.
@@ -41,6 +42,11 @@ public class Stage implements Serializable {
     @SerializedName("position")
     @Expose
     private String position;
+    List<BeanService> services;
+
+    public List<BeanService> getServices() {
+        return services;
+    }
 
     public String getPosition() {
         return position;

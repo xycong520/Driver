@@ -21,7 +21,15 @@ import cn.jdywl.driver.model.ServiceItem;
 public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<ServiceItem> services;
     ImageLoader mImageLoader;
-
+    int[] bg={
+            R.drawable.ic_textbg,
+            R.drawable.ic_textbg2,
+            R.drawable.ic_textbg3,
+            R.drawable.ic_textbg4,
+    };
+    int[] color={
+            0xff52a0c1,0xff52f0f1,0xfff2a0f1,0xff32a0c1
+    };
     public StageServerAdapter(List<ServiceItem> services) {
         this.services = services;
     }
@@ -29,7 +37,7 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_server, parent, false);
+                .inflate(R.layout.item_text_, parent, false);
         mImageLoader = VolleySingleton.getInstance(parent.getContext()).getImageLoader();
         return new NavViewHolder(v);
     }
@@ -38,7 +46,9 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         NavViewHolder navHolder = (NavViewHolder) holder;
         navHolder.getTextView().setText(services.get(position).getName());
-        navHolder.getImgView().setImageUrl(services.get(position).getIcon().getUrl(), mImageLoader);
+        navHolder.getTextView().setTextColor(color[position%4]);
+        navHolder.getTextView().setBackgroundResource(bg[position%4]);
+//        navHolder.getImgView().setImageUrl(services.get(position).getIcon().getUrl(), mImageLoader);
         // 如果设置了回调，则设置点击事件
         if (onClickListener != null) {
             holder.itemView.setTag(services.get(position).getName());
@@ -60,21 +70,21 @@ public class StageServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public static class NavViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
-        private final NetworkImageView imgView;
+//        private final NetworkImageView imgView;
 
         public NavViewHolder(View v) {
             super(v);
             // Define click listener for the ViewHolder's View.
-            textView = (TextView) v.findViewById(R.id.tv_home_tile);
-            imgView = (NetworkImageView) v.findViewById(R.id.iv_home_tile);
+            textView = (TextView) v.findViewById(R.id.tv);
+//            imgView = (NetworkImageView) v.findViewById(R.id.iv_home_tile);
         }
 
         public TextView getTextView() {
             return textView;
         }
 
-        public NetworkImageView getImgView() {
-            return imgView;
-        }
+//        public NetworkImageView getImgView() {
+//            return imgView;
+//        }
     }
 }

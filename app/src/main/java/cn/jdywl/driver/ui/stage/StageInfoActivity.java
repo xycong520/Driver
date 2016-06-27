@@ -73,7 +73,16 @@ public class StageInfoActivity extends BaseActivity {
     }
 
     private void init() {
-        tvAddress.setText(getIntent().getStringExtra(ADDRESS));
+//        tvAddress.setText(getIntent().getStringExtra(ADDRESS));
+        tvAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StageInfoActivity.this,WebViewActivity.class);
+                intent.putExtra("url","http://120.25.147.20/api/public/stations/introduce");
+                intent.putExtra("title","详情");
+                startActivity(intent);
+            }
+        });
         tvProvinceAndCity.setText(getIntent().getStringExtra(PAC));
         tvMaster.setText(getIntent().getStringExtra(MASTER));
         tvCenter.setText(getIntent().getStringExtra(CENTER));

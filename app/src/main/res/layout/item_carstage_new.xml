@@ -51,14 +51,41 @@
         android:text="北京运营中心"
         android:textSize="13sp"/>
 
-    <LinearLayout
-        android:id="@+id/layoutInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_below="@+id/tv_operation_center"
+    <TextView
+        android:id="@+id/tv_master"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_operation_center"
         android:layout_marginTop="@dimen/section_margin"
         android:layout_marginBottom="@dimen/section_margin"
-        android:orientation="horizontal">
+        android:background="@color/bg_sanche"
+        android:padding="2dp"
+        android:text="master"
+        android:textColor="@android:color/white"
+        android:textSize="11sp"/>
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_operation_center"
+        android:layout_toRightOf="@+id/tv_master"
+        android:layout_marginTop="@dimen/section_margin"
+        android:layout_marginLeft="@dimen/section_margin"
+        android:padding="2dp"
+        android:background="@color/bg_status"
+        android:textColor="@android:color/white"
+        android:text="phone"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_senddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_content"
+        android:text=""
+        android:textSize="12sp"
+        android:layout_alignBaseline="@+id/tv_phone"/>
 
 </RelativeLayout>

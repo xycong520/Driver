@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -65,19 +66,25 @@ public class CarStageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     public static class DataViewHolder extends RecyclerView.ViewHolder {
 
+        @Bind(R.id.layoutInfo)
+        LinearLayout layoutInfo;
         @Bind(R.id.tv_station)
         TextView tvStation;
         @Bind(R.id.tv_operation_center)
         TextView tvOperationCenter;
         @Bind(R.id.tv_city)
         TextView tvCity;
-        @Bind(R.id.tv_master)
-        TextView tvMaster;
-        @Bind(R.id.tv_phone)
-        TextView tvPhone;
         @Bind(R.id.tv_address)
         TextView tvAddress;
-
+        int[] bg={
+                R.drawable.ic_textbg,
+                R.drawable.ic_textbg2,
+                R.drawable.ic_textbg3,
+                R.drawable.ic_textbg4,
+        };
+        int[] color={
+                0xff52a0c1,0xff52f0f1,0xfff2a0f1,0xff32a0c1
+        };
         public final View mView;
 
         public DataViewHolder(View v) {
@@ -160,13 +167,25 @@ public class CarStageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         dataHolder.mView.setTag(position);
         dataHolder.mView.setOnClickListener(onClickListener);
         dataHolder.tvAddress.setText(data.getAddress());
-        dataHolder.tvMaster.setText(data.getMaster());
         dataHolder.tvOperationCenter.setText(data.getOperation_center());
+        dataHolder.tvOperationCenter.setVisibility(View.GONE);
         dataHolder.tvStation.setText(data.getStation());
         dataHolder.tvCity.setText(data.getCity());
-        dataHolder.tvPhone.setText(data.getPhone());
-
+        for (int i=0;i<data.getServices().size();i++){
+            if (i==4){
+                break;
+            }else{
+                View view = LayoutInflater.from(dataHolder.layoutInfo.getContext()).inflate(R.layout.item_text_,null);
+                TextView textView = (TextView) view.findViewById(R.id.tv);
+                textView.setBackgroundResource(dataHolder.bg[i%4]);
+                textView.setText(data.getServices().get(i).getName());
+                textView.setTextColor(dataHolder.color[i%4]);
+                dataHolder.layoutInfo.addView(view);
+            }
+        }
     }
+
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

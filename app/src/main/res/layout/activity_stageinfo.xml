@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="地点:"
+            android:text="电话:"
             android:minWidth="80dp"/>
 
         <TextView
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="位置:"
+            android:text="指引:"
             android:minWidth="80dp"/>
 
         <TextView
@@ -79,13 +79,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="  "/>
+            android:textColor="#0000ff"
+            android:text="查看详情"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -107,6 +109,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -127,6 +130,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:text="站点服务"/>
 
@@ -134,5 +138,6 @@
         android:id="@+id/rv_server"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:scrollbars="vertical"/>
 </LinearLayout>
