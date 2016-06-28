@@ -171,16 +171,19 @@ public class CarStageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         dataHolder.tvOperationCenter.setVisibility(View.GONE);
         dataHolder.tvStation.setText(data.getStation());
         dataHolder.tvCity.setText(data.getCity());
-        for (int i=0;i<data.getServices().size();i++){
-            if (i==4){
-                break;
-            }else{
+        if (null!=data.getServices()){
+            dataHolder.layoutInfo.removeAllViews();
+            for (int i=0;i<data.getServices().size();i++){
                 View view = LayoutInflater.from(dataHolder.layoutInfo.getContext()).inflate(R.layout.item_text_,null);
                 TextView textView = (TextView) view.findViewById(R.id.tv);
                 textView.setBackgroundResource(dataHolder.bg[i%4]);
                 textView.setText(data.getServices().get(i).getName());
                 textView.setTextColor(dataHolder.color[i%4]);
                 dataHolder.layoutInfo.addView(view);
+                if (i==4){
+                    textView.setText("...");
+                    break;
+                }
             }
         }
     }

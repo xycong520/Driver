@@ -182,7 +182,7 @@ public class DMarketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         dataHolder.tvSenddate.setText(data.getSendtime() + " 启运");
         dataHolder.tvMarketprice.setText(String.format("市场运价:%.2f元", data.getCharge()));
         dataHolder.tvCarinfo.setText("提车地址：" + data.getOrigin());
-        dataHolder.tvExpprice.setText("运距：" + data.getDistance()+"米");
+        dataHolder.tvExpprice.setText(String.format("运距:%.2f米" , data.getDistance()));
         int status = data.getStatus();
         //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
         dataHolder.tvStatus.setText(OrderStatus.getDesc(status));
