@@ -22,20 +22,22 @@
     <string name="action_search">查询</string>
 
     <string name="home_title_banner">banner</string>
-    <string name="home_title_carowner">轿车托运</string>
-    <string name="home_title_driver">司机承运</string>
+    <string name="home_title_carowner">大板托运</string>
+    <string name="home_title_driver">大板承运</string>
     <string name="home_title_price">价格查询</string>
     <string name="home_title_user">个人中心</string>
     <string name="home_title_receiver">位置和保险</string>
     <string name="home_title_helptel">救援与带路</string>
+    <string name="home_title_zxys">专线运输</string>
     <string name="home_title_support">客服咨询</string>
-    <string name="home_title_stage1">车驿站</string>
+    <string name="home_title_stage1">驿站列表</string>
     <string name="home_title_stage2">驿站管理</string>
     <string name="home_title_stage3">小板速运</string>
     <string name="home_title_stage4">小板承运</string>
-    <string name="home_title_stage5">市内短驳</string>
-    <string name="home_title_stage6">市内承运</string>
-
+    <string name="home_title_stage5">提车交车</string>
+    <string name="home_title_stage6">提车交车承运</string>
+    <string name="home_title_stage7">大板顺带</string>
+    <string name="home_title_stage8">代驾</string>
     <string-array name="prompt_arrays">
         <item>请选择</item>
     </string-array>

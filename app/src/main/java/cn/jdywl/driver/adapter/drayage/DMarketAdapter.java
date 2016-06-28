@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,7 +183,7 @@ public class DMarketAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         dataHolder.tvSenddate.setText(data.getSendtime() + " 启运");
         dataHolder.tvMarketprice.setText(String.format("市场运价:%.2f元", data.getCharge()));
         dataHolder.tvCarinfo.setText("提车地址：" + data.getOrigin());
-        dataHolder.tvExpprice.setText(String.format("运距:%.2f米" , data.getDistance()));
+        dataHolder.tvExpprice.setText(String.format("运距:%.2f米" , Float.valueOf(TextUtils.isEmpty(data.getDistance())?"0":data.getDistance())));
         int status = data.getStatus();
         //String[] sstatus = getContext().getResources().getStringArray(R.array.status);
         dataHolder.tvStatus.setText(OrderStatus.getDesc(status));

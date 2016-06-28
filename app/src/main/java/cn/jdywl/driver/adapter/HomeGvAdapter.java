@@ -34,12 +34,16 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_NAV = 1;
     private static final int TYPE_NAV_STAGE_HEADER = 5;
     private static final int TYPE_NAV_STAGE = 6;
+    private static final int TYPE_NAV_OTHER_HEADER = 7;
+    private static final int TYPE_NAV_OTHER = 8;
     private static final int TYPE_MARKET_HEADER = 2;
     private static final int TYPE_MARKET = 3;
     private static final int TYPE_MARKET_FOOTER = 4;
 
     private Integer[] mTitleSet;
     private Integer[] mImgSet;
+    private Integer[] mOtherIcon;
+    private Integer[] mOtherStr;
     private ArrayList<Integer> mStageSet;
     private ArrayList<Integer> mStageImgSet;
     private List<OrderItem> mDataSet;
@@ -137,6 +141,20 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     }
+    public static class NavOtherHeaderViewHolder extends RecyclerView.ViewHolder {
+
+        public NavOtherHeaderViewHolder(View v) {
+            super(v);
+            // Define click listener for the ViewHolder's View.
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LogHelper.d(TAG, "Element " + getPosition() + " clicked.");
+                }
+            });
+        }
+
+    }
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -205,12 +223,14 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public HomeGvAdapter(Integer[] titleSet, Integer[] imgSet, ArrayList<Integer> stageSet, ArrayList<Integer> stageImgSet, List<OrderItem> dataSet) {
+    public HomeGvAdapter(Integer[] titleSet, Integer[] imgSet, ArrayList<Integer> stageSet, ArrayList<Integer> stageImgSet, List<OrderItem> dataSet,Integer[] oicon,Integer[] oStr) {
         mTitleSet = titleSet;
         mImgSet = imgSet;
         mStageSet = stageSet;
         mStageImgSet = stageImgSet;
         mDataSet = dataSet;
+        mOtherIcon = oicon;
+        mOtherStr = oStr;
     }
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
@@ -225,7 +245,7 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // Create new views (invoked by the layout manager)
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        if (viewType == TYPE_NAV || viewType == TYPE_NAV_STAGE) {
+        if (viewType == TYPE_NAV || viewType == TYPE_NAV_STAGE ||viewType ==  TYPE_NAV_OTHER) {
             //inflate your layout and pass it to view holder
             // Create a new view.
             View v = LayoutInflater.from(viewGroup.getContext())
@@ -247,6 +267,11 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             View v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.item_nav_header, viewGroup, false);
             return new NavStageHeaderViewHolder(v);
+
+        }  else if (viewType == TYPE_NAV_OTHER_HEADER) {
+            View v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_other_header, viewGroup, false);
+            return new NavOtherHeaderViewHolder(v);
 
         } else if (viewType == TYPE_MARKET) {
             View v = LayoutInflater.from(viewGroup.getContext())
@@ -299,6 +324,9 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.size()) {
                 navHolder.getTextView().setText(mStageSet.get(position - 2 - MainActivity.MENU_COUNT));
                 navHolder.getImgView().setImageResource(mStageImgSet.get(position - 2 - MainActivity.MENU_COUNT));
+            }else if(position > MainActivity.MENU_COUNT + 1 + mStageSet.size()+1){
+                navHolder.getTextView().setText(mOtherStr[position-1-mStageSet.size() - 2 - MainActivity.MENU_COUNT]);
+                navHolder.getImgView().setImageResource(mOtherIcon[position-1-mStageSet.size() - 2 - MainActivity.MENU_COUNT]);
             } else {
                 navHolder.getTextView().setText(mTitleSet[position - 1]);
                 navHolder.getImgView().setImageResource(mImgSet[position - 1]);
@@ -306,6 +334,9 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if ((viewHolder instanceof NavStageHeaderViewHolder)) {
             //cast holder to VHHeader and set data for header.
             NavStageHeaderViewHolder vh = (NavStageHeaderViewHolder) viewHolder;
+        }else if ((viewHolder instanceof NavOtherHeaderViewHolder)) {
+            //cast holder to VHHeader and set data for header.
+            NavOtherHeaderViewHolder vh = (NavOtherHeaderViewHolder) viewHolder;
         } else if ((viewHolder instanceof MarketHeaderViewHolder)) {
             //cast holder to VHHeader and set data for header.
             MarketHeaderViewHolder vh = (MarketHeaderViewHolder) viewHolder;
@@ -377,7 +408,7 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mTitleSet.length + mStageSet.size() + mDataSet.size() + 4;
+        return mTitleSet.length + mStageSet.size() + mDataSet.size()+mOtherIcon.length + 5;
     }
 
     @Override
@@ -391,8 +422,12 @@ public class HomeGvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if (position > MainActivity.MENU_COUNT + 1 && position <= MainActivity.MENU_COUNT + 1 + mStageSet.size()) {
             return TYPE_NAV_STAGE;
         } else if (position == MainActivity.MENU_COUNT + 1 + mStageSet.size() + 1) {
+            return TYPE_NAV_OTHER_HEADER;
+        } else if (position > MainActivity.MENU_COUNT + 1 + mStageSet.size() && position<=MainActivity.MENU_COUNT+1+mStageSet.size()+1+mOtherIcon.length) {
+            return TYPE_NAV_OTHER;
+        } else if (position == MainActivity.MENU_COUNT + 1 + mStageSet.size()+1+mOtherIcon.length + 1) {
             return TYPE_MARKET_HEADER;
-        } else if (position == (mDataSet.size() + MainActivity.MENU_COUNT + 1 + mStageSet.size() + 2)) {  //最后一个元素
+        } else if (position == (1+MainActivity.MENU_COUNT + 1 + mStageSet.size()+1 +mOtherIcon.length+1+mDataSet.size())) {  //最后一个元素
             return TYPE_MARKET_FOOTER;
         } else {
             return TYPE_MARKET;

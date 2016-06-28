@@ -77,20 +77,26 @@ public class MainActivity extends AppUpdateActivity {
 
     //设置RecycleView的span为4
     public final int SPAN_COUNT = 4;
-    public final static int MENU_COUNT = 7;
+    public final static int MENU_COUNT = 8;
 
     protected Integer[] mTitleId = {
             R.string.home_title_carowner, R.string.home_title_driver,
             R.string.home_title_receiver, R.string.home_title_user,
-            R.string.home_title_price, R.string.home_title_helptel,
-            R.string.home_title_support
+            R.string.home_title_stage3, R.string.home_title_stage4,
+            R.string.home_title_zxys, R.string.home_title_support
     };
 
     protected Integer[] mImgId = {
             R.drawable.home_tile_carowner, R.drawable.home_tile_driver,
             R.drawable.home_tile_receiver, R.drawable.home_tile_user,
-            R.drawable.home_tile_price, R.drawable.home_tile_helptel,
-            R.drawable.home_tile_support
+            R.drawable.home_tile_carowner, R.drawable.home_title_fast_train,
+            R.drawable.home_tile_driver,R.drawable.home_tile_support
+    };
+    Integer[] otherID = {
+            R.drawable.home_tile_price, R.drawable.home_tile_helptel
+    };
+    Integer[] otherStr={
+            R.string. home_title_price,R.string.home_title_helptel
     };
     /*
     protected Integer[] mStageID = {
@@ -200,6 +206,8 @@ public class MainActivity extends AppUpdateActivity {
                     return SPAN_COUNT;
                 } else if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.size()) {
                     return 1;
+                } else if (position > MENU_COUNT + 1 + mStageID.size()+1 && position <= MENU_COUNT + 1 + mStageID.size()+1+otherID.length) {
+                    return 1;
                 } else {
                     return SPAN_COUNT;
                 }
@@ -208,7 +216,7 @@ public class MainActivity extends AppUpdateActivity {
 
         rv.setLayoutManager(mLayoutManager);
 
-        mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData());
+        mAdapter = new HomeGvAdapter(mTitleId, mImgId, mStageID, mStageImgID, mData.getData(),otherID,otherStr);
         rv.setAdapter(mAdapter);
 
         rv.setHasFixedSize(true);
@@ -240,26 +248,34 @@ public class MainActivity extends AppUpdateActivity {
                             OpenUserActivity();
                             break;
                         case 5:
-                            OpenPriceQueryActivity();
+                            //小板运输
+                            OpenDriverOrderActivity();
+//                            OpenPriceQueryActivity();
                             break;
                         case 6:
-                            OpenHelptelActivity();
+                            //小板承运
+                            OpenMyAcceptOrderActivity();
+//                            OpenHelptelActivity();
                             break;
                         case 7:
                             OpenSupportActivity();
                             break;
+                        case 8: OpenSupportActivity();break;
                     }
                     return;
+                }
+                if (position==MENU_COUNT+1){
+                    OpenCarStageActivity();
                 }
                 if (position > MENU_COUNT + 1 && position <= MENU_COUNT + 1 + mStageID.size()) {
 
                     //为了更灵活的角色入口控制，使用action string来控制
                     Integer action = mStageID.get(position - MENU_COUNT - 2);
                     switch (action) {
-                        case R.string.home_title_stage1:
-                            OpenCarStageActivity();
-                            break;
                         case R.string.home_title_stage2:
+                            OpenStageManagerActivity();
+                            break;
+                        /*case R.string.home_title_stage2:
                             OpenStageManagerActivity();
                             break;
                         case R.string.home_title_stage3:
@@ -267,19 +283,23 @@ public class MainActivity extends AppUpdateActivity {
                             break;
                         case R.string.home_title_stage4:
                             OpenMyAcceptOrderActivity();
-                            break;
+                            break;*/
                         case R.string.home_title_stage5:
                             OpenDrayageOrderActivity();
                             break;
                         case R.string.home_title_stage6:
                             OpenMyAcceptDrayageOrderActivity();
                             break;
+                        case R.string.home_title_stage7:
+                            break;
+                        case R.string.home_title_stage8:
+                            break;
                     }
 
                     return;
                 }
 
-                if (position == MENU_COUNT + 1 + mStageID.size() + 1) {
+                if (position == MENU_COUNT + 1 + mStageID.size() + 1 +otherID.length+1) {
                     OpenDMainActivity();
                 }
             }
@@ -577,22 +597,24 @@ public class MainActivity extends AppUpdateActivity {
         //初始化驿站功能入口
         int count = 0;
 
-        if (getMasterRoles().equals("station_master")) {
+      /*  if (getMasterRoles().equals("station_master")) {
             mStageID.add(count, R.string.home_title_stage2);
             mStageImgID.add(count++, R.drawable.home_tile_stage);
-        }
+        }*/
 
         //TODO: 正式版本上线前，需要开放customer功能
-        mStageID.add(count, R.string.home_title_stage1);
-        mStageImgID.add(count++, R.drawable.home_title_fast_train);
-        mStageID.add(count, R.string.home_title_stage3);
-        mStageImgID.add(count++, R.drawable.home_tile_stage);
-        mStageID.add(count, R.string.home_title_stage4);
-        mStageImgID.add(count++, R.drawable.home_title_fast_train);
+
+
         mStageID.add(count, R.string.home_title_stage5);
         mStageImgID.add(count++, R.drawable.home_tile_carowner);
         mStageID.add(count, R.string.home_title_stage6);
-        mStageImgID.add(count++, R.drawable.home_tile_driver);
+        mStageImgID.add(count++, R.drawable.home_title_fast_train);
+        mStageID.add(count, R.string.home_title_stage7);
+        mStageImgID.add(count++, R.drawable.home_tile_stage);
+        mStageID.add(count, R.string.home_title_stage8);
+        mStageImgID.add(count++, R.drawable.home_tile_carowner);
+        mStageID.add(count, R.string.home_title_stage2);
+        mStageImgID.add(count++, R.drawable.home_tile_stage);
 
         //如果mAdapter已经初始化，通知更新recycle view
         if (mAdapter != null) {
